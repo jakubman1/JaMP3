@@ -15,7 +15,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+/coverage
 
 # nyc test coverage
 .nyc_output
@@ -56,6 +56,15 @@ typings/
 
 # dotenv environment variables file
 .env
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 
 # next.js build output
 .next
+
+# production
+/build
