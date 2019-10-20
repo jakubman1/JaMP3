@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
 import JaMP3 from './JaMP3';
 import * as serviceWorker from './serviceWorker';
+import './Controllers/dbRequests';
 
 ReactDOM.render(<JaMP3 />, document.getElementById('root'));
 
