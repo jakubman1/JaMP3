@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
 import JaMP3 from './JaMP3';
 import * as serviceWorker from './serviceWorker';
 
