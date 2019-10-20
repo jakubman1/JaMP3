@@ -68,3 +68,6 @@ typings/
 
 # production
 /build
+
+# InteliJ
+.idea

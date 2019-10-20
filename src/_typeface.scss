@@ -1,0 +1,23 @@
+@import "raleway";
+@import "colors";
+
+$font-family-regular: 'Raleway', 'Seoge UI', sans-serif;
+
+
+body {
+  font-family: $font-family-regular;
+  color: $color-font;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-family: $font-family-regular;
+  font-weight: 400;
+}
+
+.logo {
+  font-size: 6.25em;
+  color: $color-accent;
+  font-weight: 700;
+}
