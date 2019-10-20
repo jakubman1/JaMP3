@@ -1,7 +1,8 @@
-@import "raleway";
+@import "fonts";
 @import "colors";
 
 $font-family-regular: 'Raleway', 'Seoge UI', sans-serif;
+$font-family-script: 'Vladimir Script', cursive;
 
 
 body {
@@ -16,8 +17,20 @@ h1 {
   font-weight: 400;
 }
 
+.text-center {
+  text-align: center;
+}
 .logo {
+  margin: 0;
   font-size: 6.25em;
   color: $color-accent;
   font-weight: 700;
+}
+
+.fancy-subheading {
+  margin: 0;
+  font-weight: lighter;
+  font-size: 2.5em;
+  color: $color-font;
+  font-family: $font-family-script;
 }

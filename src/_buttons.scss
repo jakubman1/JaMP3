@@ -1,0 +1,24 @@
+@import "colors";
+@import "fonts";
+
+.btn {
+  font-size: 1.3em;
+  border-radius: 50px;
+  color: $color-font;
+  background: none;
+  text-decoration: none;
+  padding: 5px 15px;
+  transition: background 250ms ease-in-out;
+  &:hover {
+    background: transparentize($color-font, .7);
+  }
+}
+
+.btn-big {
+  font-size: 1.7em;
+  padding: 10px 30px;
+}
+
+.btn-outline {
+  border: 3px solid $color-font;
+}
