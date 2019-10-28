@@ -1,0 +1,9 @@
+@import "../SharedStyles/style";
+@import "../SharedStyles/colors";
+
+
+.song-table-header th {
+  text-transform: uppercase;
+  font-weight: 400;
+  color: transparentize($color-font, .5);
+}

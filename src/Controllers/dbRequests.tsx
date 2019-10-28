@@ -12,15 +12,15 @@ export function importMP3s(files: string[]) {
     ipcRenderer.send('importMP3s-request', files);
 }
 
-export function getSongsTable(playlistID: string, onSuccess: any, onFail: any) {
+export function getSongsTable(playlistID: string) {
     ipcRenderer.send('getSongsTable-request', playlistID);
 
-    return new Promise((resolve: any, reject: any) => {
-        ipcRenderer.on('getSongsTable-reply', (event: any, arg: any) => {
+    return new Promise<object[]>((resolve: any, reject: any) => {
+        ipcRenderer.on('getSongsTable-reply', (event: any, arg: object[]) => {
             resolve(arg);
         });
     });
 }
 
-importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);
-getSongsTable('all', () => {}, () => {});
+// importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);
+// getSongsTable('all', () => {}, () => {});
