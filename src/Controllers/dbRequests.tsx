@@ -6,9 +6,13 @@ const { ipcRenderer } = window.require('electron');
 // asynchronous-reply
 // ipcRenderer.send('asynchronous-message', 'ping')
 
-function importMP3s(files: string[]) {
+export function importMP3s(files: string[]) {
     console.log(files);
     ipcRenderer.send('importMP3s-request', files);
+}
+
+export function getSongTable(playlistID: string) {
+    return [];
 }
 
 importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);

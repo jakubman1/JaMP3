@@ -21,5 +21,12 @@ function processPaths(files) {
 
 function insertMP3(path) {
     let tags = NodeID3.read(path);
+    let dbRecord = {
+        path: path,
+        author: tags['artist'],
+        title: tags['title'],
+        album: tags['album'],
+        year: tags['year']
+    };
     console.log(tags);
 }
