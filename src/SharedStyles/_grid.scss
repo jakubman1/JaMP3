@@ -1,0 +1,33 @@
+@import "colors";
+@import "variables";
+
+.fullscreen-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.sidebar-wrapper {
+  width: $sidebar-width;
+  height: 100vh;
+  background-color: $color-sidebar-bg;
+}
+
+.center-wrapper {
+  width: calc(100vw - #{$sidebar-width});
+}
+
+.row {
+  //flex: 1 100%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.take-full-row {
+  flex-basis: 100%;
+}
+
+.align-center {
+  justify-content: center;
+}
+

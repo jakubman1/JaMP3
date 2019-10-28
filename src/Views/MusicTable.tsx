@@ -25,8 +25,6 @@ export class MusicTable extends React.Component<Props> {
                         songs: []
                     });
                 }
-                console.log('GOT DATA');
-                console.log(data);
                 return true;
             })
             .catch(err => console.warn(err));
@@ -67,7 +65,7 @@ export class MusicTable extends React.Component<Props> {
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         if (!this.state.loaded) {
             return (
-                <h1>Loading...</h1>
+                <h2>Loading...</h2>
             );
         } else if (this.state.songs.length !== 0) {
             return (
@@ -85,7 +83,7 @@ export class MusicTable extends React.Component<Props> {
             )
         } else {
             return (
-                <h1>No songs</h1>
+                <h2>No songs</h2>
             );
         }
 

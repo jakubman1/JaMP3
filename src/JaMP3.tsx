@@ -9,6 +9,7 @@ import {
     Link
 } from "react-router-dom";
 import {MusicTable} from "./Views/MusicTable";
+import { Welcome } from "./Views/Welcome"
 
 const JaMP3: React.FC = () => {
         let activePlaylist = 'all';
@@ -18,14 +19,16 @@ const JaMP3: React.FC = () => {
                 <Router>
                     <Switch>
                         <Route path="/home">
-                            <h1 className="logo">JaMP3</h1>
-                            <h1 className="text-center">All music</h1>
-                            <MusicTable playlist={activePlaylist} />
+                            <div className="sidebar-wrapper">
+                                <h1 className="logo text-center">JaMP3</h1>
+                            </div>
+                            <div className="center-wrapper">
+                                <h2>Všechny skladby</h2>
+                                <MusicTable playlist={activePlaylist} />
+                            </div>
                         </Route>
                         <Route path="/">
-                            <h1 className="logo text-center">JaMP3</h1>
-                            <h2 className="fancy-subheading text-center">Just Another Music Player</h2>
-                            <Link to="/home" className="btn btn-big btn-outline text-center">Pokračovat</Link>
+                            <Welcome />
                         </Route>
                     </Switch>
                 </Router>

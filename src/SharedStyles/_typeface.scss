@@ -1,5 +1,5 @@
-@import "SharedStyles/fonts";
-@import "SharedStyles/colors";
+@import "fonts";
+@import "colors";
 
 $font-family-regular: 'Raleway', 'Seoge UI', sans-serif;
 $font-family-script: 'Vladimir Script', cursive;
@@ -16,13 +16,17 @@ h1 {
   font-family: $font-family-regular;
   font-weight: 400;
 }
-
+h2 {
+  font-size: 1.5em;
+  font-family: $font-family-regular;
+  font-weight: 300;
+}
 .text-center {
   text-align: center;
 }
 .logo {
   margin: 0;
-  font-size: 6.25em;
+  font-size: 3.5em;
   color: $color-accent;
   font-weight: 700;
 }

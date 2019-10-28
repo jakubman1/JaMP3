@@ -1,9 +1,23 @@
 @import "../SharedStyles/style";
 @import "../SharedStyles/colors";
+@import "../SharedStyles/typeface";
 
 
-.song-table-header th {
-  text-transform: uppercase;
+.song-table {
+  font-family: $font-family-regular;
   font-weight: 400;
+  color: $color-font;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.song-table, td, th {
+  border: none;
+  border-bottom: 1px solid $color-font;
+}
+.song-table-header th {
+  font-family: $font-family-regular;
+  text-transform: uppercase;
+  font-weight: 300;
   color: transparentize($color-font, .5);
 }
