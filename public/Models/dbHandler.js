@@ -1,5 +1,6 @@
 const NodeID3 = require('node-id3');
 const { ipcMain } = require('electron');
+const db = require('./db');
 
 
 ipcMain.on('importMP3s-request', (event, arg) => {
@@ -21,12 +22,15 @@ function processPaths(files) {
 
 function insertMP3(path) {
     let tags = NodeID3.read(path);
-    let dbRecord = {
+    let record = {
         path: path,
         author: tags['artist'],
         title: tags['title'],
         album: tags['album'],
-        year: tags['year']
+        year: tags['year'],
+        favourite: false,
+        playlist: ['all']
     };
-    console.log(tags);
+    console.log(record);
+    db.insertRecord(record);
 }
