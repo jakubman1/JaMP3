@@ -13,6 +13,12 @@ ipcMain.on('getSongsTable-request', (event, arg) => {
         .catch(err => console.log(err));
 });
 
+ipcMain.on('getAllPlaylists-request', (event, arg) => {
+    db.findAllPlaylists()
+        .then(response => event.reply('getAllPlaylists-reply', response))
+        .catch(err => console.log(err));
+});
+
 function processPaths(files) {
     for( let i = 0; i < files.length; i++)
     {

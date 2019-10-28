@@ -20,5 +20,15 @@ export function getSongsTable(playlistID: string) {
     });
 }
 
+export function getAllPlaylists() {
+    ipcRenderer.send('getSongsTable-request');
+
+    return new Promise<object[]>((resolve: any, reject: any) => {
+        ipcRenderer.on('getAllPlaylists-reply', (event: any, arg: object[]) => {
+            resolve(arg);
+        });
+    });
+}
+
 // importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);
 // getSongsTable('all', () => {}, () => {});
