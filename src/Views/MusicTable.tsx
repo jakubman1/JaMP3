@@ -1,5 +1,8 @@
 import * as React from 'react'
 import {MusicTableController} from "../Controllers/MusicTableController";
+import {MusicTableRow} from "./MusicTableRow";
+import {Song} from "../Shared/Song";
+import './MusicTable.scss'
 
 interface Props {
     playlist: string;
@@ -13,13 +16,12 @@ export class MusicTable extends React.Component<Props> {
         super(props);
         this.loadData()
             .then(data => {
-                if(data) {
+                if (data) {
                     this.setState({
                         loaded: true,
                         songs: data
                     });
-                }
-                else {
+                } else {
                     this.setState({
                         loaded: true,
                         songs: []
@@ -32,16 +34,16 @@ export class MusicTable extends React.Component<Props> {
     }
 
     componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void {
-        if(prevProps.playlist !== this.props.playlist) {
+        if (prevProps.playlist !== this.props.playlist) {
             this.setState({
-                    loaded: false,
-                    songs: this.state.songs
-                });
+                loaded: false,
+                songs: this.state.songs
+            });
             this.loadData()
                 .then(data => {
                     this.setState({
-                       loaded: true,
-                       songs: data
+                        loaded: true,
+                        songs: data
                     });
                 })
                 .catch(err => console.warn(err));
@@ -50,7 +52,7 @@ export class MusicTable extends React.Component<Props> {
 
     state = {
         loaded: false,
-        songs: [] as object[],
+        songs: [] as Song[],
     };
 
     loadData(): Promise<object[]> {
@@ -68,6 +70,12 @@ export class MusicTable extends React.Component<Props> {
                 <h2>Loading...</h2>
             );
         } else if (this.state.songs.length !== 0) {
+            let rows: any[] = [];
+            let song: Song;
+            for (song of this.state.songs) {
+                rows.push(<MusicTableRow key={song.id} name={song.title} album={song.album} author={song.author}
+                                         length={'4:20'} path={''} id={song.id}/>)
+            }
             return (
                 <table className="song-table">
                     <thead>
@@ -79,6 +87,9 @@ export class MusicTable extends React.Component<Props> {
                         <th/>
                     </tr>
                     </thead>
+                    <tbody>
+                    {rows}
+                    </tbody>
                 </table>
             )
         } else {

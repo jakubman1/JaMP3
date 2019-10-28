@@ -14,10 +14,28 @@
 .song-table, td, th {
   border: none;
   border-bottom: 1px solid $color-font;
+  padding: 8px 0;
+  font-size: 0.9rem;
 }
 .song-table-header th {
+  text-align: left;
   font-family: $font-family-regular;
   text-transform: uppercase;
   font-weight: 300;
   color: transparentize($color-font, .5);
+}
+
+.song-row {
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  &:hover {
+    color: lighten($color-accent, 10%);
+  }
+}
+
+.song-name {
+  font-weight: 700;
+}
+.song-table-selected-row {
+  color: $color-accent;
 }
