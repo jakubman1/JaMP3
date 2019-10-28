@@ -4,8 +4,12 @@ const db = require('./db');
 
 
 ipcMain.on('importMP3s-request', (event, arg) => {
-    console.log(arg);
     processPaths(arg);
+});
+
+ipcMain.on('getSongsTable-request', (event, arg) => {
+    let songs = db.findSongsInSelectedPlaylist(arg);
+    event.reply('getSongsTable-reply', songs)
 });
 
 function processPaths(files) {
@@ -29,8 +33,7 @@ function insertMP3(path) {
         album: tags['album'],
         year: tags['year'],
         favourite: false,
-        playlist: ['all']
+        playlists: []
     };
-    console.log(record);
     db.insertRecord(record);
 }
