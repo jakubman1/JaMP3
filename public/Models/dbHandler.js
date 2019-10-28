@@ -8,8 +8,9 @@ ipcMain.on('importMP3s-request', (event, arg) => {
 });
 
 ipcMain.on('getSongsTable-request', (event, arg) => {
-    let songs = db.findSongsInSelectedPlaylist(arg);
-    event.reply('getSongsTable-reply', songs)
+    db.findSongsInSelectedPlaylist(arg)
+        .then(response => event.reply('getSongsTable-reply', response))
+        .catch(err => console.log(err));
 });
 
 function processPaths(files) {

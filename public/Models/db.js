@@ -9,10 +9,11 @@ module.exports = {
     },
 
     findSongsInSelectedPlaylist: function(playlistID) {
-        if (playlistID === ' all') {
+        if (playlistID === 'all') {
             return new Promise((resolve, reject) => {
                 db.find({}, function (err, docs) {
                     if (err) reject(err);
+                    console.log(docs);
                     resolve(docs);
                 });
             });
@@ -21,6 +22,7 @@ module.exports = {
             return new Promise((resolve, reject) => {
                 db.find({ playlists: playlistID }, function (err, docs) {
                     if (err) reject(err);
+                    if (!docs) resolve([]);
                     resolve(docs);
                 });
             });
