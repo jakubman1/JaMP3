@@ -49,5 +49,13 @@ module.exports = {
                 resolve(docs);
             });
         });
+    },
+
+    createNewPlaylist: function (id, name) {
+        playlistsDB.insert({ _id: id, name: name});
+    },
+
+    deletePlaylist: function (id) {
+        playlistsDB.remove({ _id: id }, {});
     }
 };

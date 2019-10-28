@@ -19,6 +19,14 @@ ipcMain.on('getAllPlaylists-request', (event, arg) => {
         .catch(err => console.log(err));
 });
 
+ipcMain.on('createNewPlaylist-request', (event, arg) => {
+    db.createNewPlaylist(arg.id, arg.name);
+});
+
+ipcMain.on('deletePlaylist-request', (event, arg) => {
+    db.deletePlaylist(arg);
+});
+
 function processPaths(files) {
     for( let i = 0; i < files.length; i++)
     {
