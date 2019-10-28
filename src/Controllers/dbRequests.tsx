@@ -7,8 +7,6 @@ const { ipcRenderer } = window.require('electron');
 // ipcRenderer.send('asynchronous-message', 'ping')
 
 export function importMP3s(files: string[]) {
-    console.log("ahoj4");
-    console.log(files);
     ipcRenderer.send('importMP3s-request', files);
 }
 
