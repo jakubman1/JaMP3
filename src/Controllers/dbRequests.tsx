@@ -11,4 +11,4 @@ function importMP3s(files: string[]) {
     ipcRenderer.send('importMP3s-request', files);
 }
 
-importMP3s(['C:/Users/Akhady/Downloads/mp3/Culture Code - Fairytale (feat. Amanda Collis) [NCS Release].mp3']);
+importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);
