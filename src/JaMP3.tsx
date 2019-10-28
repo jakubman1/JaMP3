@@ -22,9 +22,15 @@ const JaMP3: React.FC = () => {
                             <div className="sidebar-wrapper">
                                 <h1 className="logo text-center">JaMP3</h1>
                             </div>
+                            <div className="search-bar-wrapper">
+                                <h2 className="text-center">Search bar</h2>
+                            </div>
                             <div className="center-wrapper">
                                 <h2>Všechny skladby</h2>
                                 <MusicTable playlist={activePlaylist} />
+                            </div>
+                            <div className="now-playing-bar-wrapper">
+                                <h2 className="text-center">Now playing</h2>
                             </div>
                         </Route>
                         <Route path="/">

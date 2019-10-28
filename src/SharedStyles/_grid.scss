@@ -7,14 +7,39 @@
 }
 
 .sidebar-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: $sidebar-width;
-  height: 100vh;
+  height: calc(100vh - #{$now-playing-bar-height});
   background-color: $color-sidebar-bg;
 }
 
-.center-wrapper {
+.search-bar-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
   width: calc(100vw - #{$sidebar-width});
-  padding: 30px;
+  height: $search-bar-height;
+  background-color: $color-background2;
+}
+
+.center-wrapper {
+  position: absolute;
+  right: 0;
+  top: $search-bar-height;
+  width: calc(100vw - #{$sidebar-width} - #{$center-padding} * 2);
+  height: calc(100vh - #{$search-bar-height} - #{$now-playing-bar-height});
+  padding: $center-padding;
+}
+
+.now-playing-bar-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: $now-playing-bar-height;
+  background-color: $color-background2;
 }
 
 .row {
