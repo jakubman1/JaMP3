@@ -11,6 +11,7 @@ import {
 import {MusicTable} from "./Views/MusicTable";
 import { Welcome } from "./Views/Welcome"
 import {PlaylistList} from "./Views/PlaylistList";
+import {SearchBar} from "./Views/SearchBar";
 
 const JaMP3: React.FC = () => {
         let activePlaylist = 'all';
@@ -25,7 +26,7 @@ const JaMP3: React.FC = () => {
                                 <PlaylistList activePlaylist={"adsd"} />
                             </div>
                             <div className="search-bar-wrapper">
-                                <h2 className="text-center">Search bar</h2>
+                                <SearchBar searchedText={"tvoje mama"} />
                             </div>
                             <div className="center-wrapper">
                                 <h2>Všechny skladby</h2>
