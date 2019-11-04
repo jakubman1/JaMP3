@@ -1,0 +1,20 @@
+@import "colors";
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparentize($color-font, .8);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: transparentize($color-font, .4);
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $color-font;
+}

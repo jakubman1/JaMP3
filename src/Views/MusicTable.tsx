@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import {MusicTableController} from "../Controllers/MusicTableController";
 import {MusicTableRow} from "./MusicTableRow";
 import {Song} from "../Shared/Song";

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Link} from 'react-router-dom';
 import './Welcome.scss';
-
+import { useHistory } from "react-router-dom";
 
 export const Welcome: React.FunctionComponent = () => {
     return (
