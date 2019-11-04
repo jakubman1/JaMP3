@@ -4,6 +4,17 @@ import './Welcome.scss';
 import { useHistory } from "react-router-dom";
 
 export const Welcome: React.FunctionComponent = () => {
+    let history = useHistory();
+    function handleNextClick() {
+        localStorage.setItem('welcome', "yes");
+        history.push("/home");
+    }
+    function checkHistory() {
+        if(localStorage.getItem('welcome') === "yes") {
+            history.push("/home");
+        }
+    }
+    checkHistory();
     return (
         <div className="fullscreen-wrapper">
             <div className="row align-center">
@@ -14,7 +25,7 @@ export const Welcome: React.FunctionComponent = () => {
 
             </div>
             <div className="row align-center">
-                <Link to="/home" className="btn btn-big btn-outline text-center">Pokračovat</Link>
+                <a onClick={handleNextClick} className="btn btn-big btn-outline text-center">Pokračovat</a>
             </div>
         </div>
     );
