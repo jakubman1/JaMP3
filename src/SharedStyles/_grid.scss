@@ -10,9 +10,10 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: $sidebar-width;
+  width: $sidebar-width - $sidebar-padding*2;
   height: calc(100vh - #{$now-playing-bar-height});
   background-color: $color-sidebar-bg;
+  padding: $sidebar-padding;
 }
 
 .search-bar-wrapper {

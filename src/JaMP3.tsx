@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import {MusicTable} from "./Views/MusicTable";
 import { Welcome } from "./Views/Welcome"
+import {PlaylistList} from "./Views/PlaylistList";
 
 const JaMP3: React.FC = () => {
         let activePlaylist = 'all';
@@ -21,6 +22,7 @@ const JaMP3: React.FC = () => {
                         <Route path="/home">
                             <div className="sidebar-wrapper">
                                 <h1 className="logo text-center">JaMP3</h1>
+                                <PlaylistList activePlaylist={"adsd"} />
                             </div>
                             <div className="search-bar-wrapper">
                                 <h2 className="text-center">Search bar</h2>

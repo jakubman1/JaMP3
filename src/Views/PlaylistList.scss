@@ -1,0 +1,24 @@
+@import "../SharedStyles/style";
+@import "../SharedStyles/colors";
+@import "../SharedStyles/typeface";
+
+.top-list-wrapper {
+  border-bottom: 1px solid $color-font;
+}
+
+.playlist-list {
+  list-style-type: none;
+  padding: 0;
+  li {
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+}
+.playlist-list-name {
+  text-decoration: underline;
+}
+.playlist-list-song-count {
+  color: $color-font-secondary;
+  display: block;
+  font-size: 12px;
+}
