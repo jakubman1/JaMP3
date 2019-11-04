@@ -39,6 +39,7 @@
 
 .song-row-icon {
   margin-right: 10px;
+  transition: all ease-in-out 100ms;
   &:hover {
     color: lighten($color-accent, 10%);
   }
