@@ -2,29 +2,30 @@
 @import "../SharedStyles/colors";
 @import "../SharedStyles/typeface";
 
-.search-bar-menu {
+.search-bar-menu, .search-bar {
   background-color: transparentize($color-font, .7);
   border: solid 5px $color-search-bar-bg;
-  width: 15%;
-  height: 80%;
   float: left;
-  margin-top: 15px;
+  font-size: 1.2em;
+  color: $color-font;
+  padding: 5px;
+  margin-top: 5px;
+  box-sizing:content-box;
+}
+
+.search-bar-menu {
+  width: 15%;
   margin-left: 20px;
-  border-radius: 50px 0px 0px 50px;
+  border-radius: 50px 0 0 50px;
 }
 
 .search-bar {
-  background-color: transparentize($color-font, .7);
-  border: solid 5px $color-search-bar-bg;
   width: 60%;
-  height: 80%;
-  float: left;
-  margin-top: 15px;
-  border-radius: 0px 50px 50px 0px;
+  border-radius: 0 50px 50px 0;
+  &::placeholder { color: darken($color-font, 20%) };
 }
 
 .search-bar-icons {
-  background-color: green;
   width: 20%;
   height: 100%;
   float: right;
