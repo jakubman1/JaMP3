@@ -58,4 +58,16 @@ export class PlaylistController
             ]);
         }));
     }
+
+    public fetchAllCount(): Promise<number> {
+        return new Promise<number>((resolve => {
+            resolve(5);
+        }));
+    }
+
+    public fetchFavouriteCount(): Promise<number> {
+        return new Promise<number>((resolve => {
+            resolve(6);
+        }));
+    }
 }
