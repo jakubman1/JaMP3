@@ -1,6 +1,8 @@
 import * as React from 'react'
 import {Link} from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import {faStar as star} from '@fortawesome/free-regular-svg-icons'
 export const MusicTableRow: React.FunctionComponent<{
     name: string;
     album?: string;
@@ -15,7 +17,8 @@ export const MusicTableRow: React.FunctionComponent<{
             <td>{props.album ? props.album : ''}</td>
             <td>{props.author ? props.author : ''}</td>
             <td>{props.length}</td>
-            <td>Tu budou ikony lol</td>
+            <td><FontAwesomeIcon icon={star} className="song-row-icon"/>
+            <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon" /></td>
         </tr>
     );
 };

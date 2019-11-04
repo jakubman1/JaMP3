@@ -6,6 +6,7 @@
 /* Track */
 ::-webkit-scrollbar-track {
   background: transparentize($color-font, .8);
+  border-radius: 20px;
 }
 
 /* Handle */

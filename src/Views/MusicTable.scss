@@ -28,9 +28,6 @@
 .song-row {
   cursor: pointer;
   transition: all 100ms ease-in-out;
-  &:hover {
-    color: lighten($color-accent, 10%);
-  }
 }
 
 .song-name {
@@ -38,4 +35,11 @@
 }
 .song-table-selected-row {
   color: $color-accent;
+}
+
+.song-row-icon {
+  margin-right: 10px;
+  &:hover {
+    color: lighten($color-accent, 10%);
+  }
 }
