@@ -1,3 +1,4 @@
+@import "../SharedStyles/variables";
 @import "../SharedStyles/style";
 @import "../SharedStyles/colors";
 @import "../SharedStyles/typeface";
@@ -12,13 +13,38 @@
   li {
     cursor: pointer;
     margin-bottom: 5px;
+    transition: all ease-in-out 100ms;
+    &:hover {
+      color: lighten($color-accent, 10%);
+    }
   }
 }
 .playlist-list-name {
   text-decoration: underline;
+  /*transition: all ease-in-out 100ms;
+  &:hover {
+    color: lighten($color-accent, 10%);
+  }*/
 }
 .playlist-list-song-count {
   color: $color-font-secondary;
   display: block;
   font-size: 12px;
+}
+
+.playlist-icon-wrapper {
+  display: inline-block;
+  width: 16px;
+  height: auto;
+  margin-left: -16px;
+  text-align: left;
+}
+.playlist-icon {
+  font-size: 12px;
+}
+
+.bottom-list-wrapper {
+  margin-top: 5px;
+  overflow: auto;
+  max-height: calc(100vh - #{$now-playing-bar-height} - 225px);
 }
