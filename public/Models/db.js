@@ -10,6 +10,21 @@ module.exports = {
         songsDB.insert(record);
     },
 
+    removeRecord: function(id) {
+        songsDB.remove({ _id: id }, {});
+        songsDB.persistence.compactDatafile();
+    },
+
+    addSongToPlaylist: function (song_id, pl_id) {
+        songsDB.update({ _id: song_id }, { $addToSet: { playlists: pl_id } }, {});
+        songsDB.persistence.compactDatafile();
+    },
+
+    removeSongFromPlaylist: function (song_id, pl_id) {
+        songsDB.update({ _id: song_id }, { $pull: { playlists: pl_id } }, {});
+        songsDB.persistence.compactDatafile();
+    },
+
     findSongsInSelectedPlaylist: function(playlistID) {
         if (playlistID === 'all') {
             return new Promise((resolve, reject) => {
@@ -57,5 +72,11 @@ module.exports = {
 
     deletePlaylist: function (id) {
         playlistsDB.remove({ _id: id }, {});
-    }
+        playlistsDB.persistence.compactDatafile();
+    },
+
+    renamePlaylist: function (pl_id, name) {
+        playlistsDB.update({ _id: pl_id }, { name: name }, {});
+        playlistsDB.persistence.compactDatafile();
+    },
 };

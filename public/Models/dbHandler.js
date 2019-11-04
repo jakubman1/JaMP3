@@ -7,6 +7,18 @@ ipcMain.on('importMP3s-request', (event, arg) => {
     processPaths(arg);
 });
 
+ipcMain.on('removeMP3s-request', (event, arg) => {
+    db.removeRecord(arg);
+});
+
+ipcMain.on('addSongToPlaylist-request', (event, arg) => {
+    db.addSongToPlaylist(arg.song_id, arg.pl_id);
+});
+
+ipcMain.on('removeSongFromPlaylist-request', (event, arg) => {
+    db.removeSongFromPlaylist(arg.song_id, arg.pl_id);
+});
+
 ipcMain.on('getSongsTable-request', (event, arg) => {
     db.findSongsInSelectedPlaylist(arg)
         .then(response => event.reply('getSongsTable-reply', response))
@@ -25,6 +37,10 @@ ipcMain.on('createNewPlaylist-request', (event, arg) => {
 
 ipcMain.on('deletePlaylist-request', (event, arg) => {
     db.deletePlaylist(arg);
+});
+
+ipcMain.on('renamePlaylist-request', (event, arg) => {
+    db.renamePlaylist(arg.pl_id, arg.name);
 });
 
 function processPaths(files) {
