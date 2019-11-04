@@ -35,6 +35,20 @@ export class PlaylistList extends React.Component<Props> {
 
     }
 
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{playlists: Playlist[]}>, snapshot?: any): void {
+        if (prevState.playlists !== this.state.playlists) {
+            this.setState({
+                playlists: this.state.playlists
+            });
+            this.loadData()
+                .then(data => {
+                    this.setState({playlists: data});
+                    return true;
+                })
+                .catch(err => console.warn(err));
+        }
+    }
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         let rows: any[] = [];
         let playlist: Playlist;
