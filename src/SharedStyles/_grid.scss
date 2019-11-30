@@ -23,6 +23,8 @@
   width: calc(100vw - #{$sidebar-width});
   height: $search-bar-height;
   background-color: $color-background2;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .center-wrapper {
