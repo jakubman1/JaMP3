@@ -13,6 +13,7 @@ import {Welcome} from "./Views/Welcome"
 import {PlaylistList} from "./Views/PlaylistList";
 import {SearchBar} from "./Views/SearchBar";
 import {Player} from "./Views/Player";
+import {ImportFullscreen} from "./Views/ImportFullscreen";
 
 const JaMP3: React.FC = () => {
     let activePlaylist = 'all';
@@ -40,8 +41,12 @@ const JaMP3: React.FC = () => {
                     <Route path="/">
                         <Welcome/>
                     </Route>
+                    <Route path="/import">
+                        <ImportFullscreen />
+                    </Route>
                 </Switch>
             </Router>
+
         </div>
 );
 };

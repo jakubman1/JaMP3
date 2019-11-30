@@ -37,8 +37,12 @@
   color: $color-accent;
 }
 
+.song-row-icon-wrapper {
+  text-align: right;
+}
 .song-row-icon {
-  margin-right: 10px;
+  margin-right: 15px;
+  font-size: 1.3em;
   transition: all ease-in-out 100ms;
   &:hover {
     color: lighten($color-accent, 10%);

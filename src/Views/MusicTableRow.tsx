@@ -17,7 +17,7 @@ export const MusicTableRow: React.FunctionComponent<{
             <td>{props.album ? props.album : ''}</td>
             <td>{props.author ? props.author : ''}</td>
             <td>{props.length}</td>
-            <td><FontAwesomeIcon icon={star} className="song-row-icon"/>
+            <td className="song-row-icon-wrapper"><FontAwesomeIcon icon={star} className="song-row-icon"/>
             <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon" /></td>
         </tr>
     );
