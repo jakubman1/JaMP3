@@ -25,6 +25,18 @@ ipcMain.on('getSongsTable-request', (event, arg) => {
         .catch(err => console.log(err));
 });
 
+ipcMain.on('getAllSongsCount-request', (event, arg) => {
+    db.countAllSongs()
+        .then(response => event.reply('getAllSongsCount-reply', response))
+        .catch(err => console.log(err));
+});
+
+ipcMain.on('getFavouriteSongsCount-request', (event, arg) => {
+    db.countFavouriteSongs()
+        .then(response => event.reply('getFavouriteSongsCount-reply', response))
+        .catch(err => console.log(err));
+});
+
 ipcMain.on('getAllPlaylists-request', (event, arg) => {
     db.findAllPlaylists()
         .then(response => event.reply('getAllPlaylists-reply', response))

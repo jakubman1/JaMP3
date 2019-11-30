@@ -33,8 +33,28 @@ export function getSongsTable(playlistID: string) {
     });
 }
 
+export function getAllSongsCount() {
+    ipcRenderer.send('getAllSongsCount-request');
+
+    return new Promise<number>((resolve: any, reject: any) => {
+        ipcRenderer.on('getAllSongsCount-reply', (event: any, arg: number) => {
+            resolve(arg);
+        });
+    });
+}
+
+export function getFavouriteSongsCount() {
+    ipcRenderer.send('getFavouriteSongsCount-request');
+
+    return new Promise<number>((resolve: any, reject: any) => {
+        ipcRenderer.on('getFavouriteSongsCount-reply', (event: any, arg: number) => {
+            resolve(arg);
+        });
+    });
+}
+
 export function getAllPlaylists() {
-    ipcRenderer.send('getSongsTable-request');
+    ipcRenderer.send('getAllPlaylists-request');
 
     return new Promise<object[]>((resolve: any, reject: any) => {
         ipcRenderer.on('getAllPlaylists-reply', (event: any, arg: object[]) => {
@@ -59,10 +79,10 @@ export function renamePlaylist(pl_id: string, name: string) {
 // importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);
 // importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);
 // getSongsTable('all', () => {}, () => {});
-// createNewPlaylist('1', 'adamuvVelkyPlaylist');
+// createNewPlaylist('2', 'adamuvVelkyPlaylist');
 // deletePlaylist('1');
-//
+// getAllPlaylists();
 // addSongToPlaylist('zfi8VXXsWRcIehww', '1');
 // removeSongFromPlaylist('zF0WDDhuPPinzKqI', '1');
 // renamePlaylist('1', "ahoj");
-removeMP3s('zF0WDDhuPPinzKqI');
+// removeMP3s('zF0WDDhuPPinzKqI');

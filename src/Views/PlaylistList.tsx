@@ -2,34 +2,33 @@ import * as React from 'react';
 import "./PlaylistList.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faPlus} from '@fortawesome/free-solid-svg-icons'
-import {PlaylistController} from "../Controllers/PlaylistController";
+import * as dbRequests from "../Controllers/dbRequests";
 import {Playlist} from "../Shared/Playlist";
 import {PlaylistRow} from "./PlaylistRow";
+import {AddPlaylist} from "./AddPlaylist";
 
 interface Props {
     activePlaylist: string;
 }
 
 export class PlaylistList extends React.Component<Props> {
-
     state = {
         playlists: [] as Playlist[],
-        all_count: 0 as number,
-        favourite_count: 0 as number
+        all_count: 0,
+        favourite_count: 0,
+        showAddPlaylistComponent: false
     };
 
-    playlistController: PlaylistController = new PlaylistController();
-
     loadPlaylists(): Promise<object[]> {
-        return this.playlistController.fetchPlaylists();
+        return dbRequests.getAllPlaylists();
     }
 
     loadAllCount(): Promise<number> {
-        return this.playlistController.fetchAllCount();
+        return dbRequests.getAllSongsCount();
     }
 
     loadFavouriteCount(): Promise<number> {
-        return this.playlistController.fetchFavouriteCount();
+        return dbRequests.getFavouriteSongsCount();
     }
 
     constructor(props: any) {
@@ -57,12 +56,25 @@ export class PlaylistList extends React.Component<Props> {
 
     }
 
+    showAddPlaylistComponent = () => {
+        console.log("cc");
+        this.setState({
+            showAddPlaylistComponent: !this.state.showAddPlaylistComponent
+        });
+    };
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         let rows: any[] = [];
         let playlist: Playlist;
 
         for (playlist of this.state.playlists) {
             rows.push(<PlaylistRow id={playlist.id} name={playlist.name} songs_count={playlist.songs_count}/>);
+        }
+
+        let addPlaylist = null;
+
+        if (this.state.showAddPlaylistComponent) {
+            addPlaylist = (<AddPlaylist/>);
         }
 
         return (
@@ -80,11 +92,12 @@ export class PlaylistList extends React.Component<Props> {
                             <span className="playlist-list-name">Oblíbené</span>
                             <span className="playlist-list-song-count">{this.state.favourite_count} skladeb</span>
                         </li>
-                        <li>
+                        <li onClick={this.showAddPlaylistComponent}>
                             <div className="playlist-icon-wrapper">
                                 <FontAwesomeIcon className="playlist-icon" icon={faPlus} />
                             </div>
-                            <span className="playlist-list-name">Přidat playlist</span>
+                            <span  className="playlist-list-name">Přidat playlist</span>
+                            {addPlaylist}
                         </li>
                     </ul>
                 </div>

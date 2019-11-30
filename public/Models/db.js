@@ -54,6 +54,22 @@ module.exports = {
         }
     },
 
+    countAllSongs: function() {
+        return new Promise((resolve, reject) => {
+            songsDB.count({}, function (err, count) {
+                resolve(count);
+            });
+        });
+    },
+
+    countFavouriteSongs: function() {
+        return new Promise((resolve, reject) => {
+            songsDB.count({ favourite: true }, function (err, count) {
+                resolve(count);
+            });
+        });
+    },
+
     // playlistsDB functions
     findAllPlaylists: function() {
 
