@@ -77,6 +77,8 @@ export class MusicTable extends React.Component<Props> {
                                          length={'4:20'} path={''} id={song.id}/>)
             }
             return (
+            <div className="center-wrapper">
+                <h1>Všechny skladby</h1>
                 <table className="song-table">
                     <thead>
                     <tr className="song-table-header">
@@ -91,10 +93,13 @@ export class MusicTable extends React.Component<Props> {
                     {rows}
                     </tbody>
                 </table>
+            </div>
             )
         } else {
             return (
-                <h2>No songs</h2>
+                <div className="center-wrapper">
+                    <h1>Žádné skladby</h1>
+                </div>
             );
         }
 

@@ -41,10 +41,7 @@ class JaMP3 extends React.Component {
 
                     <Switch>
                         <Route path="/home">
-                            <div className="center-wrapper">
-                                <h2>Všechny skladby</h2>
-                                <MusicTable playlist={activePlaylist}/>
-                            </div>
+                            <MusicTable playlist={activePlaylist}/>
                         </Route>
                         <Route path="/import/playlist">
                             <ImportCreatePlaylist />
