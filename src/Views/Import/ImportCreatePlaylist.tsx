@@ -27,4 +27,4 @@ export class ImportCreatePlaylist extends React.Component {
             </div>
         );
     }
-}4
+}
