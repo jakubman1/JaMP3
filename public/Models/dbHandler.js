@@ -48,7 +48,7 @@ ipcMain.on('createNewPlaylist-request', (event, arg) => {
 });
 
 ipcMain.on('deletePlaylist-request', (event, arg) => {
-    db.deletePlaylist(arg);
+    db.deletePlaylist(arg.id);
 });
 
 ipcMain.on('renamePlaylist-request', (event, arg) => {

@@ -39,12 +39,22 @@
   margin-left: -16px;
   text-align: left;
 }
-.playlist-icon {
-  font-size: 12px;
-}
 
 .bottom-list-wrapper {
   margin-top: 5px;
   overflow: auto;
   max-height: calc(100vh - #{$now-playing-bar-height} - 225px);
+}
+
+.playlist-icon {
+  font-size: 12px;
+}
+
+.playlist-menu {
+  font-size: 16px;
+  margin-left: 15px;
+  color: $color-font;
+  &:hover {
+    color: $color-accent;
+  }
 }

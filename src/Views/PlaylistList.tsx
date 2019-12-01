@@ -61,7 +61,7 @@ export class PlaylistList extends React.Component<Props, State> {
 
         for (playlist of this.state.playlists) {
             // @ts-ignore
-            rows.push(<PlaylistRow id={playlist.id} name={playlist.name} songs_count={playlist.songs_count}/>);
+            rows.push(<PlaylistRow id={playlist._id} name={playlist.name} songs_count={playlist.songs_count}/>);
         }
 
         let addPlaylist = null;

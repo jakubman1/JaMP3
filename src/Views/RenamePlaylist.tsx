@@ -2,13 +2,14 @@ import React from 'react';
 import * as dbRequests from "../Controllers/dbRequests";
 
 interface Props {
+    id: string
     callback: any;
 }
 
-export class AddPlaylist extends React.Component<Props> {
+export class RenamePlaylist extends React.Component<Props> {
 
     state = {
-      inputValue: ""
+        inputValue: ""
     };
 
     changeInputValue = (newValue: any) => {
@@ -19,7 +20,7 @@ export class AddPlaylist extends React.Component<Props> {
 
     handleSubmit = () => {
         if (this.state.inputValue !== "") {
-            dbRequests.createNewPlaylist(this.state.inputValue);
+            dbRequests.renamePlaylist(this.props.id, this.state.inputValue);
             dbRequests.getAllPlaylists();
         }
         this.props.callback();
@@ -29,8 +30,8 @@ export class AddPlaylist extends React.Component<Props> {
         return(
             <div className="popup-wrapper">
                 <div className="popup-content-wrapper">
-                    <h1>Přidat playlist</h1>
-                    <p>Zadejte název playlistu</p>
+                    <h1>Přejmenovat playlist</h1>
+                    <p>Zadejte nový název playlistu</p>
                     <input className="round-input input-big margin-b" type="text"
                            placeholder="Název playlistu..."
                            value={this.state.inputValue}

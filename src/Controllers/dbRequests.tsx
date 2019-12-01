@@ -66,7 +66,7 @@ export function createNewPlaylist(name: string) {
 }
 
 export function deletePlaylist(id: string) {
-    ipcRenderer.send('deletePlaylist-request', id);
+    ipcRenderer.send('deletePlaylist-request', {'id': id});
 }
 
 export function renamePlaylist(pl_id: string, name: string) {
@@ -78,7 +78,7 @@ export function renamePlaylist(pl_id: string, name: string) {
 // importMP3s(['C:/Users/Akhady/Downloads/mp3/Modern Revolt - LOCA [NCS Release].mp3']);
 // getSongsTable('all', () => {}, () => {});
 // createNewPlaylist('2', 'adamuvVelkyPlaylist');
-// deletePlaylist('1');
+// deletePlaylist('1ktlUOVf3LFxFlbm');
 // getAllPlaylists();
 // addSongToPlaylist('zfi8VXXsWRcIehww', '1');
 // removeSongFromPlaylist('zF0WDDhuPPinzKqI', '1');
