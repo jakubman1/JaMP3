@@ -31,16 +31,15 @@ class JaMP3 extends React.Component {
                         <h1 className="logo text-center">JaMP3</h1>
                         <PlaylistList activePlaylist={"adsd"}/>
                     </div>
-
+                    <div className="search-bar-wrapper">
+                        <SearchBar/>
+                    </div>
                     <div className="now-playing-bar-wrapper">
                         <Player/>
                     </div>
 
                     <Switch>
                         <Route path="/home">
-                            <div className="search-bar-wrapper">
-                                <SearchBar/>
-                            </div>
                             <div className="center-wrapper">
                                 <h2>Všechny skladby</h2>
                                 <MusicTable playlist={activePlaylist}/>

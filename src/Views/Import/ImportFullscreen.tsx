@@ -2,6 +2,7 @@ import React, {RefObject} from "react";
 import "./ImportFullscreen.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronCircleLeft} from '@fortawesome/free-solid-svg-icons'
+import {Link, useHistory} from "react-router-dom";
 
 interface IProps {}
 interface IState {
@@ -11,7 +12,10 @@ interface IState {
 export class ImportFullscreen extends React.Component<IProps, IState>{
 
 
-
+   /* handleBackClick = () => {
+        let history = useHistory();
+        history.goBack();
+    };*/
 
     handleBrowseClick = () => {
         // electron.dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] })
@@ -25,7 +29,10 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <div className="fullscreen-wrapper">
-                <FontAwesomeIcon className="go-back" icon={faChevronCircleLeft} />
+                <Link to="/home">
+                    <FontAwesomeIcon className="go-back" icon={faChevronCircleLeft} />
+                </Link>
+
                 <h1>Import</h1>
                 <div className="import-area" onDragStart={this.handleDragStart}>
                     <p>Sem přetáhněte soubory</p>
