@@ -1,5 +1,87 @@
-.slider {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+@import "../SharedStyles/colors";
+@import "../SharedStyles/variables";
+
+.time-slider-container {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  left: $sidebar-width + 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: calc(100vw - #{$sidebar-width} - 100px);
+}
+.time-slider {
+  display: inline-block;
+  flex-grow: 5;
+  width: 70%;
+
+}
+.time-slider-label {
+  flex-grow: 1;
+}
+
+.volume-slider {
+  width: 80px;
+  display: inline-block;
+}
+
+.volume-control {
+  display: inline-block;
+  margin-left: 20px;
+  width: 170px;
+}
+
+.volume-icon-container {
+  display: inline-block;
+  width: 30px;
+  text-align: left;
+}
+
+.rc-slider-track {
+  background: $color-accent;
+}
+
+.rc-slider-handle {
+  border: 2px solid $color-accent;
+  background: $color-accent;
+}
+
+.now-playing-bar-content {
+  display: inline-flex;
+  width: calc(100vw - #{$sidebar-width});
+  align-items: center;
+  padding-top: 5px;
+  justify-content: center;
+}
+
+.add-to-favourites {
+  display: inline-block;
+  margin-left: 50px;
+}
+
+.player-control-icon-container {
+  text-align: center;
+  display: inline-block;
+}
+
+.player-control-icon {
+  font-size: 30px;
+  color: $color-font;
+  transition: all ease-in-out 150ms;
+  margin-left: 20px;
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+.icon-circle {
+  border: 2px solid $color-font;
+  border-radius: 100%;
+  font-size: 20px;
+  &:hover {
+    border: 2px solid $color-accent;
+  }
 }

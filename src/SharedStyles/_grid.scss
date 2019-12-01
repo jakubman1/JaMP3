@@ -32,7 +32,7 @@
   right: 0;
   top: $search-bar-height;
   width: calc(100vw - #{$sidebar-width} - #{$center-padding} * 2);
-  height: calc(100vh - #{$search-bar-height} - #{$now-playing-bar-height});
+  height: calc(100vh - #{$search-bar-height} - #{$now-playing-bar-height} - #{$center-padding} * 2);
   padding: $center-padding;
 }
 
@@ -64,3 +64,17 @@
   margin-bottom: $margin-step;
 }
 
+.margin-l {
+  margin-left: $margin-step / 2;
+}
+.margin-r {
+  margin-right: $margin-step / 2;
+}
+
+.max-100 {
+  max-width: 100%;
+}
+
+.inline-block {
+  display: inline-block;
+}
