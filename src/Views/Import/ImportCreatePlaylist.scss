@@ -1,1 +1,33 @@
 @import "import-common";
+
+.import-menu {
+  font-size: 1.3em;
+  color: $color-font;
+  background: transparentize($color-font, .6);
+  border: solid 3px $color-input-border;
+  border-radius: 50px;
+  padding: 5px 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.playlist-import-text, .playlist-import-name-input {
+  display: inline-block;
+  font-size: 1.3em;
+  margin: 20px;
+}
+
+.button-cancel, .button-import {
+  position: absolute;
+  bottom: 40px;
+  width: 200px;
+}
+
+.button-cancel {
+  left: 40px;
+}
+
+.button-import {
+  right: 40px;
+}

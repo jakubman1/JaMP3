@@ -19,11 +19,18 @@ export class ImportCreatePlaylist extends React.Component {
             <div className="fullscreen-wrapper">
                 <h1>Vybráno {this.state.fileCount} souborů</h1>
 
-                <select>
+                <select className="import-menu">
                     <option>+ Nový playlist</option>
-                    <option selected>Nepřidávat do playlistu</option>
+                    <option>Nepřidávat do playlistu</option>
                     {playlists}
                 </select>
+
+                <span className="playlist-import-text">Napište název nového playlistu</span>
+                <input className="round-input playlist-import-name-input" type="text" placeholder="Název playlistu..."/>
+
+                <div className="btn btn-big btn-outline button-cancel">Zrušit</div>
+
+                <div className="btn btn-big btn-outline button-import">Import</div>
             </div>
         );
     }

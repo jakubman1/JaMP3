@@ -11,8 +11,8 @@ export class SearchBar extends React.Component {
             <div className="search-bar-wrapper">
 
                 <select className="search-bar-menu">
-                    <option value="tvoje_mama">Vše</option>
-                    <option value="tvoje_tata">Adam je pukavec</option>
+                    <option>Vše</option>
+                    <option>Adam je pukavec</option>
                 </select>
 
                 <FontAwesomeIcon className="search-icon" icon={faSearch}/>
