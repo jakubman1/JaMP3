@@ -22,7 +22,7 @@
   top: 0;
   width: calc(100vw - #{$sidebar-width});
   height: $search-bar-height;
-  background-color: $color-background2;
+  background-color: $color-background;
   display: flex;
   flex-flow: row nowrap;
 }
