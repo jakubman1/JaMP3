@@ -3,16 +3,32 @@
 @import "../SharedStyles/typeface";
 
 .settings-wrapper {
-  max-width: 500px;
+  max-width: 570px;
   display: grid;
-  grid-template-columns: auto 200px;
-  grid-template-rows: 60px;
+  grid-template-columns: auto 220px;
+  grid-template-rows: 1fr;
   grid-column-gap: 20px;
-  grid-row-gap: 10px;
+  grid-row-gap: 20px;
   justify-items: end;
+  align-items: center;
+  font-size: 1.2em;
+  line-height: 30px;
+  color: $color-font;
 }
 
-// buttons
 .settings-wrapper div:nth-child(2n) {
-  background: $color-settings-input;
+  width: 184px;
+  text-align: center;
+}
+
+.subtext {
+  display: block;
+  color: $color-font-secondary;
+  font-size: 0.7em;
+  line-height: 0.7em;
+  text-align: right;
+}
+
+.settings-title {
+  margin-left: 50px;
 }

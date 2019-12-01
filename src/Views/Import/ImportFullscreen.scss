@@ -6,10 +6,16 @@
   border-radius: 50px;
   width: 500px;
   max-width: 90%;
-  height: 300px;
   border: 5px dashed white;
+  padding-top: 50px;
+  padding-bottom: 50px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+  transition: all ease-in-out 150ms;
+  &:hover {
+    background: transparentize($color-success, .8);
+  }
 }
 
 .go-back {
@@ -19,4 +25,8 @@
   color: $color-font;
   font-size: 50px;
   cursor: pointer;
+}
+
+.big-icon {
+  font-size: 150px;
 }

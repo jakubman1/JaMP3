@@ -1,8 +1,9 @@
-import React, {RefObject} from "react";
+import React from "react";
 import "./ImportFullscreen.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronCircleLeft} from '@fortawesome/free-solid-svg-icons'
-import {Link, useHistory} from "react-router-dom";
+import { faChevronCircleLeft, faFileAudio} from '@fortawesome/free-solid-svg-icons'
+import {Link} from "react-router-dom";
+const { ipcRenderer } = window.require('electron');
 
 interface IProps {}
 interface IState {
@@ -23,7 +24,8 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
 
 
     handleDragStart = (event: any) => {
-
+        event.preventDefault();
+        ipcRenderer.send('ondragstart', '/path/to/item')
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -35,10 +37,11 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
 
                 <h1>Import</h1>
                 <div className="import-area" onDragStart={this.handleDragStart}>
+                    <FontAwesomeIcon className="big-icon" icon={faFileAudio} />
                     <p>Sem přetáhněte soubory</p>
                 </div>
                 <h2>NEBO</h2>
-                <a className="btn btn-big btn-outline">Procházet</a>
+                <Link to="/import/playlist" className="btn btn-big btn-outline">Procházet</Link>
             </div>
         );
     }

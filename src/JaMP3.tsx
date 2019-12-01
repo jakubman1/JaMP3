@@ -14,6 +14,7 @@ import {SearchBar} from "./Views/SearchBar";
 import {Settings} from "./Views/Settings";
 import {Player} from "./Views/Player";
 import {ImportFullscreen} from "./Views/Import/ImportFullscreen";
+import {ImportCreatePlaylist} from "./Views/Import/ImportCreatePlaylist";
 
 class JaMP3 extends React.Component {
 
@@ -44,6 +45,9 @@ class JaMP3 extends React.Component {
                                 <h2>Všechny skladby</h2>
                                 <MusicTable playlist={activePlaylist}/>
                             </div>
+                        </Route>
+                        <Route path="/import/playlist">
+                            <ImportCreatePlaylist />
                         </Route>
                         <Route path="/import">
                             <ImportFullscreen/>

@@ -7,7 +7,8 @@
   color: $color-font;
   background: none;
   text-decoration: none;
-  padding: 5px 15px;
+  padding: 5px 10px;
+  cursor: pointer;
   transition: background 250ms ease-in-out;
   &:hover {
     background: transparentize($color-font, .7);
@@ -16,7 +17,7 @@
 
 .btn-big {
   font-size: 1.7em;
-  padding: 10px 30px;
+  padding: 10px 15px;
 }
 
 .btn-outline {
