@@ -129,7 +129,15 @@ export class Player extends React.Component {
     secondsToTime = (seconds: number): string => {
         const min = Math.floor(seconds / 60);
         const sec = seconds % 60;
-        return min.toString() + ":" + sec.toString();
+        let minStr = min.toString();
+        let secStr = sec.toString();
+        if (min < 10) {
+            minStr = "0" + minStr;
+        }
+        if (sec < 10) {
+            secStr = "0" + secStr
+        }
+        return minStr + ":" + secStr;
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
