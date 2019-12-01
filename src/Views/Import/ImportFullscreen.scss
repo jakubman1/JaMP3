@@ -1,13 +1,6 @@
-@import "../SharedStyles/colors";
+@import "../../SharedStyles/colors";
+@import "import-common";
 
-.fullscreen-wrapper {
-  width: 100vw;
-  height: 100vh;
-  background: $color-background;
-  text-align: center;
-  color: $color-font;
-  z-index: 999;
-}
 
 .import-area {
   border-radius: 50px;

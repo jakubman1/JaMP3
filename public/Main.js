@@ -10,7 +10,9 @@ function createWindow() {
         height: 800,
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        title: "JaMP3 | Loading...",
+
     });
 
     win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
