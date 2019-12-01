@@ -27,6 +27,14 @@ export function removeSongFromPlaylist(song_id: string, pl_id: string) {
     ipcRenderer.send('removeSongFromPlaylist-request', {'song_id': song_id, 'pl_id': pl_id});
 }
 
+export function addSongToFavourite(song_id: string) {
+    ipcRenderer.send('addSongToFavourite-request', {'song_id': song_id});
+}
+
+export function removeSongToFavourite(song_id: string) {
+    ipcRenderer.send('removeSongFromFavourite-request', {'song_id': song_id});
+}
+
 export function getSongsTable(playlistID: string) {
     ipcRenderer.send('getSongsTable-request', playlistID);
 
@@ -57,6 +65,26 @@ export function getAllPlaylists() {
     ipcRenderer.on('getAllPlaylists-reply', (event: any, arg: object[]) => {
         emitter.emit('playlistListChanged', arg);
     });
+}
+
+export function getPlaylistName(playlistId: string) {
+    if (playlistId === "all") {
+        emitter.emit('getPlaylistName', "Všechny skladby");
+    }
+    else if (playlistId === "favourite") {
+        emitter.emit('getPlaylistName', "Oblíbené skladby");
+    }
+    else {
+        ipcRenderer.send('getPlaylistName-request', playlistId);
+
+        ipcRenderer.on('getPlaylistName-reply', (event: any, arg: {id: string, name: string}[]) => {
+            emitter.emit('getPlaylistName', arg[0]["name"]);
+        });
+    }
+}
+
+export function sendPlaylistId(playlistId: string) {
+    emitter.emit('sendPlaylistId', playlistId);
 }
 
 export function createNewPlaylist(name: string) {

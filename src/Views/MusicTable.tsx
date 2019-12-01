@@ -7,6 +7,8 @@ interface Props {}
 
 interface State {
     songs: object[];
+    playlistId: string;
+    playlistName: string;
 }
 
 export class MusicTable extends React.Component<Props, State> {
@@ -14,16 +16,36 @@ export class MusicTable extends React.Component<Props, State> {
     constructor(props: any) {
         super(props);
         this.state = {
-            songs: []
+            songs: [],
+            playlistId: "all",
+            playlistName: "Všechny skladby"
         };
 
         dbRequests.emitter.on('songsTableChanged', (data: any) => this.loadSongs(data));
         dbRequests.getSongsTable("all");
+
+        dbRequests.emitter.on('sendPlaylistId', (data: any) => this.loadPlaylistId(data));
+        dbRequests.sendPlaylistId("all");
+
+        dbRequests.emitter.on('getPlaylistName', (data: any) => this.getPlaylistName(data));
+        dbRequests.getPlaylistName("all");
     }
 
     loadSongs = (data: any) => {
         this.setState({
             songs: data
+        });
+    };
+
+    loadPlaylistId = (data: any) => {
+        this.setState({
+            playlistId: data
+        });
+    };
+
+    getPlaylistName = (data: any) => {
+        this.setState({
+            playlistName: data
         });
     };
 
@@ -33,13 +55,14 @@ export class MusicTable extends React.Component<Props, State> {
             let song: object;
 
             for (song of this.state.songs) {
+                console.log(song);
                 // @ts-ignore
-                rows.push(<MusicTableRow id={song._id} name={song.title} album={song.album} author={song.author} length={song.length} path={song.path}/>)
+                rows.push(<MusicTableRow playlistId={this.state.playlistId} id={song._id} name={song.title} album={song.album} author={song.author} length={song.length} path={song.path} favourite={song.favourite}/>)
             }
-
             return (
                 <div className="center-wrapper">
-                    <h1>Všechny skladby</h1>
+                    <h1>{this.state.playlistName}</h1>
+
                     <table className="song-table">
                         <thead>
                         <tr className="song-table-header">
@@ -59,7 +82,8 @@ export class MusicTable extends React.Component<Props, State> {
         } else {
             return (
                 <div className="center-wrapper">
-                    <h1>Žádné skladby</h1>
+                    <h1>{this.state.playlistName}</h1>
+                    <h2>Žádné skladby...</h2>
                 </div>
             );
         }

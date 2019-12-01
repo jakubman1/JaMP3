@@ -25,6 +25,16 @@ module.exports = {
         songsDB.persistence.compactDatafile();
     },
 
+    addSongToFavourite: function (song_id) {
+        songsDB.update({ _id: song_id }, { $set: { favourite: true } }, {});
+        songsDB.persistence.compactDatafile();
+    },
+
+    removeSongFromFavourite: function (song_id) {
+        songsDB.update({ _id: song_id }, { $set: { favourite: false } }, {});
+        songsDB.persistence.compactDatafile();
+    },
+
     findSongsInSelectedPlaylist: function(playlistID) {
         if (playlistID === 'all') {
             return new Promise((resolve, reject) => {
@@ -72,9 +82,18 @@ module.exports = {
 
     // playlistsDB functions
     findAllPlaylists: function() {
-
         return new Promise((resolve, reject) => {
             playlistsDB.find({}, function (err, docs) {
+                if (err) reject(err);
+                if (!docs) resolve([]);
+                resolve(docs);
+            });
+        });
+    },
+
+    getPlaylistName: function(playlistId) {
+        return new Promise((resolve, reject) => {
+            playlistsDB.find({_id: playlistId},function (err, docs) {
                 if (err) reject(err);
                 if (!docs) resolve([]);
                 resolve(docs);

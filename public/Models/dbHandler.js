@@ -19,6 +19,14 @@ ipcMain.on('removeSongFromPlaylist-request', (event, arg) => {
     db.removeSongFromPlaylist(arg.song_id, arg.pl_id);
 });
 
+ipcMain.on('addSongToFavourite-request', (event, arg) => {
+    db.addSongToFavourite(arg.song_id);
+});
+
+ipcMain.on('removeSongFromFavourite-request', (event, arg) => {
+    db.removeSongFromFavourite(arg.song_id);
+});
+
 ipcMain.on('getSongsTable-request', (event, arg) => {
     db.findSongsInSelectedPlaylist(arg)
         .then(response => event.reply('getSongsTable-reply', response))
@@ -40,6 +48,12 @@ ipcMain.on('getFavouriteSongsCount-request', (event, arg) => {
 ipcMain.on('getAllPlaylists-request', (event, arg) => {
     db.findAllPlaylists()
         .then(response => event.reply('getAllPlaylists-reply', response))
+        .catch(err => console.log(err));
+});
+
+ipcMain.on('getPlaylistName-request', (event, arg) => {
+    db.getPlaylistName(arg)
+        .then(response => event.reply('getPlaylistName-reply', response))
         .catch(err => console.log(err));
 });
 
