@@ -1,7 +1,7 @@
 import React from "react";
-import "./ImportFullscreen.scss";
+import "./ImportCreatePlaylist.scss";
 
-export class ImportFullscreen extends React.Component {
+export class ImportCreatePlaylist extends React.Component {
 
     props = {
         fileCount: 0,
