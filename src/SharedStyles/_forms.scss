@@ -11,7 +11,7 @@
     outline: none;
   }
   &::placeholder {
-    color: $color-font-secondary;
+    color: transparentize($color-font, .2);
   }
 }
 
