@@ -33,6 +33,10 @@ select option {
   background-color: $color-search-bar;
 }
 
+.icon {
+  color: $color-font;
+}
+
 .search-icon {
   flex-grow: 0;
   position: relative;

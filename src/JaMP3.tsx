@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import './JaMP3.scss';
 import './Views/MusicTable'
 import {
@@ -17,7 +16,7 @@ import {ImportFullscreen} from "./Views/Import/ImportFullscreen";
 
 class JaMP3 extends React.Component {
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = "JaMP3 | Just another music player"
     }
 
@@ -27,29 +26,35 @@ class JaMP3 extends React.Component {
         return (
             <div className="JaMP3">
                 <Router>
+                    <div className="sidebar-wrapper">
+                        <h1 className="logo text-center">JaMP3</h1>
+                        <PlaylistList activePlaylist={"adsd"}/>
+                    </div>
+
+                    <div className="now-playing-bar-wrapper">
+                        <Player/>
+                    </div>
+
                     <Switch>
                         <Route path="/home">
-                            <div className="sidebar-wrapper">
-                                <h1 className="logo text-center">JaMP3</h1>
-                                <PlaylistList activePlaylist={"adsd"}/>
-                            </div>
                             <div className="search-bar-wrapper">
-                                <SearchBar searchedText={"tvoje mama"}/>
+                                <SearchBar/>
                             </div>
                             <div className="center-wrapper">
                                 <h2>Všechny skladby</h2>
                                 <MusicTable playlist={activePlaylist}/>
                             </div>
-                            <div className="now-playing-bar-wrapper">
-                                <Player/>
-                            </div>
-                        </Route>
-                        <Route path="/">
-                            <Welcome/>
                         </Route>
                         <Route path="/import">
                             <ImportFullscreen/>
                         </Route>
+                        <Route path="/settings">
+                            <h2>Settings</h2>
+                        </Route>
+                        <Route path="/">
+                            <Welcome/>
+                        </Route>
+
                     </Switch>
                 </Router>
 
