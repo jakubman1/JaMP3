@@ -1,24 +1,29 @@
 import * as React from 'react'
-import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import {faStar as star} from '@fortawesome/free-regular-svg-icons'
-export const MusicTableRow: React.FunctionComponent<{
+
+interface Props {
     name: string;
     album?: string;
     author?: string;
-    length: string;
+    length?: string;
     path: string;
     id: string;
-}> = (props) => {
-    return (
-        <tr className="song-row">
-            <td className="song-name">{props.name}</td>
-            <td>{props.album ? props.album : ''}</td>
-            <td>{props.author ? props.author : ''}</td>
-            <td>{props.length}</td>
-            <td className="song-row-icon-wrapper"><FontAwesomeIcon icon={star} className="song-row-icon"/>
-            <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon" /></td>
-        </tr>
-    );
-};
+}
+
+export class MusicTableRow extends React.Component<Props> {
+    render() {
+        return (
+            <tr className="song-row">
+                <td className="song-name">{this.props.name}</td>
+                <td>{this.props.album ? this.props.album : ''}</td>
+                <td>{this.props.author ? this.props.author : ''}</td>
+                <td>{this.props.length ? this.props.author : ''}</td>
+                <td className="song-row-icon-wrapper">
+                    <FontAwesomeIcon icon={faStar} className="song-row-icon"/>
+                    <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon"/>
+                </td>
+            </tr>
+        );
+    }
+}

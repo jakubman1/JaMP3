@@ -27,7 +27,7 @@ export class Player extends React.Component {
         duration: 0
     };
 
-    _audio = new Audio(undefined);
+    _audio = new Audio(this.state.song);
 
     prevSong = () => {
         this.setState({
@@ -149,7 +149,7 @@ export class Player extends React.Component {
                         <FontAwesomeIcon onClick={this.toggleSong}
                                          className="player-control-icon icon-circle"
                                          icon={this.state.playing ? faPause : faPlay}/>
-                        <FontAwesomeIcon onClick={this.prevSong} className="player-control-icon" icon={faFastForward}/>
+                        <FontAwesomeIcon onClick={this.nextSong} className="player-control-icon" icon={faFastForward}/>
                     </div>
                     <div className="volume-control">
                         <div className="volume-icon-container">

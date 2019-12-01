@@ -6,9 +6,7 @@ import * as dbRequests from "../Controllers/dbRequests";
 import {PlaylistRow} from "./PlaylistRow";
 import {AddPlaylist} from "./AddPlaylist";
 
-interface Props {
-    activePlaylist: string;
-}
+interface Props {}
 
 interface State {
     playlists: object[]
@@ -55,6 +53,14 @@ export class PlaylistList extends React.Component<Props, State> {
         });
     };
 
+    loadAllSongs = () => {
+        dbRequests.getSongsTable("all");
+    };
+
+    loadFavouriteSongs = () => {
+        dbRequests.getSongsTable("favourite");
+    };
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         let rows: any[] = [];
         let playlist: object;
@@ -75,14 +81,14 @@ export class PlaylistList extends React.Component<Props, State> {
                 <div className="top-list-wrapper">
                     <ul className="playlist-list">
                         <li>
-                            <span className="playlist-list-name">Vše</span>
+                            <span className="playlist-list-name" onClick={this.loadAllSongs}>Vše</span>
                             <span className="playlist-list-song-count">{this.state.all_count} skladeb</span>
                         </li>
                         <li>
                             <div className="playlist-icon-wrapper">
                                 <FontAwesomeIcon className="playlist-icon" icon={faStar} />
                             </div>
-                            <span className="playlist-list-name">Oblíbené</span>
+                            <span className="playlist-list-name" onClick={this.loadFavouriteSongs}>Oblíbené</span>
                             <span className="playlist-list-song-count">{this.state.favourite_count} skladeb</span>
                         </li>
                         <li onClick={this.showAddPlaylistComponent}>

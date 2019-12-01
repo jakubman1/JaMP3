@@ -30,7 +30,7 @@ class JaMP3 extends React.Component {
                 <Router>
                     <div className="sidebar-wrapper">
                         <h1 className="logo text-center">JaMP3</h1>
-                        <PlaylistList activePlaylist={"adsd"}/>
+                        <PlaylistList/>
                     </div>
                     <div className="search-bar-wrapper">
                         <SearchBar/>
@@ -41,7 +41,7 @@ class JaMP3 extends React.Component {
 
                     <Switch>
                         <Route path="/home">
-                            <MusicTable playlist={activePlaylist}/>
+                            <MusicTable/>
                         </Route>
                         <Route path="/import/playlist">
                             <ImportCreatePlaylist />

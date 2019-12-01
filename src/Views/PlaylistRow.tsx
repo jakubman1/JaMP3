@@ -22,7 +22,6 @@ export class PlaylistRow extends React.Component<Props> {
     };
 
     loadSongsInTable = () => {
-        console.log(this.props.id);
         dbRequests.getSongsTable(this.props.id);
     };
 
