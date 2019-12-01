@@ -27,7 +27,7 @@ export class Player extends React.Component {
         duration: 0
     };
 
-    _audio = new Audio(this.state.song);
+    _audio = new Audio(undefined);
 
     prevSong = () => {
         this.setState({
