@@ -63,8 +63,8 @@ export function getAllPlaylists() {
     });
 }
 
-export function createNewPlaylist(id: string, name: string) {
-    ipcRenderer.send('createNewPlaylist-request', {'id': id, 'name': name});
+export function createNewPlaylist(name: string) {
+    ipcRenderer.send('createNewPlaylist-request', {'name': name});
 }
 
 export function deletePlaylist(id: string) {

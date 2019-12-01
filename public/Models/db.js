@@ -82,8 +82,8 @@ module.exports = {
         });
     },
 
-    createNewPlaylist: function (id, name) {
-        playlistsDB.insert({ _id: id, name: name});
+    createNewPlaylist: function (name) {
+        playlistsDB.insert({name: name});
     },
 
     deletePlaylist: function (id) {
