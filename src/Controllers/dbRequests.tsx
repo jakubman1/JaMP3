@@ -30,10 +30,8 @@ export function removeSongFromPlaylist(song_id: string, pl_id: string) {
 export function getSongsTable(playlistID: string) {
     ipcRenderer.send('getSongsTable-request', playlistID);
 
-    return new Promise<object[]>((resolve: any, reject: any) => {
-        ipcRenderer.on('getSongsTable-reply', (event: any, arg: object[]) => {
-            resolve(arg);
-        });
+    ipcRenderer.on('getSongsTable-reply', (event: any, arg: object[]) => {
+        emitter.emit('songsTableChanged', arg);
     });
 }
 
