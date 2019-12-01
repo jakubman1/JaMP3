@@ -1,4 +1,9 @@
 @import "../SharedStyles/style";
+@import "../SharedStyles/colors";
+
+.fullscreen-wrapper {
+  background-color: $color-background2;
+}
 
 .logo-big {
   font-size: 10vw;
@@ -6,4 +11,19 @@
 
 .fancy-subheading {
   font-size: 5vw;
+}
+
+.welcome-images {
+  display: grid;
+  grid-template-columns: repeat(3, 25vw);
+  grid-template-rows: 1fr 50px;
+  grid-column-gap: 60px;
+  grid-row-gap: 15px;
+  justify-items: center;
+  margin-bottom: 30px;
+}
+
+.welcome-images img {
+  width: 100%;
+  height: auto;
 }

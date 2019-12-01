@@ -2,6 +2,7 @@ import * as React from 'react'
 import {Link} from 'react-router-dom';
 import './Welcome.scss';
 import { useHistory } from "react-router-dom";
+import importInstructions from "./import-instructions.jpg";
 
 export const Welcome: React.FunctionComponent = () => {
     let history = useHistory();
@@ -22,7 +23,14 @@ export const Welcome: React.FunctionComponent = () => {
                 <h2 className="fancy-subheading text-center">Just Another Music Player</h2>
             </div>
             <div className="row align-center">
-
+                <div className="welcome-images">
+                    <img className="welcome-image" src={importInstructions} alt="import instructions"/>
+                    <img src={importInstructions} alt="import instructions"/>
+                    <img src={importInstructions} alt="import instructions"/>
+                    <div>Klikněte na tlačítko importu v pravém horním rohu aplikace.</div>
+                    <div>Přetáhněte soubor(y) nebo klikněte na tlačítko "Procházet" pro výběr hudby.</div>
+                    <div>Vyberte si playlist, do kterého chcete novou hudbu přidat a klikněte na tlačítko "Importovat."</div>
+                </div>
             </div>
             <div className="row align-center">
                 <a onClick={handleNextClick} className="btn btn-big btn-outline text-center">Pokračovat</a>
