@@ -6,9 +6,12 @@
   border: 3px solid $color-input-border;
   border-radius: 50px;
   padding: 5px 10px;
-  margin: 5px;
+  margin-top: 5px;
   &:focus {
     outline: none;
+  }
+  &::placeholder {
+    color: $color-font-secondary;
   }
 }
 
