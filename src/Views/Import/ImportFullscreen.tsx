@@ -1,8 +1,8 @@
-import React, {RefObject} from "react";
+import React from "react";
 import "./ImportFullscreen.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronCircleLeft} from '@fortawesome/free-solid-svg-icons'
-import {Link, useHistory} from "react-router-dom";
+import { faChevronCircleLeft, faFileAudio} from '@fortawesome/free-solid-svg-icons'
+import {Link} from "react-router-dom";
 const { ipcRenderer } = window.require('electron');
 
 interface IProps {}
@@ -37,6 +37,7 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
 
                 <h1>Import</h1>
                 <div className="import-area" onDragStart={this.handleDragStart}>
+                    <FontAwesomeIcon className="big-icon" icon={faFileAudio} />
                     <p>Sem přetáhněte soubory</p>
                 </div>
                 <h2>NEBO</h2>
