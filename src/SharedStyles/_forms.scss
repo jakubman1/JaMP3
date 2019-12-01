@@ -1,0 +1,18 @@
+@import "colors";
+
+.round-input {
+  background: transparentize($color-font, .6);
+  color: $color-font;
+  border: 3px solid $color-input-border;
+  border-radius: 50px;
+  padding: 5px 10px;
+  margin: 5px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.input-big {
+  font-size: 1.3em;
+  padding: 10px 15px;
+}

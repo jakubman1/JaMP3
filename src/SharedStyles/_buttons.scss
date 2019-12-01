@@ -8,6 +8,7 @@
   background: none;
   text-decoration: none;
   padding: 5px 15px;
+  cursor: pointer;
   transition: background 250ms ease-in-out;
   &:hover {
     background: transparentize($color-font, .7);

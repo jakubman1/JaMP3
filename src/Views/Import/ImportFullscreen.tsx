@@ -3,6 +3,7 @@ import "./ImportFullscreen.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronCircleLeft} from '@fortawesome/free-solid-svg-icons'
 import {Link, useHistory} from "react-router-dom";
+const { ipcRenderer } = window.require('electron');
 
 interface IProps {}
 interface IState {
@@ -23,7 +24,8 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
 
 
     handleDragStart = (event: any) => {
-
+        event.preventDefault();
+        ipcRenderer.send('ondragstart', '/path/to/item')
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
