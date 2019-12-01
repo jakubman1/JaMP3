@@ -15,7 +15,7 @@ export const Welcome: React.FunctionComponent = () => {
             history.push("/home");
         }
     }
-    //checkHistory();
+    checkHistory();
     return (
         <div className="fullscreen-wrapper">
             <div className="row align-center">
@@ -24,7 +24,7 @@ export const Welcome: React.FunctionComponent = () => {
             </div>
             <div className="row align-center">
                 <div className="welcome-images">
-                    <img src={importInstructions} alt="import instructions"/>
+                    <img className="welcome-image" src={importInstructions} alt="import instructions"/>
                     <img src={importInstructions} alt="import instructions"/>
                     <img src={importInstructions} alt="import instructions"/>
                     <div>Klikněte na tlačítko importu v pravém horním rohu aplikace.</div>

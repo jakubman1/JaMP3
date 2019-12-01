@@ -15,16 +15,15 @@
 
 .welcome-images {
   display: grid;
-  grid-template-columns: repeat(3, 400px);
+  grid-template-columns: repeat(3, 25vw);
   grid-template-rows: 1fr 50px;
   grid-column-gap: 60px;
   grid-row-gap: 15px;
   justify-items: center;
-  margin-top: 100px;
   margin-bottom: 30px;
 }
 
 .welcome-images img {
-  width: 400px;
+  width: 100%;
   height: auto;
 }
