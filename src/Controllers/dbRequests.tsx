@@ -1,11 +1,15 @@
 import React from "react";
 import {create} from "domain";
+///<reference path="./typings/node/node.d.ts" />
+import {EventEmitter} from 'events';
 const { ipcRenderer } = window.require('electron');
 
 // synchronous-reply
 // let tags = ipcRenderer.sendSync('insertMP3-request', path);
 // asynchronous-reply
 // ipcRenderer.send('asynchronous-message', 'ping')
+
+export const emitter = new EventEmitter();
 
 export function importMP3s(files: string[]) {
     ipcRenderer.send('importMP3s-request', files);
@@ -36,30 +40,24 @@ export function getSongsTable(playlistID: string) {
 export function getAllSongsCount() {
     ipcRenderer.send('getAllSongsCount-request');
 
-    return new Promise<number>((resolve: any, reject: any) => {
-        ipcRenderer.on('getAllSongsCount-reply', (event: any, arg: number) => {
-            resolve(arg);
-        });
+    ipcRenderer.on('getAllSongsCount-reply', (event: any, arg: number) => {
+        emitter.emit('allPlaylistCount', arg);
     });
 }
 
 export function getFavouriteSongsCount() {
     ipcRenderer.send('getFavouriteSongsCount-request');
 
-    return new Promise<number>((resolve: any, reject: any) => {
-        ipcRenderer.on('getFavouriteSongsCount-reply', (event: any, arg: number) => {
-            resolve(arg);
-        });
+    ipcRenderer.on('getFavouriteSongsCount-reply', (event: any, arg: number) => {
+        emitter.emit('favouritePlaylistCount', arg);
     });
 }
 
 export function getAllPlaylists() {
     ipcRenderer.send('getAllPlaylists-request');
 
-    return new Promise<object[]>((resolve: any, reject: any) => {
-        ipcRenderer.on('getAllPlaylists-reply', (event: any, arg: object[]) => {
-            resolve(arg);
-        });
+    ipcRenderer.on('getAllPlaylists-reply', (event: any, arg: object[]) => {
+        emitter.emit('playlistListChanged', arg);
     });
 }
 

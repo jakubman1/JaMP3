@@ -3,7 +3,6 @@ import "./PlaylistList.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faPlus} from '@fortawesome/free-solid-svg-icons'
 import * as dbRequests from "../Controllers/dbRequests";
-import {Playlist} from "../Shared/Playlist";
 import {PlaylistRow} from "./PlaylistRow";
 import {AddPlaylist} from "./AddPlaylist";
 
@@ -20,22 +19,6 @@ interface State {
 
 export class PlaylistList extends React.Component<Props, State> {
 
-    loadPlaylists(): Promise<object[]> {
-        return dbRequests.getAllPlaylists();
-    }
-
-    loadAllCount(): Promise<number> {
-        return dbRequests.getAllSongsCount();
-    }
-
-    loadFavouriteCount(): Promise<number> {
-        return dbRequests.getFavouriteSongsCount();
-    }
-
-    createPlaylist(name: string) {
-        dbRequests.createNewPlaylist(name);
-    }
-
     constructor(props: any) {
         super(props);
         this.state = {
@@ -44,47 +27,32 @@ export class PlaylistList extends React.Component<Props, State> {
             favourite_count: 0,
             showAddPlaylistComponent: false,
         };
+        dbRequests.emitter.on('playlistListChanged', (data: any) => this.loadPlaylists(data));
+        dbRequests.getAllPlaylists();
 
-        this.loadPlaylists()
-            .then(data => {
-                this.setState({playlists: data});
-                return true;
-            })
-            .catch(err => console.warn(err));
+        dbRequests.emitter.on('allPlaylistCount', (data: any) => this.loadAllSongsCount(data));
+        dbRequests.getAllSongsCount();
 
-        this.loadAllCount()
-            .then(data => {
-                this.setState({all_count: data});
-                return true;
-            })
-            .catch(err => console.warn(err));
-
-        this.loadFavouriteCount()
-            .then(data => {
-                this.setState({favourite_count: data});
-                return true;
-            })
-            .catch(err => console.warn(err));
-
+        dbRequests.emitter.on('favouritePlaylistCount', (data: any) => this.loadFavouriteSongsCount(data));
+        dbRequests.getFavouriteSongsCount();
     }
+
+    loadPlaylists = (data: any) => {
+        this.setState({playlists: data});
+    };
+
+    loadAllSongsCount = (data: any) => {
+        this.setState({all_count: data});
+    };
+
+    loadFavouriteSongsCount = (data: any) => {
+        this.setState({favourite_count: data});
+    };
 
     showAddPlaylistComponent = () => {
         this.setState({
             showAddPlaylistComponent: !this.state.showAddPlaylistComponent
         });
-    };
-
-    createNewPlaylist = (name: string) => {
-        if (name !== "") {
-            this.createPlaylist(name);
-
-            this.loadPlaylists()
-                .then(data => {
-                    this.setState({playlists: data});
-                    return true;
-                })
-                .catch(err => console.warn(err));
-        }
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -99,7 +67,7 @@ export class PlaylistList extends React.Component<Props, State> {
         let addPlaylist = null;
 
         if (this.state.showAddPlaylistComponent) {
-            addPlaylist = (<AddPlaylist okCB={this.showAddPlaylistComponent} nameCB={this.createNewPlaylist}/>);
+            addPlaylist = (<AddPlaylist callback={this.showAddPlaylistComponent}/>);
         }
 
         return (
