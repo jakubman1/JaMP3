@@ -11,6 +11,7 @@ import {MusicTable} from "./Views/MusicTable";
 import {Welcome} from "./Views/Welcome"
 import {PlaylistList} from "./Views/PlaylistList";
 import {SearchBar} from "./Views/SearchBar";
+import {Settings} from "./Views/Settings";
 import {Player} from "./Views/Player";
 import {ImportFullscreen} from "./Views/Import/ImportFullscreen";
 
@@ -49,7 +50,7 @@ class JaMP3 extends React.Component {
                             <ImportFullscreen/>
                         </Route>
                         <Route path="/settings">
-                            <h2>Settings</h2>
+                            <Settings/>
                         </Route>
                         <Route path="/">
                             <Welcome/>
