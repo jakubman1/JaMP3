@@ -45,6 +45,9 @@ class JaMP3 extends React.Component {
                                 <MusicTable playlist={activePlaylist}/>
                             </div>
                         </Route>
+                        <Route path="/import/playlist">
+                            <ImportCreatePlaylist />
+                        </Route>
                         <Route path="/import">
                             <ImportFullscreen/>
                         </Route>

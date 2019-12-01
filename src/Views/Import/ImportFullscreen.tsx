@@ -41,7 +41,7 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
                     <p>Sem přetáhněte soubory</p>
                 </div>
                 <h2>NEBO</h2>
-                <a className="btn btn-big btn-outline">Procházet</a>
+                <Link to="/import/playlist" className="btn btn-big btn-outline">Procházet</Link>
             </div>
         );
     }
