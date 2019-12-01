@@ -2,47 +2,49 @@
 @import "../SharedStyles/colors";
 @import "../SharedStyles/typeface";
 
+.search-bar-menu {
+  flex-grow: 1;
+  border-radius: 50px 0 0 50px;
+  margin-left: 20px;
+  text-align-last: right;
+  max-width: 210px;
+}
+
+.search-bar {
+  flex-grow: 5;
+  border-radius: 0 50px 50px 0;
+  padding-left: 30px;
+  margin-left: -25px;
+  &::placeholder { color: darken($color-font, 20%); };
+}
+
 .search-bar-menu, .search-bar {
-  background-color: transparentize($color-font, .7);
-  border: solid 5px $color-search-bar-bg;
-  float: left;
   font-size: 1.2em;
   color: $color-font;
-  padding: 5px;
+  background-color: $color-search-bar;
+  border: solid 3px $color-search-bar-border;
   margin-top: 5px;
-  line-height: 1.2em;
   &:active, &:focus {
     outline: none;
   }
 }
 
-.search-bar-menu {
-  width: 15%;
-  margin-left: 20px;
-  border-radius: 50px 0 0 50px;
-  min-width: 200px;
+select option {
+  background-color: $color-search-bar;
 }
 
 .search-icon {
-  position: absolute;
+  flex-grow: 0;
+  position: relative;
   top: 18px;
-  padding-left: 3px;
+  padding-left: 5px;
+  font-size: 1.2em;
 }
 
 .download-icon, .settings-icon {
-  float: right;
-}
-
-.search-bar {
-  width: 60%;
-  border-radius: 0 50px 50px 0;
-  padding-left: 20px;
-  min-width: 450px;
-  &::placeholder { color: darken($color-font, 20%); };
-}
-
-.search-bar-icons {
-  width: 20%;
-  height: 100%;
-  float: right;
+  flex-grow: 1;
+  font-size: 1.8em;
+  max-width: 80px;
+  min-width: 80px;
+  padding-top: 12px;
 }

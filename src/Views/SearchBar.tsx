@@ -15,18 +15,19 @@ export class SearchBar extends React.Component<Props> {
             <div className="search-bar-wrapper">
 
                 <select className="search-bar-menu">
-                    <option value="tvoje_mama">Vše</option>
-                    <option value="tvoje_tata">Adam je pukavec</option>
-                </select>
+                     <option value="tvoje_mama">Vše</option>
+                     <option value="tvoje_tata">Adam je pukavec</option>
+                 </select>
 
-                <FontAwesomeIcon className="search-icon" icon={faSearch} />
-                <input className="search-bar" type="text" name="searched-text" placeholder="Vyhledat..." />
+                 <FontAwesomeIcon className="search-icon" icon={faSearch} />
 
-                <div className="search-bar-icons">
-                    <FontAwesomeIcon className="download-icon" icon={faDownload} />
-                    <FontAwesomeIcon className="settings-icon" icon={faCog} />
-                </div>
+                 <input className="search-bar" type="text" name="searched-text" placeholder="Vyhledat..." />
+
+                 <FontAwesomeIcon className="download-icon" icon={faDownload} />
+                 <FontAwesomeIcon className="settings-icon" icon={faCog} />
+
             </div>
+
         );
     }
 }
