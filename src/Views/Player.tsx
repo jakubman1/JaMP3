@@ -152,6 +152,10 @@ export class Player extends React.Component {
             <div className="max-100">
                 <NowPlayingDetails/>
                 <div className="now-playing-bar-content">
+                    <div className="add-to-favourites">
+                        <FontAwesomeIcon icon={faStarO} className="add-to-favourites-icon"/>
+                        Přidat do oblíbených
+                    </div>
                     <div className="player-control-icon-container">
                         <FontAwesomeIcon onClick={this.prevSong} className="player-control-icon" icon={faFastBackward}/>
                         <FontAwesomeIcon onClick={this.toggleSong}
@@ -167,10 +171,6 @@ export class Player extends React.Component {
                                 onChange={this.changeVolume}/>
                         <span className="margin-l">{Math.floor(this.state.volume * 100)}%</span>
 
-                    </div>
-                    <div className="add-to-favourites">
-                        <FontAwesomeIcon icon={faStarO}/>
-                        Přidat do oblíbených
                     </div>
                     <div className="time-slider-container">
                         <span className="time-slider-label">

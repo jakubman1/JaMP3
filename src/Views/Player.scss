@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: calc(100vw - #{$sidebar-width} - 100px);
+  width: calc(100vw - #{$sidebar-width} - 50px);
 }
 .time-slider {
   display: inline-block;
@@ -28,8 +28,8 @@
 
 .volume-control {
   display: inline-block;
-  margin-left: 20px;
-  width: 170px;
+  margin-right: 20px;
+  min-width: 200px;
 }
 
 .volume-icon-container {
@@ -52,17 +52,28 @@
   width: calc(100vw - #{$sidebar-width});
   align-items: center;
   padding-top: 5px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .add-to-favourites {
   display: inline-block;
-  margin-left: 50px;
+  margin-left: 20px;
+  min-width: 200px;
+  transition: all ease-in-out 150ms;
+  cursor: pointer;
+  &:hover {
+    color: $color-accent;
+  }
+}
+.add-to-favourites-icon {
+  margin-right: 5px;
+  font-size: 1rem;
 }
 
 .player-control-icon-container {
   text-align: center;
   display: inline-block;
+  min-width: 200px;
 }
 
 .player-control-icon {
