@@ -42,8 +42,7 @@ export class SearchBar extends React.Component<IProps> {
 
     submitSearch = (e: any) => {
         if (e.key === 'Enter') {
-            console.log('do validate');
-            dbRequest.searchSongsInPlaylist(this.state.selectedPlaylist, "ai");
+            dbRequest.searchSongsInPlaylist(this.state.selectedPlaylist, e.target.value);
         }
     };
 
