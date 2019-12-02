@@ -1,5 +1,6 @@
 import React from "react";
 import "./ImportCreatePlaylist.scss";
+import {Link} from "react-router-dom";
 
 export class ImportCreatePlaylist extends React.Component {
 
@@ -28,7 +29,8 @@ export class ImportCreatePlaylist extends React.Component {
                 <span className="playlist-import-text">Napište název nového playlistu</span>
                 <input className="round-input playlist-import-name-input" type="text" placeholder="Název playlistu..."/>
 
-                <div className="btn btn-big btn-outline button-cancel">Zrušit</div>
+                <Link to="/home" className="btn btn-big btn-outline button-cancel">Zrušit</Link>
+                {/*<div className="btn btn-big btn-outline button-cancel">Zrušit</div>*/}
 
                 <div className="btn btn-big btn-outline button-import">Import</div>
             </div>
