@@ -1,7 +1,7 @@
 const NodeID3 = require('node-id3');
 const { ipcMain } = require('electron');
 const db = require('./db');
-
+const fs = require('fs');
 
 ipcMain.on('importMP3s-request', (event, arg) => {
     processPaths("", arg);
@@ -85,8 +85,27 @@ function processPaths(playlistId, files) {
         }
         else {
             // call open folder
+            handleFolderImport(files[i], playlistId)
         }
     }
+}
+
+function handleFolderImport(folderPath, playlistId) {
+    fs.readdir(folderPath, (err, dir) => {
+        if(err === null) {
+            for (let path of dir) {
+                if(folderPath.substr(-1) !== '\\') {
+                    folderPath += '\\';
+                }
+                if (path.toLowerCase().substr(-4) === '.mp3') {
+                    insertMP3(playlistId, folderPath + path);
+                }
+                else {
+                    handleFolderImport(folderPath + path, playlistId);
+                }
+            }
+        }
+    });
 }
 
 function insertMP3(playlistId, path) {
