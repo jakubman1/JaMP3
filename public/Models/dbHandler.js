@@ -3,12 +3,20 @@ const { ipcMain } = require('electron');
 const db = require('./db');
 
 
+ipcMain.on('searchSongsInPlaylist-request', (event, arg) => {
+    db.searchSongsInPlaylist(arg.playlistId, arg.text)
+        .then(response => event.reply('searchSongsInPlaylist-reply', response))
+        .catch(err => console.log(err));
+});
+
 ipcMain.on('importMP3s-request', (event, arg) => {
     processPaths("", arg);
 });
 
 ipcMain.on('importMP3sToNewPlaylist-request', (event, arg) => {
-    processPaths(arg.playlistName, arg.files);
+    db.createNewPlaylist(arg.playlistName)
+        .then(response => processPaths(response._id, arg.files) )
+        .catch(err => console.log(err));
 });
 
 ipcMain.on('importMP3sToPlaylist-request', (event, arg) => {
@@ -98,7 +106,7 @@ function insertMP3(playlistId, path) {
         album: tags['album'],
         year: tags['year'],
         favourite: false,
-        playlists: (playlistId !== "") ? [] : [playlistId]
+        playlists: (playlistId === "") ? [] : [playlistId]
     };
     db.insertRecord(record);
 }

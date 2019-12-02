@@ -12,6 +12,15 @@ const { ipcRenderer } = window.require('electron');
 export const emitter = new EventEmitter();
 emitter.setMaxListeners(20);
 
+export function searchSongsInPlaylist(playlistId: string, text: string) {
+    ipcRenderer.send('searchSongsInPlaylist-request', {"playlistId": playlistId, "text": text});
+
+    ipcRenderer.on('searchSongsInPlaylist-reply', (event: any, arg: object[]) => {
+        console.log(arg);
+        emitter.emit('searchSongsInPlaylist', arg);
+    });
+}
+
 export function importMP3s(files: string[]) {
     ipcRenderer.send('importMP3s-request', files);
 }
@@ -21,7 +30,7 @@ export function importMP3sToNewPlaylist(playlistName: string, files: string[]) {
 }
 
 export function importMP3sToPlaylist(playlistId: string, files: string[]) {
-    ipcRenderer.send('importMP3sToPlaylist-request', {"playlistName": playlistId, "files": files});
+    ipcRenderer.send('importMP3sToPlaylist-request', {"playlistId": playlistId, "files": files});
 }
 
 export function removeMP3s(id: string) {
@@ -44,8 +53,8 @@ export function removeSongToFavourite(song_id: string) {
     ipcRenderer.send('removeSongFromFavourite-request', {'song_id': song_id});
 }
 
-export function getSongsTable(playlistID: string) {
-    ipcRenderer.send('getSongsTable-request', playlistID);
+export function getSongsTable(playlistId: string) {
+    ipcRenderer.send('getSongsTable-request', playlistId);
 
     ipcRenderer.on('getSongsTable-reply', (event: any, arg: object[]) => {
         emitter.emit('songsTableChanged', arg);
@@ -117,3 +126,4 @@ export function renamePlaylist(pl_id: string, name: string) {
 // removeSongFromPlaylist('zF0WDDhuPPinzKqI', '1');
 // renamePlaylist('1', "ahoj");
 // removeMP3s('zF0WDDhuPPinzKqI');
+searchSongsInPlaylist("all", "ai");
