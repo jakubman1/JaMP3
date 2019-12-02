@@ -5,6 +5,7 @@ import { faChevronCircleLeft, faFileAudio} from '@fortawesome/free-solid-svg-ico
 import {Link} from "react-router-dom";
 import {ImportCreatePlaylist} from "./ImportCreatePlaylist";
 const { ipcRenderer } = window.require('electron');
+const {dialog} = window.require('electron').remote;
 
 interface IProps {}
 interface IState {
@@ -21,8 +22,20 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
 
 
     handleBrowseClick = () => {
-        // electron.dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] })
+        //const files: string[] =
+        dialog.showOpenDialog({title: "Vyberte skladby pro import",
+            properties: ['openFile', 'multiSelections'] ,
+            filters: [
+                { name: 'Soubory MP3', extensions: ['mp3'] }
+            ]
+        }).then((files: object | undefined) => {
+            if(files !== undefined) {
+                // @ts-ignore
+                this.setState({files: files.filePaths});
+            }
+        });
     };
+
 
 
     handleDrop = (event: any) => {
@@ -32,7 +45,6 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
             files.push(file.path);
         }
         this.setState({files});
-
         return false;
     };
 
@@ -64,7 +76,7 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
                         <p>Sem přetáhněte soubory</p>
                     </div>
                     <h2>NEBO</h2>
-                    <Link to="/import/playlist" className="btn btn-big btn-outline">Procházet</Link>
+                    <button className="btn btn-big btn-outline" onClick={this.handleBrowseClick}>Procházet</button>
                 </div>
             );
         }

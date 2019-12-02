@@ -13,6 +13,9 @@
   &:hover {
     background: transparentize($color-font, .7);
   }
+  &:focus {
+    outline: none;
+  }
 }
 
 .btn-big {
