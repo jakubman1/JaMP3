@@ -28,6 +28,7 @@
 }
 
 .center-wrapper {
+  overflow: auto;
   position: absolute;
   right: 0;
   top: $search-bar-height;
