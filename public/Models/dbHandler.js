@@ -118,6 +118,10 @@ function handleFolderImport(folderPath, playlistId) {
 
 function insertMP3(playlistId, path) {
     let tags = NodeID3.read(path);
+    if(!tags['title']) {
+        let pathArr = path.split('\\');
+        tags['title'] = pathArr[pathArr.length - 1].substr(-4);
+    }
     let record = {
         path: path,
         author: tags['artist'],
