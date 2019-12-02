@@ -10,6 +10,9 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  &:focus {
+    outline: none;
+  }
 }
 
 .playlist-import-text, .playlist-import-name-input {

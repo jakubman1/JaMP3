@@ -72,7 +72,7 @@ ipcMain.on('renamePlaylist-request', (event, arg) => {
 function processPaths(files) {
     for( let i = 0; i < files.length; i++)
     {
-        if (files[i].substr(-4) === '.mp3') {
+        if (files[i].toLowerCase().substr(-4) === '.mp3') {
             insertMP3(files[i]);
         }
         else {

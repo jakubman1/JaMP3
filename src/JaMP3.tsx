@@ -43,9 +43,6 @@ class JaMP3 extends React.Component {
                         <Route path="/home">
                             <MusicTable/>
                         </Route>
-                        <Route path="/import/playlist">
-                            <ImportCreatePlaylist />
-                        </Route>
                         <Route path="/import">
                             <ImportFullscreen/>
                         </Route>
