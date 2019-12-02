@@ -13,6 +13,8 @@ interface Props {
     id: string;
     playlistId: string;
     favourite: boolean;
+
+    callback: any;
 }
 
 export class MusicTableRow extends React.Component<Props> {
@@ -32,13 +34,17 @@ export class MusicTableRow extends React.Component<Props> {
         dbRequests.getFavouriteSongsCount();
     };
 
+    handleClick = () => {
+        this.props.callback(this.props.id);
+    };
+
     render() {
         let star = (<FontAwesomeIcon icon={faStarO} className="song-row-icon" onClick={this.addSongToFavourite}/>);
         if(this.props.favourite) {
             star = (<FontAwesomeIcon icon={faStar} className="song-row-icon song-favourite" onClick={this.addSongToFavourite}/>);
         }
         return (
-            <tr className="song-row">
+            <tr className="song-row" onClick={this.handleClick}>
                 <td className="song-name">{this.props.name}</td>
                 <td>{this.props.album ? this.props.album : ''}</td>
                 <td>{this.props.author ? this.props.author : ''}</td>

@@ -14,26 +14,63 @@ import {
     faStar
 } from '@fortawesome/free-solid-svg-icons'
 import {faStar as faStarO} from '@fortawesome/free-regular-svg-icons'
-import {Link} from "react-router-dom";
 import {NowPlayingDetails} from "./NowPlayingDetails";
+import * as dbRequests from "../Controllers/dbRequests";
 
+interface Props {
+}
 
-export class Player extends React.Component {
-    state = {
-        song: "file:///C:/Users/Akhady/Downloads/mp3/Modern%20Revolt%20-%20LOCA%20[NCS%20Release].mp3",
-        playing: false,
-        volume: 0.5,
-        curPosition: 0,
-        duration: 0
-    };
+interface State {
+    song: string;
+    playing: boolean;
+    volume: number;
+    curPosition: number;
+    duration: number;
+
+    songsArray: string[];
+    songsArrayIndex: number;
+}
+
+export class Player extends React.Component<Props, State> {
+
+    constructor(Props: any) {
+        super(Props);
+        this.state = {
+            song: "file:///C:/Users/Akhady/Downloads/mp3/Modern%20Revolt%20-%20LOCA%20[NCS%20Release].mp3",
+            playing: false,
+            volume: 0.5,
+            curPosition: 0,
+            duration: 0,
+
+            songsArray: [],
+            songsArrayIndex: -1
+        };
+
+        dbRequests.emitter.on('getSongsInActivePlaylist', (data: any) => this.loadSongs(data));
+        dbRequests.emitter.on('getSongIndex', (data: any) => this.loadSongIndex(data));
+    }
 
     _audio = new Audio(undefined);
 
+    loadSongs = (data: any) => {
+        console.log(data);
+        this.setState({
+            songsArray: data
+        });
+    };
+
+    loadSongIndex = (data: number) => {
+        console.log(data);
+        this.setState({
+            songsArrayIndex: data
+        });
+    };
+
     prevSong = () => {
         this.setState({
-            song: "file:///C:/Users/Akhady/Downloads/mp3/Modern%20Revolt%20-%20LOCA%20[NCS%20Release].mp3",
-            playing: this.state.playing,
-            volume: this.state.volume,
+            // @ts-ignore
+            song: this.state.songsArray[this.state.songsArrayIndex - 1].path,
+            songsArrayIndex: this.state.songsArrayIndex - 1,
             curPosition: 0,
             duration: 0
         }, () => {
@@ -75,9 +112,9 @@ export class Player extends React.Component {
 
     nextSong = () => {
         this.setState({
-            song: "file:///C:/Users/Akhady/Downloads/mp3/Culture%20Code%20-%20Fairytale%20(feat.%20Amanda%20Collis)%20[NCS%20Release].mp3",
-            playing: this.state.playing,
-            volume: this.state.volume,
+            // @ts-ignore
+            song: this.state.songsArray[this.state.songsArrayIndex + 1].path,
+            songsArrayIndex: this.state.songsArrayIndex + 1,
             curPosition: 0,
             duration: 0
         }, () => {
