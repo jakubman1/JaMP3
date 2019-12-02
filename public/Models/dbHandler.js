@@ -4,7 +4,15 @@ const db = require('./db');
 
 
 ipcMain.on('importMP3s-request', (event, arg) => {
-    processPaths(arg);
+    processPaths("", arg);
+});
+
+ipcMain.on('importMP3sToNewPlaylist-request', (event, arg) => {
+    processPaths(arg.playlistName, arg.files);
+});
+
+ipcMain.on('importMP3sToPlaylist-request', (event, arg) => {
+    processPaths(arg.playlistId, arg.files);
 });
 
 ipcMain.on('removeMP3s-request', (event, arg) => {
@@ -69,11 +77,11 @@ ipcMain.on('renamePlaylist-request', (event, arg) => {
     db.renamePlaylist(arg.pl_id, arg.name);
 });
 
-function processPaths(files) {
+function processPaths(playlistId, files) {
     for( let i = 0; i < files.length; i++)
     {
         if (files[i].toLowerCase().substr(-4) === '.mp3') {
-            insertMP3(files[i]);
+            insertMP3(playlistId, files[i]);
         }
         else {
             // call open folder
@@ -81,7 +89,7 @@ function processPaths(files) {
     }
 }
 
-function insertMP3(path) {
+function insertMP3(playlistId, path) {
     let tags = NodeID3.read(path);
     let record = {
         path: path,
@@ -90,7 +98,7 @@ function insertMP3(path) {
         album: tags['album'],
         year: tags['year'],
         favourite: false,
-        playlists: []
+        playlists: (playlistId !== "") ? [] : [playlistId]
     };
     db.insertRecord(record);
 }

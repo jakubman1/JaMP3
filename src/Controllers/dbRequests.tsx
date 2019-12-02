@@ -16,6 +16,14 @@ export function importMP3s(files: string[]) {
     ipcRenderer.send('importMP3s-request', files);
 }
 
+export function importMP3sToNewPlaylist(playlistName: string, files: string[]) {
+    ipcRenderer.send('importMP3sToNewPlaylist-request', {"playlistName": playlistName, "files": files});
+}
+
+export function importMP3sToPlaylist(playlistId: string, files: string[]) {
+    ipcRenderer.send('importMP3sToPlaylist-request', {"playlistName": playlistId, "files": files});
+}
+
 export function removeMP3s(id: string) {
     ipcRenderer.send('removeMP3s-request', id);
 }
