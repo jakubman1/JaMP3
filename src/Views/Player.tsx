@@ -11,9 +11,7 @@ import {
     faVolumeUp,
     faVolumeDown,
     faVolumeMute,
-    faStar
 } from '@fortawesome/free-solid-svg-icons'
-import {faStar as faStarO} from '@fortawesome/free-regular-svg-icons'
 import {NowPlayingDetails} from "./NowPlayingDetails";
 import * as dbRequests from "../Controllers/dbRequests";
 
@@ -27,7 +25,7 @@ interface State {
     songCurPosition: number;
     songDuration: number;
 
-    songsArray: string[];
+    songsArray: object[];
     songsArrayIndex: number;
 }
 
@@ -52,7 +50,6 @@ export class Player extends React.Component<Props, State> {
     }
 
     loadSongs = (data: any) => {
-        console.log(data);
         this.setState({
             isPlaying: true,
             songPath: data.array[data.index].path,
@@ -75,6 +72,7 @@ export class Player extends React.Component<Props, State> {
         }, () => {
             console.log(this.state.songPath + this.state.isPlaying);
             this._audio.addEventListener("timeupdate", this.updateSongPosition);
+            this._audio.addEventListener("ended", this.nextSong);
             this._audio.play()
         });
     };
@@ -166,10 +164,7 @@ export class Player extends React.Component<Props, State> {
             <div className="max-100">
                 <NowPlayingDetails/>
                 <div className="now-playing-bar-content">
-                    <div className="add-to-favourites">
-                        <FontAwesomeIcon icon={faStarO} className="add-to-favourites-icon"/>
-                        Přidat do oblíbených
-                    </div>
+                    <div className="add-to-favourites"/>
                     <div className="player-control-icon-container">
                         <FontAwesomeIcon onClick={this.prevSong} className="player-control-icon" icon={faFastBackward}/>
                         <FontAwesomeIcon onClick={this.state.isPlaying ? this.pauseSong : this.playSong}

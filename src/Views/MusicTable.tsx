@@ -43,8 +43,6 @@ export class MusicTable extends React.Component<Props, State> {
     };
 
     handleSongClick = (songId: string) => {
-        let songsArray: object[] = [];
-        let newSong: { _id: string, path: string } = {_id: "", path: ""};
         let song: object;
         let songIndex = -1;
         let i = 0;
@@ -54,12 +52,9 @@ export class MusicTable extends React.Component<Props, State> {
             if (songId === song._id) {
                 songIndex = i;
             }
-            // @ts-ignore
-            newSong = {_id: song._id, path: song.path};
-            songsArray.push(newSong);
             i++;
         }
-        emitter.emit('getSongsInActivePlaylist', {index: songIndex, array: songsArray});
+        emitter.emit('getSongsInActivePlaylist', {index: songIndex, array: this.state.songs});
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
