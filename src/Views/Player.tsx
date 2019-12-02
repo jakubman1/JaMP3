@@ -21,11 +21,11 @@ interface Props {
 }
 
 interface State {
-    song: string;
-    playing: boolean;
+    isPlaying: boolean;
+    songPath: string;
     volume: number;
-    curPosition: number;
-    duration: number;
+    songCurPosition: number;
+    songDuration: number;
 
     songsArray: string[];
     songsArrayIndex: number;
@@ -33,109 +33,93 @@ interface State {
 
 export class Player extends React.Component<Props, State> {
 
+    _audio = new Audio(undefined);
+
     constructor(Props: any) {
         super(Props);
         this.state = {
-            song: "file:///C:/Users/Akhady/Downloads/mp3/Modern%20Revolt%20-%20LOCA%20[NCS%20Release].mp3",
-            playing: false,
+            isPlaying: false,
+            songPath: "",
             volume: 0.5,
-            curPosition: 0,
-            duration: 0,
+            songCurPosition: 0,
+            songDuration: 0,
 
             songsArray: [],
             songsArrayIndex: -1
         };
 
         dbRequests.emitter.on('getSongsInActivePlaylist', (data: any) => this.loadSongs(data));
-        dbRequests.emitter.on('getSongIndex', (data: any) => this.loadSongIndex(data));
     }
-
-    _audio = new Audio(undefined);
 
     loadSongs = (data: any) => {
         console.log(data);
         this.setState({
-            songsArray: data
+            isPlaying: true,
+            songPath: data.array[data.index].path,
+            volume: this.state.volume,
+            songCurPosition: 0,
+            songDuration: 0,
+
+            songsArray: data.array,
+            songsArrayIndex: data.index
+        },() => {
+            this._audio.src = this.state.songPath;
+            this._audio.load();
+            this.playSong();
         });
     };
 
-    loadSongIndex = (data: number) => {
-        console.log(data);
+    playSong = () => {
         this.setState({
-            songsArrayIndex: data
+            isPlaying: true
+        }, () => {
+            console.log(this.state.songPath + this.state.isPlaying);
+            this._audio.addEventListener("timeupdate", this.updateSongPosition);
+            this._audio.play()
+        });
+    };
+
+    pauseSong = () => {
+        this.setState({
+            isPlaying: false
+        }, () => {
+            this._audio.pause()
         });
     };
 
     prevSong = () => {
+        let newIndex = ((this.state.songsArrayIndex - 1) < 0) ? (this.state.songsArray.length) : (this.state.songsArrayIndex - 1);
         this.setState({
             // @ts-ignore
-            song: this.state.songsArray[this.state.songsArrayIndex - 1].path,
-            songsArrayIndex: this.state.songsArrayIndex - 1,
-            curPosition: 0,
-            duration: 0
+            songPath: this.state.songsArray[newIndex].path,
+            songsArrayIndex: newIndex,
+            songCurPosition: 0,
+            songDuration: 0,
         }, () => {
-            if (this.state.playing) {
-                this._audio.pause();
-            }
-            this._audio.src = this.state.song;
+            this._audio.src = this.state.songPath;
             this._audio.load();
-            if (this.state.playing) {
-                this._audio.play();
-            }
+            this.playSong();
         });
     };
 
-    toggleSong = () => {
-        if (this.state.playing) {
-            // pause
-            this._audio.pause();
-            this.setState({
-                song: this.state.song,
-                playing: !this.state.playing,
-                volume: this.state.volume,
-                curPosition: this.state.curPosition,
-                duration: this.state.duration
-            });
-        } else {
-            // play
-            this._audio.addEventListener("timeupdate", this.updateSongPosition);
-            this._audio.play();
-            this.setState({
-                song: this.state.song,
-                playing: !this.state.playing,
-                volume: this.state.volume,
-                curPosition: this.state.curPosition,
-                duration: this.state.duration
-            });
-        }
-    };
-
     nextSong = () => {
+        let newIndex = (this.state.songsArrayIndex + 1) % this.state.songsArray.length;
         this.setState({
             // @ts-ignore
-            song: this.state.songsArray[this.state.songsArrayIndex + 1].path,
-            songsArrayIndex: this.state.songsArrayIndex + 1,
-            curPosition: 0,
-            duration: 0
+            songPath: this.state.songsArray[newIndex].path,
+            songsArrayIndex: newIndex,
+            songCurPosition: 0,
+            songDuration: 0,
         }, () => {
-            if (this.state.playing) {
-                this._audio.pause();
-            }
-            this._audio.src = this.state.song;
+            this._audio.src = this.state.songPath;
             this._audio.load();
-            if (this.state.playing) {
-                this._audio.play();
-            }
+            this.playSong();
         });
     };
 
     changeVolume = (newVal: number) => {
         this.setState({
-            song: this.state.song,
-            playing: this.state.playing,
-            volume: newVal / 100,
-            curPosition: this.state.curPosition,
-            duration: this.state.duration
+            volume: newVal / 100
         }, () => {
             this._audio.volume = this.state.volume;
         });
@@ -143,23 +127,16 @@ export class Player extends React.Component<Props, State> {
 
     changeSongPosition = (newVal: number) => {
         this.setState({
-            song: this.state.song,
-            playing: this.state.playing,
-            volume: this.state.volume,
-            curPosition: newVal,
-            duration: this.state.duration
+            songCurPosition: newVal
         }, () => {
-            this._audio.currentTime = this.state.curPosition;
+            this._audio.currentTime = this.state.songCurPosition;
         });
     };
 
     updateSongPosition = () => {
         this.setState({
-            song: this.state.song,
-            playing: this.state.playing,
-            volume: this.state.volume,
-            curPosition: this._audio.currentTime,
-            duration: this._audio.duration
+            songCurPosition: this._audio.currentTime,
+            songDuration: this._audio.duration
         });
     };
 
@@ -195,9 +172,9 @@ export class Player extends React.Component<Props, State> {
                     </div>
                     <div className="player-control-icon-container">
                         <FontAwesomeIcon onClick={this.prevSong} className="player-control-icon" icon={faFastBackward}/>
-                        <FontAwesomeIcon onClick={this.toggleSong}
+                        <FontAwesomeIcon onClick={this.state.isPlaying ? this.pauseSong : this.playSong}
                                          className="player-control-icon icon-circle"
-                                         icon={this.state.playing ? faPause : faPlay}/>
+                                         icon={this.state.isPlaying ? faPause : faPlay}/>
                         <FontAwesomeIcon onClick={this.nextSong} className="player-control-icon" icon={faFastForward}/>
                     </div>
                     <div className="volume-control">
@@ -211,12 +188,12 @@ export class Player extends React.Component<Props, State> {
                     </div>
                     <div className="time-slider-container">
                         <span className="time-slider-label">
-                            {this.state.curPosition ? this.secondsToTime(Math.floor(this.state.curPosition)) : '--:--'}
+                            {this.state.songCurPosition ? this.secondsToTime(Math.floor(this.state.songCurPosition)) : '--:--'}
                         </span>
-                        <Slider className="time-slider" min={0} max={Math.floor(this.state.duration)} defaultValue={0}
-                                step={1} value={this.state.curPosition} onChange={this.changeSongPosition}/>
+                        <Slider className="time-slider" min={0} max={Math.floor(this.state.songDuration)} defaultValue={0}
+                                step={1} value={this.state.songCurPosition} onChange={this.changeSongPosition}/>
                         <span className="time-slider-label">
-                            {this.state.duration ?  this.secondsToTime(Math.floor(this.state.duration)) : '--:--'}
+                            {this.state.songDuration ?  this.secondsToTime(Math.floor(this.state.songDuration)) : '--:--'}
                         </span>
                     </div>
                 </div>

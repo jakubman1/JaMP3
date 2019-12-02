@@ -59,8 +59,7 @@ export class MusicTable extends React.Component<Props, State> {
             songsArray.push(newSong);
             i++;
         }
-        emitter.emit('getSongsInActivePlaylist', songsArray);
-        emitter.emit('getSongIndex', songIndex);
+        emitter.emit('getSongsInActivePlaylist', {index: songIndex, array: songsArray});
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
