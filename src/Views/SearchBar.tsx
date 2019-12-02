@@ -3,16 +3,37 @@ import "./SearchBar.scss"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCog, faDownload, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {Link} from "react-router-dom";
+import * as dbRequest from "../Controllers/dbRequests";
 
+interface IProps {}
+export class SearchBar extends React.Component<IProps> {
 
-export class SearchBar extends React.Component {
+    state = {
+        playlists: [] as {_id: string, name: string}[]
+    };
+
+    constructor(props: IProps) {
+        super(props);
+        dbRequest.getAllPlaylists();
+        dbRequest.emitter.on('playlistListChanged', (playlists: {_id: string, name: string}[]) => {
+            this.setState({
+                playlists
+            })
+        });
+    }
+
     render() {
+        let playlists = [];
+        for(let p of this.state.playlists) {
+            playlists.push(<option value={p._id}>{p.name}</option>);
+        }
         return (
             <div className="search-bar-wrapper">
 
                 <select className="search-bar-menu">
-                    <option>Vše</option>
-                    <option>Adam je pukavec</option>
+                    <option value="all">Vše</option>
+                    <option value="favourite">Oblíbené</option>
+                    {playlists}
                 </select>
 
                 <FontAwesomeIcon className="search-icon" icon={faSearch}/>
