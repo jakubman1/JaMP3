@@ -61,6 +61,12 @@ export class MusicTableRow extends React.Component<Props> {
        dbRequests.removeSongFromPlaylist(this.props.id, this.props.playlistId);
        dbRequests.getSongsTable(this.props.playlistId);
        dbRequests.getAllSongsCount();
+       this.setState({
+           showMoreOptions: false,
+           showPlaylists: false,
+           hoverOverAddToPlaylist: false,
+           hoverOverPlaylists: false,
+       });
     }
 
     deleteSong = (event: any) => {
@@ -68,8 +74,13 @@ export class MusicTableRow extends React.Component<Props> {
         dbRequests.removeMP3s(this.props.id);
         dbRequests.getSongsTable(this.props.playlistId);
         dbRequests.getAllSongsCount();
+        this.setState({
+            showMoreOptions: false,
+            showPlaylists: false,
+            hoverOverAddToPlaylist: false,
+            hoverOverPlaylists: false,
+        });
     }
-
 
     state = {
         showMoreOptions: false,
