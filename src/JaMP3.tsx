@@ -29,7 +29,7 @@ class JaMP3 extends React.Component {
         super(props);
         importFinished.importFinished.on('importFinished', () => {
             this.setState({draggedOver: false});
-            dbRequest.getAllPlaylists();
+            dbRequest.getSongsTable('all');
         });
     }
 
@@ -40,7 +40,7 @@ class JaMP3 extends React.Component {
     componentWillUnmount(): void {
         importFinished.importFinished.removeListener('importFinished', () => {
             this.setState({draggedOver: false});
-            dbRequest.getAllPlaylists();
+            dbRequest.getSongsTable('all');
         });
     }
 
