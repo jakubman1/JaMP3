@@ -7,9 +7,10 @@ let playlistsDB = new Datastore({filename: app.getPath('appData') + '/jamp3/play
 module.exports = {
     // songsDB functions
     searchSongsInPlaylist: function(playlistId, text) {
+        let regex = new RegExp(text, 'i');
         if (playlistId === 'all') {
             return new Promise((resolve, reject) => {
-                songsDB.find({ name: '/' + text + '/' }, function (err, docs) {
+                songsDB.find({ title: {"$regex": regex} }, function (err, docs) {
                     if (err) reject(err);
                     resolve(docs);
                 });
@@ -17,7 +18,7 @@ module.exports = {
         }
         else if (playlistId === 'favourite') {
             return new Promise((resolve, reject) => {
-                songsDB.find({ favourite: true, name: '/' + text + '/' }, function (err, docs) {
+                songsDB.find({ favourite: true, name: {"$regex": regex} }, function (err, docs) {
                     if (err) reject(err);
                     if (!docs) resolve([]);
                     resolve(docs);
@@ -26,7 +27,7 @@ module.exports = {
         }
         else {
             return new Promise((resolve, reject) => {
-                songsDB.find({ playlists: playlistId, name: '/' + text + '/' }, function (err, docs) {
+                songsDB.find({ playlists: playlistId, name: {"$regex": regex} }, function (err, docs) {
                     if (err) reject(err);
                     if (!docs) resolve([]);
                     resolve(docs);

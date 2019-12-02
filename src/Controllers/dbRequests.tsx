@@ -15,9 +15,9 @@ emitter.setMaxListeners(20);
 export function searchSongsInPlaylist(playlistId: string, text: string) {
     ipcRenderer.send('searchSongsInPlaylist-request', {"playlistId": playlistId, "text": text});
 
-    ipcRenderer.on('searchSongsInPlaylist-reply', (event: any, arg: object[]) => {
+    ipcRenderer.once('searchSongsInPlaylist-reply', (event: any, arg: object[]) => {
         console.log(arg);
-        emitter.emit('searchSongsInPlaylist', arg);
+        // emitter.emit('searchSongsInPlaylist', arg);
     });
 }
 
@@ -56,7 +56,7 @@ export function removeSongToFavourite(song_id: string) {
 export function getSongsTable(playlistId: string) {
     ipcRenderer.send('getSongsTable-request', playlistId);
 
-    ipcRenderer.on('getSongsTable-reply', (event: any, arg: object[]) => {
+    ipcRenderer.once('getSongsTable-reply', (event: any, arg: object[]) => {
         emitter.emit('songsTableChanged', arg);
     });
 }
@@ -64,7 +64,7 @@ export function getSongsTable(playlistId: string) {
 export function getAllSongsCount() {
     ipcRenderer.send('getAllSongsCount-request');
 
-    ipcRenderer.on('getAllSongsCount-reply', (event: any, arg: number) => {
+    ipcRenderer.once('getAllSongsCount-reply', (event: any, arg: number) => {
         emitter.emit('allPlaylistCount', arg);
     });
 }
@@ -72,7 +72,7 @@ export function getAllSongsCount() {
 export function getFavouriteSongsCount() {
     ipcRenderer.send('getFavouriteSongsCount-request');
 
-    ipcRenderer.on('getFavouriteSongsCount-reply', (event: any, arg: number) => {
+    ipcRenderer.once('getFavouriteSongsCount-reply', (event: any, arg: number) => {
         emitter.emit('favouritePlaylistCount', arg);
     });
 }
@@ -80,7 +80,7 @@ export function getFavouriteSongsCount() {
 export function getAllPlaylists() {
     ipcRenderer.send('getAllPlaylists-request');
 
-    ipcRenderer.on('getAllPlaylists-reply', (event: any, arg: object[]) => {
+    ipcRenderer.once('getAllPlaylists-reply', (event: any, arg: object[]) => {
         emitter.emit('playlistListChanged', arg);
     });
 }
@@ -97,7 +97,7 @@ export function getActualPlaylist(playlistId: string) {
     else {
         ipcRenderer.send('getActualPlaylist-request', playlistId);
 
-        ipcRenderer.on('getActualPlaylist-reply', (event: any, arg: object[]) => {
+        ipcRenderer.once('getActualPlaylist-reply', (event: any, arg: object[]) => {
             emitter.emit('getActualPlaylist', arg);
         });
     }
@@ -126,4 +126,4 @@ export function renamePlaylist(pl_id: string, name: string) {
 // removeSongFromPlaylist('zF0WDDhuPPinzKqI', '1');
 // renamePlaylist('1', "ahoj");
 // removeMP3s('zF0WDDhuPPinzKqI');
-searchSongsInPlaylist("all", "ai");
+// searchSongsInPlaylist("all", "ai");
