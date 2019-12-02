@@ -3,7 +3,7 @@ import "./ImportCreatePlaylist.scss";
 import {Link} from "react-router-dom";
 import * as dbRequest from "../../Controllers/dbRequests";
 import { useHistory } from "react-router-dom";
-
+import * as importFinished from '../../Controllers/importFinishedController';
 
 interface IProps {
     files: string[];
@@ -102,6 +102,7 @@ export class ImportCreatePlaylist extends React.Component<IProps> {
             dbRequest.importMP3sToPlaylist(this.state.selectedPlaylist, this.props.files);
             dbRequest.getAllSongsCount();
         }
+        importFinished.doneImporting();
     };
 
     handleNewPlaylistInputChange = (event: any) => {
@@ -138,7 +139,7 @@ export class ImportCreatePlaylist extends React.Component<IProps> {
 
                 {addPlaylistForm}
 
-                <Link to="/home" className="btn btn-big btn-outline button-cancel">Zrušit</Link>
+                <Link to="/home" className="btn btn-big btn-outline button-cancel" onClick={importFinished.doneImporting}>Zrušit</Link>
 
                 <Link to="/home" className="btn btn-big btn-outline button-import" onClick={this.handleFinish}>Import</Link>
             </div>

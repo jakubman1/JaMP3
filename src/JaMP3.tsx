@@ -15,18 +15,54 @@ import {Settings} from "./Views/Settings";
 import {Player} from "./Views/Player";
 import {ImportFullscreen} from "./Views/Import/ImportFullscreen";
 import {ImportCreatePlaylist} from "./Views/Import/ImportCreatePlaylist";
+import {ImportPopup} from "./Views/Import/ImportPopup";
+import * as importFinished from './Controllers/importFinishedController';
 
 class JaMP3 extends React.Component {
+
+    state = {
+        draggedOver: false
+    };
+
+    constructor(props: any) {
+        super(props);
+        importFinished.importFinished.on('importFinished', () => {
+            this.setState({draggedOver: false});
+        });
+    }
 
     componentDidMount() {
         document.title = "JaMP3 | Just another music player"
     }
 
+    componentWillUnmount(): void {
+        importFinished.importFinished.removeListener('importFinished', () => {
+            this.setState({draggedOver: false});
+        });
+    }
+
+    handleDragOver = (e: any) => {
+        this.setState({draggedOver: true});
+        let event = e as Event;
+        //event.stopPropagation();
+        event.preventDefault();
+    };
+
+    /*handleDragLeave = (e: any) => {
+        this.setState({draggedOver: false});
+        return false;
+    };*/
+
     render() {
+        let dragOverBox = null;
+        if(this.state.draggedOver) {
+            dragOverBox = (<ImportPopup/>);
+        }
         let activePlaylist = 'all';
         //console.log(electron.dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }));
         return (
-            <div className="JaMP3">
+            <div className="JaMP3"
+            onDragEnter={this.handleDragOver}>
                 <Router>
                     <div className="sidebar-wrapper">
                         <h1 className="logo text-center">JaMP3</h1>
@@ -41,6 +77,7 @@ class JaMP3 extends React.Component {
 
                     <Switch>
                         <Route path="/home">
+                            {dragOverBox}
                             <MusicTable/>
                         </Route>
                         <Route path="/import">
