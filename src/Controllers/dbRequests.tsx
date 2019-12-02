@@ -17,7 +17,7 @@ export function searchSongsInPlaylist(playlistId: string, text: string) {
 
     ipcRenderer.once('searchSongsInPlaylist-reply', (event: any, arg: object[]) => {
         console.log(arg);
-        // emitter.emit('searchSongsInPlaylist', arg);
+        emitter.emit('searchSongsInPlaylist', arg);
     });
 }
 

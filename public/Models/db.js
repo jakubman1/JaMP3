@@ -10,26 +10,29 @@ module.exports = {
         let regex = new RegExp(text, 'i');
         if (playlistId === 'all') {
             return new Promise((resolve, reject) => {
-                songsDB.find({ title: {"$regex": regex} }, function (err, docs) {
+                songsDB.find({}, function (err, docs) {
                     if (err) reject(err);
+                    docs = docs.filter(item => {return regex.test(item['title']) || regex.test(item['author']) || regex.test(item['album'])});
                     resolve(docs);
                 });
             });
         }
         else if (playlistId === 'favourite') {
             return new Promise((resolve, reject) => {
-                songsDB.find({ favourite: true, name: {"$regex": regex} }, function (err, docs) {
+                songsDB.find({ favourite: true }, function (err, docs) {
                     if (err) reject(err);
                     if (!docs) resolve([]);
+                    docs = docs.filter(item => {return regex.test(item['title']) || regex.test(item['author']) || regex.test(item['album'])});
                     resolve(docs);
                 });
             });
         }
         else {
             return new Promise((resolve, reject) => {
-                songsDB.find({ playlists: playlistId, name: {"$regex": regex} }, function (err, docs) {
+                songsDB.find({playlists: playlistId}, function (err, docs) {
                     if (err) reject(err);
                     if (!docs) resolve([]);
+                    docs = docs.filter(item => {return regex.test(item['title']) || regex.test(item['author']) || regex.test(item['album'])});
                     resolve(docs);
                 });
             });
