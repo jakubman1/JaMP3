@@ -1,0 +1,32 @@
+@import "../SharedStyles/colors";
+
+.more-options, .playlists {
+  display: flex;
+  flex-flow: column nowrap;
+  z-index: 1;
+  position: absolute;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  color: $color-font;
+  background-color: $color-background2;
+  border: 1px solid $color-search-bar-border;
+}
+
+.more-options {
+  right: 60px;
+  width: 170px;
+}
+
+.more-options div, .playlists div {
+  padding: 10px;
+}
+
+.more-options div:hover, .playlists div:hover {
+  color: $color-accent;
+}
+
+.playlists {
+  width: auto;
+  right: 230px;
+  padding-right: 10px;
+}
