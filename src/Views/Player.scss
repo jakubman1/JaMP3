@@ -1,6 +1,18 @@
 @import "../SharedStyles/colors";
 @import "../SharedStyles/variables";
 
+.player-wrapper {
+  display: flex;
+  align-content: space-between;
+  max-width: 100vw;
+  padding-top: 10px;
+}
+
+.not-playing-placeholder {
+  width: $sidebar-width;
+  text-align: right;
+}
+
 .time-slider-container {
   display: flex;
   position: absolute;

@@ -25,7 +25,13 @@ interface State {
     songCurPosition: number;
     songDuration: number;
 
-    songsArray: object[];
+    songsArray: { album: string,
+        author: string,
+        favourite: boolean,
+        path: string,
+        playlists: [],
+        title: string,
+        _id: string }[];
     songsArrayIndex: number;
 }
 
@@ -59,7 +65,7 @@ export class Player extends React.Component<Props, State> {
 
             songsArray: data.array,
             songsArrayIndex: data.index
-        },() => {
+        }, () => {
             this._audio.src = this.state.songPath;
             this._audio.load();
             this.playSong();
@@ -159,10 +165,22 @@ export class Player extends React.Component<Props, State> {
         } else if (this.state.volume < 0.5) {
             volumeIcon = faVolumeDown;
         }
+        let nowPlaying = (
+            <div className="not-playing-placeholder">
+                <h3>Nic nehraje</h3>
+            </div>
+        );
+        if(this.state.songsArray && this.state.songsArray[this.state.songsArrayIndex]) {
+            nowPlaying = (
+                <NowPlayingDetails title={this.state.songsArray[this.state.songsArrayIndex].title}
+                                   album={this.state.songsArray[this.state.songsArrayIndex].album}
+                                   author={this.state.songsArray[this.state.songsArrayIndex].author} />
+            );
+        }
 
         return (
-            <div className="max-100">
-                <NowPlayingDetails/>
+            <div className="player-wrapper">
+                {nowPlaying}
                 <div className="now-playing-bar-content">
                     <div className="add-to-favourites"/>
                     <div className="player-control-icon-container">
@@ -185,10 +203,11 @@ export class Player extends React.Component<Props, State> {
                         <span className="time-slider-label">
                             {this.state.songCurPosition ? this.secondsToTime(Math.floor(this.state.songCurPosition)) : '--:--'}
                         </span>
-                        <Slider className="time-slider" min={0} max={Math.floor(this.state.songDuration)} defaultValue={0}
+                        <Slider className="time-slider" min={0} max={Math.floor(this.state.songDuration)}
+                                defaultValue={0}
                                 step={1} value={this.state.songCurPosition} onChange={this.changeSongPosition}/>
                         <span className="time-slider-label">
-                            {this.state.songDuration ?  this.secondsToTime(Math.floor(this.state.songDuration)) : '--:--'}
+                            {this.state.songDuration ? this.secondsToTime(Math.floor(this.state.songDuration)) : '--:--'}
                         </span>
                     </div>
                 </div>

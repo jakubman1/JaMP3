@@ -1,6 +1,21 @@
 @import "../SharedStyles/variables";
+@import "../SharedStyles/colors";
 
 .now-playing-container {
-  width: $sidebar-width;
-  display: inline-block;
+  padding-right: 5px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: $sidebar-width - 5px;
+}
+
+.song-title {
+  font-weight: 700;
+  margin: 0;
+}
+
+.song-info {
+  color: $color-font-secondary;
+  margin: 0;
 }
