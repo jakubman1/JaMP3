@@ -12,8 +12,8 @@ export class NowPlayingDetails extends React.Component<IProps>{
         return (
             <div className="now-playing-container">
                 <h3 className="song-title">{this.props.title}</h3>
-                <p className="song-info">{this.props.author}</p>
-                <p className="song-info">{this.props.album}</p>
+                <p className="song-info">{this.props.author ? this.props.author : "Neznámý autor"}</p>
+                <p className="song-info">{this.props.album ? this.props.author : "Neznámé album"}</p>
             </div>
         )
     }
