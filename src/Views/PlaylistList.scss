@@ -14,9 +14,19 @@
     margin-bottom: 5px;
   }
 }
+
+.playlist-name-wrapper {
+  color: $color-font;
+  transition: all ease-in-out 100ms;
+  &:hover {
+    color: lighten($color-accent, 10%);
+  }
+}
+
 .playlist-list-name {
   text-decoration: underline;
   cursor: pointer;
+  color: $color-font;
   transition: all ease-in-out 100ms;
   &:hover {
     color: lighten($color-accent, 10%);
@@ -39,7 +49,7 @@
 .bottom-list-wrapper {
   margin-top: 5px;
   overflow: auto;
-  max-height: calc(100vh - #{$now-playing-bar-height} - 225px);
+  max-height: calc(100vh - #{$now-playing-bar-height} - 300px);
 }
 
 .playlist-icon {
@@ -52,6 +62,10 @@
   margin-left: 15px;
   color: $color-font;
   &:hover {
-    color: $color-accent;
+    color: lighten($color-accent, 10%);
   }
+}
+
+.playlist-selected {
+  color: $color-accent;
 }

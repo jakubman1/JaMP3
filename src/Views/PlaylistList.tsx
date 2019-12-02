@@ -87,17 +87,21 @@ export class PlaylistList extends React.Component<Props, State> {
                             <span className="playlist-list-song-count">{this.state.all_count} skladeb</span>
                         </li>
                         <li>
-                            <div className="playlist-icon-wrapper">
-                                <FontAwesomeIcon className="playlist-icon" icon={faStar} />
+                            <div className="playlist-name-wrapper">
+                                <div className="playlist-icon-wrapper">
+                                    <FontAwesomeIcon className="playlist-icon" icon={faStar} />
+                                </div>
+                                <span className="playlist-list-name" onClick={this.loadFavouriteSongs}>Oblíbené</span>
                             </div>
-                            <span className="playlist-list-name" onClick={this.loadFavouriteSongs}>Oblíbené</span>
                             <span className="playlist-list-song-count">{this.state.favourite_count} skladeb</span>
                         </li>
                         <li onClick={this.showAddPlaylistComponent}>
-                            <div className="playlist-icon-wrapper">
-                                <FontAwesomeIcon className="playlist-icon" icon={faPlus} />
+                            <div className="playlist-name-wrapper">
+                                <div className="playlist-icon-wrapper">
+                                    <FontAwesomeIcon className="playlist-icon" icon={faPlus} />
+                                </div>
+                                <span  className="playlist-list-name">Přidat playlist</span>
                             </div>
-                            <span  className="playlist-list-name">Přidat playlist</span>
                         </li>
                         <li>
                             {addPlaylist}
