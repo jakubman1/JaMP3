@@ -8,16 +8,32 @@ const { ipcRenderer } = window.require('electron');
 
 interface IProps {}
 interface IState {
-    importAreaRef: any
+    files: string[];
+    draggedOver: boolean;
 }
 
 export class ImportFullscreen extends React.Component<IProps, IState>{
+
+    state: IState = {
+      files: [],
+      draggedOver: false
+    };
+
 
 
    /* handleBackClick = () => {
         let history = useHistory();
         history.goBack();
     };*/
+
+   compileSecondStepHeading = () => {
+       dbRequest.importMP3s(this.state.files);
+       dbRequest.getAllSongsCount();
+   };
+
+   handleFinishClick = () => {
+
+   };
 
     handleBrowseClick = () => {
         // electron.dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] })
@@ -30,16 +46,21 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
         for (let file of event.dataTransfer.files) {
             files.push(file.path);
         }
-        //console.log(files);
-        dbRequest.importMP3s(files);
-        dbRequest.getAllSongsCount();
+        this.setState({files});
+
         return false;
     };
 
     handleDragOver = (e: any) => {
+        this.setState({draggedOver: true});
         let event = e as Event;
         event.stopPropagation();
         event.preventDefault();
+    };
+
+    handleDragLeave = (e: any) => {
+        this.setState({draggedOver: false});
+        return false;
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -50,8 +71,9 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
                 </Link>
 
                 <h1>Import</h1>
-                <div className="import-area" onDrop={this.handleDrop} onDragOver={this.handleDragOver}
-                     onDragLeave={() => {return false}} onDragEnd={() => {return false}}>
+                <div className={"import-area" + (this.state.draggedOver ? ' import-area-dragged-over' : '')}
+                     onDrop={this.handleDrop} onDragOver={this.handleDragOver}
+                     onDragLeave={this.handleDragLeave} onDragEnd={this.handleDragLeave}>
                     <FontAwesomeIcon className="big-icon" icon={faFileAudio} />
                     <p>Sem přetáhněte soubory</p>
                 </div>
