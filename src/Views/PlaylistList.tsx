@@ -54,14 +54,12 @@ export class PlaylistList extends React.Component<Props, State> {
     };
 
     loadAllSongs = () => {
-        dbRequests.sendPlaylistId("all");
-        dbRequests.getPlaylistName("all");
+        dbRequests.getActualPlaylist("all");
         dbRequests.getSongsTable("all");
     };
 
     loadFavouriteSongs = () => {
-        dbRequests.sendPlaylistId("favourite");
-        dbRequests.getPlaylistName("favourite");
+        dbRequests.getActualPlaylist("favourite");
         dbRequests.getSongsTable("favourite");
     };
 

@@ -24,11 +24,8 @@ export class MusicTable extends React.Component<Props, State> {
         dbRequests.emitter.on('songsTableChanged', (data: any) => this.loadSongs(data));
         dbRequests.getSongsTable("all");
 
-        dbRequests.emitter.on('sendPlaylistId', (data: any) => this.loadPlaylistId(data));
-        dbRequests.sendPlaylistId("all");
-
-        dbRequests.emitter.on('getPlaylistName', (data: any) => this.getPlaylistName(data));
-        dbRequests.getPlaylistName("all");
+        dbRequests.emitter.on('getActualPlaylist', (data: any) => this.loadActualPlaylist(data));
+        dbRequests.getActualPlaylist("all");
     }
 
     loadSongs = (data: any) => {
@@ -37,15 +34,10 @@ export class MusicTable extends React.Component<Props, State> {
         });
     };
 
-    loadPlaylistId = (data: any) => {
+    loadActualPlaylist = (data: any) => {
         this.setState({
-            playlistId: data
-        });
-    };
-
-    getPlaylistName = (data: any) => {
-        this.setState({
-            playlistName: data
+            playlistId: data[0]._id,
+            playlistName: data[0].name
         });
     };
 

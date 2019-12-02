@@ -91,7 +91,7 @@ module.exports = {
         });
     },
 
-    getPlaylistName: function(playlistId) {
+    getActualPlaylist: function(playlistId) {
         return new Promise((resolve, reject) => {
             playlistsDB.find({_id: playlistId},function (err, docs) {
                 if (err) reject(err);

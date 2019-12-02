@@ -10,6 +10,7 @@ const { ipcRenderer } = window.require('electron');
 // ipcRenderer.send('asynchronous-message', 'ping')
 
 export const emitter = new EventEmitter();
+emitter.setMaxListeners(20);
 
 export function importMP3s(files: string[]) {
     ipcRenderer.send('importMP3s-request', files);
@@ -67,24 +68,22 @@ export function getAllPlaylists() {
     });
 }
 
-export function getPlaylistName(playlistId: string) {
+export function getActualPlaylist(playlistId: string) {
     if (playlistId === "all") {
-        emitter.emit('getPlaylistName', "Všechny skladby");
+        const arg: object[] = [{_id: "all", name: "Všechny skladby"}];
+        emitter.emit('getActualPlaylist', arg);
     }
     else if (playlistId === "favourite") {
-        emitter.emit('getPlaylistName', "Oblíbené skladby");
+        const arg: object[] = [{_id: "favourite", name: "Oblíbené skladby"}];
+        emitter.emit('getActualPlaylist', arg);
     }
     else {
-        ipcRenderer.send('getPlaylistName-request', playlistId);
+        ipcRenderer.send('getActualPlaylist-request', playlistId);
 
-        ipcRenderer.on('getPlaylistName-reply', (event: any, arg: {id: string, name: string}[]) => {
-            emitter.emit('getPlaylistName', arg[0]["name"]);
+        ipcRenderer.on('getActualPlaylist-reply', (event: any, arg: object[]) => {
+            emitter.emit('getActualPlaylist', arg);
         });
     }
-}
-
-export function sendPlaylistId(playlistId: string) {
-    emitter.emit('sendPlaylistId', playlistId);
 }
 
 export function createNewPlaylist(name: string) {

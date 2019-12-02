@@ -51,9 +51,9 @@ ipcMain.on('getAllPlaylists-request', (event, arg) => {
         .catch(err => console.log(err));
 });
 
-ipcMain.on('getPlaylistName-request', (event, arg) => {
-    db.getPlaylistName(arg)
-        .then(response => event.reply('getPlaylistName-reply', response))
+ipcMain.on('getActualPlaylist-request', (event, arg) => {
+    db.getActualPlaylist(arg)
+        .then(response => event.reply('getActualPlaylist-reply', response))
         .catch(err => console.log(err));
 });
 
