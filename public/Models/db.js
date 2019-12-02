@@ -6,6 +6,35 @@ let playlistsDB = new Datastore({filename: app.getPath('appData') + '/jamp3/play
 
 module.exports = {
     // songsDB functions
+    searchSongsInPlaylist: function(playlistId, text) {
+        if (playlistId === 'all') {
+            return new Promise((resolve, reject) => {
+                songsDB.find({ name: '/' + text + '/' }, function (err, docs) {
+                    if (err) reject(err);
+                    resolve(docs);
+                });
+            });
+        }
+        else if (playlistId === 'favourite') {
+            return new Promise((resolve, reject) => {
+                songsDB.find({ favourite: true, name: '/' + text + '/' }, function (err, docs) {
+                    if (err) reject(err);
+                    if (!docs) resolve([]);
+                    resolve(docs);
+                });
+            });
+        }
+        else {
+            return new Promise((resolve, reject) => {
+                songsDB.find({ playlists: playlistId, name: '/' + text + '/' }, function (err, docs) {
+                    if (err) reject(err);
+                    if (!docs) resolve([]);
+                    resolve(docs);
+                });
+            });
+        }
+    },
+
     insertRecord: function(record) {
         songsDB.insert(record);
     },
@@ -102,7 +131,13 @@ module.exports = {
     },
 
     createNewPlaylist: function (name) {
-        playlistsDB.insert({name: name});
+        return new Promise((resolve, reject) => {
+            playlistsDB.insert({name: name},function (err, docs) {
+                if (err) reject(err);
+                if (!docs) resolve([]);
+                resolve(docs);
+            });
+        });
     },
 
     deletePlaylist: function (id) {

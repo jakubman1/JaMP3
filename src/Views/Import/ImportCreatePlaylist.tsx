@@ -90,22 +90,18 @@ export class ImportCreatePlaylist extends React.Component<IProps> {
     handleFinish = () => {
         if(this.state.selectedPlaylist === "__new__") {
             if(this.state.newPlaylistName !== "") {
-                dbRequest.createNewPlaylist(this.state.newPlaylistName);
-                dbRequest.getAllPlaylists();
-                this.finishImport();
+                dbRequest.importMP3sToNewPlaylist(this.state.newPlaylistName, this.props.files);
+                dbRequest.getAllSongsCount();
             }
         }
         else if(this.state.selectedPlaylist === "__no__") {
-            this.finishImport();
+            dbRequest.importMP3s(this.props.files);
+            dbRequest.getAllSongsCount();
         }
         else {
             dbRequest.importMP3sToPlaylist(this.state.selectedPlaylist, this.props.files);
+            dbRequest.getAllSongsCount();
         }
-    };
-
-    finishImport = () => {
-        dbRequest.importMP3s(this.props.files);
-        dbRequest.getAllSongsCount();
     };
 
     handleNewPlaylistInputChange = (event: any) => {

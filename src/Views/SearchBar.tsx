@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import * as dbRequest from "../Controllers/dbRequests";
 
 interface IProps {}
+
 export class SearchBar extends React.Component<IProps> {
 
     state = {

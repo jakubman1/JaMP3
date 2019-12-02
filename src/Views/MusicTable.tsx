@@ -63,7 +63,6 @@ export class MusicTable extends React.Component<Props, State> {
             let song: object;
 
             for (song of this.state.songs) {
-                console.log(song);
                 // @ts-ignore
                 rows.push(<MusicTableRow callback={this.handleSongClick} playlistId={this.state.playlistId} id={song._id} name={song.title} album={song.album} author={song.author} length={song.length} path={song.path} favourite={song.favourite}/>)
             }
