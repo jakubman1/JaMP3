@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow,  globalShortcut} = require('electron');
 const path = require('path');
 require('./Models/db');
 require('./Models/dbHandler');
@@ -18,4 +18,12 @@ function createWindow() {
     win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+    createWindow();
+    const ret = globalShortcut.register('CommandOrControl+X', () => {
+        console.log('CommandOrControl+X is pressed')
+    });
+    if (!ret) {
+        console.log('registration failed')
+    }
+});
