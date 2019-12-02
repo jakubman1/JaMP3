@@ -11,20 +11,16 @@
   list-style-type: none;
   padding: 0;
   li {
-    cursor: pointer;
     margin-bottom: 5px;
-    transition: all ease-in-out 100ms;
-    &:hover {
-      color: lighten($color-accent, 10%);
-    }
   }
 }
 .playlist-list-name {
   text-decoration: underline;
-  /*transition: all ease-in-out 100ms;
+  cursor: pointer;
+  transition: all ease-in-out 100ms;
   &:hover {
     color: lighten($color-accent, 10%);
-  }*/
+  }
 }
 .playlist-list-song-count {
   color: $color-font-secondary;
@@ -48,6 +44,7 @@
 
 .playlist-icon {
   font-size: 12px;
+  cursor: pointer;
 }
 
 .playlist-menu {
