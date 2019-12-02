@@ -102,7 +102,7 @@ export class ImportCreatePlaylist extends React.Component<IProps> {
             dbRequest.importMP3sToPlaylist(this.state.selectedPlaylist, this.props.files);
             dbRequest.getAllSongsCount();
         }
-        importFinished.doneImporting();
+        setTimeout(importFinished.doneImporting, 100);
     };
 
     handleNewPlaylistInputChange = (event: any) => {

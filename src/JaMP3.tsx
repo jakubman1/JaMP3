@@ -17,6 +17,7 @@ import {ImportFullscreen} from "./Views/Import/ImportFullscreen";
 import {ImportCreatePlaylist} from "./Views/Import/ImportCreatePlaylist";
 import {ImportPopup} from "./Views/Import/ImportPopup";
 import * as importFinished from './Controllers/importFinishedController';
+import * as dbRequest from "./Controllers/dbRequests";
 
 class JaMP3 extends React.Component {
 
@@ -28,6 +29,7 @@ class JaMP3 extends React.Component {
         super(props);
         importFinished.importFinished.on('importFinished', () => {
             this.setState({draggedOver: false});
+            dbRequest.getAllPlaylists();
         });
     }
 
@@ -38,6 +40,7 @@ class JaMP3 extends React.Component {
     componentWillUnmount(): void {
         importFinished.importFinished.removeListener('importFinished', () => {
             this.setState({draggedOver: false});
+            dbRequest.getAllPlaylists();
         });
     }
 
