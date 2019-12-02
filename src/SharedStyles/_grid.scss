@@ -33,7 +33,7 @@
   right: 0;
   top: $search-bar-height;
   width: calc(100vw - #{$sidebar-width} - #{$center-padding} * 2);
-  max-height: calc(100vh - #{$search-bar-height} - #{$now-playing-bar-height} - #{$center-padding} * 2);
+  min-height: calc(100vh - #{$search-bar-height} - #{$now-playing-bar-height} - #{$center-padding} * 2);
   padding: $center-padding;
 }
 

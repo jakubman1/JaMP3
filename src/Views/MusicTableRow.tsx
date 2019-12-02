@@ -21,6 +21,12 @@ interface Props {
 export class MusicTableRow extends React.Component<Props> {
     constructor(props: any) {
         super(props);
+        dbRequests.getAllPlaylists();
+        dbRequests.emitter.on('playlistListChanged', (playlists: {_id: string, name: string}[]) => {
+            this.setState({
+                playlists
+            })
+        });
     }
 
     addSongToFavourite = (event: any) => {
@@ -37,6 +43,17 @@ export class MusicTableRow extends React.Component<Props> {
 
     handleClick = () => {
         this.props.callback(this.props.id);
+    };
+
+    addToPlaylist = (event: any, _id: any) => {
+       event.stopPropagation();
+        dbRequests.addSongToPlaylist(this.props.id, _id);
+        this.setState({
+            showMoreOptions: false,
+            showPlaylists: false,
+            hoverOverAddToPlaylist: false,
+            hoverOverPlaylists: false,
+        });
     };
 
     deleteFromPlaylist = (event: any) => {
@@ -58,7 +75,8 @@ export class MusicTableRow extends React.Component<Props> {
         showMoreOptions: false,
         showPlaylists: false,
         hoverOverAddToPlaylist: false,
-        hoverOverPlaylists: false
+        hoverOverPlaylists: false,
+        playlists: [] as {_id: string, name: string}[],
     };
 
     showMoreOptions = (event: any) => {
@@ -107,25 +125,38 @@ export class MusicTableRow extends React.Component<Props> {
             star = (<FontAwesomeIcon icon={faStar} className="song-row-icon song-favourite" onClick={this.addSongToFavourite}/>);
         }
 
+        let deleteFromPlaylistOption = null;
+        if (this.props.playlistId != "all" && this.props.playlistId != "favourite") {
+            deleteFromPlaylistOption = (<div onClick={this.deleteFromPlaylist}>Odebrat z playlistu</div>);
+        }
+
         let moreOptions = null;
         if (this.state.showMoreOptions) {
             moreOptions = (
-                <div className="more-options">
-                    <div onMouseEnter={this.hoverOverAddToPlaylist} onMouseLeave={this.hoverOverAddToPlaylist} onClick={this.stopEventPropagation}>Přidat do playlistu</div>
-                    <div onClick={this.deleteFromPlaylist}>Odebrat z playlistu</div>
-                    <div onClick={this.deleteSong}>Odebrat</div>
+                <div>
+                    <div className="more-options">
+                        <div onMouseEnter={this.hoverOverAddToPlaylist} onMouseLeave={this.hoverOverAddToPlaylist} onClick={this.stopEventPropagation}>Přidat do playlistu</div>
+                        {deleteFromPlaylistOption}
+                        <div onClick={this.deleteSong}>Odebrat</div>
+                    </div>
+                    <div className="back-screen" onClick={this.showMoreOptions}/>
                 </div>
             );
         }
 
-        let playlists = null;
+        let playlists = [];
+        for(let p of this.state.playlists) {
+            {/*TODO replace this condition with all the song's playlist's IDs*/}
+            if (p._id != this.props.playlistId) {
+                playlists.push(<div onClick={(e) => this.addToPlaylist(e, p._id)}>{p.name}</div>);
+            }
+        }
+
+        let playlistsNames = null;
         if (this.state.showPlaylists) {
-            playlists = (
+            playlistsNames = (
             <div className="playlists" onMouseEnter={this.hoverOverPlaylists} onMouseLeave={this.hoverOverPlaylists}>
-                <div>Playlist1</div>
-                <div>Středně dlouhý</div>
-                <div>Playlist s dlouhým názvem</div>
-                <div>Playlist4</div>
+                {playlists}
             </div>
             );
         }
@@ -141,7 +172,7 @@ export class MusicTableRow extends React.Component<Props> {
                     <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon" onClick={this.showMoreOptions}/>
                 </td>
                     {moreOptions}
-                    {playlists}
+                    {playlistsNames}
             </tr>
         );
     }
