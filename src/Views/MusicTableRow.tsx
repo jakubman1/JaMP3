@@ -73,6 +73,7 @@ export class MusicTableRow extends React.Component<Props> {
         event.stopPropagation();
         dbRequests.removeMP3s(this.props.id);
         dbRequests.getSongsTable(this.props.playlistId);
+        dbRequests.getFavouriteSongsCount();
         dbRequests.getAllSongsCount();
         this.setState({
             showMoreOptions: false,
@@ -150,7 +151,7 @@ export class MusicTableRow extends React.Component<Props> {
                         {deleteFromPlaylistOption}
                         <div onClick={this.deleteSong}>Odebrat</div>
                     </div>
-                    <div className="back-screen" onClick={this.showMoreOptions}/>
+                    <div className="back-screen" onClick={this.showMoreOptions} onScroll={this.showMoreOptions}/>
                 </div>
             );
         }
