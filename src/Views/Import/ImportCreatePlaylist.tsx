@@ -99,7 +99,7 @@ export class ImportCreatePlaylist extends React.Component<IProps> {
             this.finishImport();
         }
         else {
-            // dbRequest.addSongsToPlaylist(songId, this.state.selectedPlaylist);
+            dbRequest.importMP3sToPlaylist(this.state.selectedPlaylist, this.props.files);
         }
     };
 
