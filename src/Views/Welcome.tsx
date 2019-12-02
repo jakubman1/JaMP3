@@ -24,9 +24,9 @@ export const Welcome: React.FunctionComponent = () => {
             </div>
             <div className="row align-center">
                 <div className="welcome-images">
-                    <img className="welcome-image" src={importInstructions} alt="import instructions"/>
+                    {/*<img className="welcome-image" src={importInstructions} alt="import instructions"/>
                     <img src={importInstructions} alt="import instructions"/>
-                    <img src={importInstructions} alt="import instructions"/>
+                    <img src={importInstructions} alt="import instructions"/>*/}
                     <div>Klikněte na tlačítko importu v pravém horním rohu aplikace.</div>
                     <div>Přetáhněte soubor(y) nebo klikněte na tlačítko "Procházet" pro výběr hudby.</div>
                     <div>Vyberte si playlist, do kterého chcete novou hudbu přidat a klikněte na tlačítko "Importovat."</div>

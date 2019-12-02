@@ -9,10 +9,11 @@ import {AddPlaylist} from "./AddPlaylist";
 interface Props {}
 
 interface State {
-    playlists: object[]
-    all_count: number
-    favourite_count: number
-    showAddPlaylistComponent: boolean
+    playlists: object[];
+    all_count: number;
+    favourite_count: number;
+    showAddPlaylistComponent: boolean;
+    activePlaylistId: string;
 }
 
 export class PlaylistList extends React.Component<Props, State> {
@@ -24,6 +25,7 @@ export class PlaylistList extends React.Component<Props, State> {
             all_count: 0,
             favourite_count: 0,
             showAddPlaylistComponent: false,
+            activePlaylistId: ""
         };
         dbRequests.emitter.on('playlistListChanged', (data: any) => this.loadPlaylists(data));
         dbRequests.getAllPlaylists();
@@ -33,7 +35,15 @@ export class PlaylistList extends React.Component<Props, State> {
 
         dbRequests.emitter.on('favouritePlaylistCount', (data: any) => this.loadFavouriteSongsCount(data));
         dbRequests.getFavouriteSongsCount();
+
+        dbRequests.emitter.on('getActualPlaylist', (data: {_id: string, name: string}[]) => {
+            this.setActivePlaylist(data[0]._id);
+        })
     }
+
+    setActivePlaylist = (id: string) => {
+        this.setState({activePlaylistId: id});
+    };
 
     loadPlaylists = (data: any) => {
         this.setState({playlists: data});
@@ -69,7 +79,12 @@ export class PlaylistList extends React.Component<Props, State> {
 
         for (playlist of this.state.playlists) {
             // @ts-ignore
-            rows.push(<PlaylistRow id={playlist._id} name={playlist.name} songs_count={playlist.songs_count}/>);
+            const active = playlist._id === this.state.activePlaylistId;
+            // @ts-ignore
+            rows.push(<PlaylistRow id={playlist._id} name={playlist.name} songs_count={playlist.songs_count}
+               // @ts-ignore
+                active={active} />);
+            // @ts-ignore
         }
 
         let addPlaylist = null;

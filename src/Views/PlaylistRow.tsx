@@ -8,6 +8,7 @@ interface Props {
     id: string;
     name: string;
     songs_count: number;
+    active: boolean;
 }
 
 export class PlaylistRow extends React.Component<Props> {
@@ -32,10 +33,11 @@ export class PlaylistRow extends React.Component<Props> {
         if (this.state.showPlaylistMenuComponent) {
             playlistMenu = (<PlaylistMenu id={this.props.id} callback={this.showPlaylistMenuComponent}/>);
         }
-
+        const active = this.props.active ? ' playlist-selected' : '';
         return (
             <li>
-                <span className="playlist-list-name" onClick={this.loadSongsInTable}>{this.props.name}</span>
+                <span className={"playlist-list-name" + active}
+                      onClick={this.loadSongsInTable}>{this.props.name}</span>
                 <FontAwesomeIcon onClick={this.showPlaylistMenuComponent} className="playlist-menu" icon={faEllipsisH}/>
                 {playlistMenu}
                 <span className="playlist-list-song-count">{this.props.songs_count} skladeb</span>

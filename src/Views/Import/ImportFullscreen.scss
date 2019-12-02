@@ -13,9 +13,10 @@
   margin-right: auto;
   text-align: center;
   transition: all ease-in-out 150ms;
-  &:hover {
-    background: transparentize($color-success, .8);
-  }
+}
+
+.import-area-dragged-over {
+  background: transparentize($color-success, .8);
 }
 
 .go-back {
