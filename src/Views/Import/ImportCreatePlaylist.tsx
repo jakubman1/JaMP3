@@ -30,7 +30,6 @@ export class ImportCreatePlaylist extends React.Component {
                 <input className="round-input playlist-import-name-input" type="text" placeholder="Název playlistu..."/>
 
                 <Link to="/home" className="btn btn-big btn-outline button-cancel">Zrušit</Link>
-                {/*<div className="btn btn-big btn-outline button-cancel">Zrušit</div>*/}
 
                 <div className="btn btn-big btn-outline button-import">Import</div>
             </div>
