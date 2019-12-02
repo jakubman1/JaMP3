@@ -28,6 +28,15 @@ export class ImportCreatePlaylist extends React.Component<IProps> {
         });
     }
 
+    componentWillUnmount(): void {
+        dbRequest.emitter.removeListener('playlistListChanged',
+            (playlists: {_id: string, name: string}[]) => {
+            this.setState({
+                playlists
+            })
+        })
+    }
+
     handlePlaylistSelectChanged = (event: any) => {
         this.setState({selectedPlaylist: event.target.value});
     };

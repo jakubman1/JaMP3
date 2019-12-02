@@ -20,18 +20,6 @@ export class ImportFullscreen extends React.Component<IProps, IState>{
     };
 
 
-
-   /* handleBackClick = () => {
-        let history = useHistory();
-        history.goBack();
-    };*/
-
-
-
-   handleFinishClick = () => {
-
-   };
-
     handleBrowseClick = () => {
         // electron.dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] })
     };

@@ -22,6 +22,15 @@ export class SearchBar extends React.Component<IProps> {
         });
     }
 
+    componentWillUnmount(): void {
+        dbRequest.emitter.removeListener('playlistListChanged',
+            (playlists: {_id: string, name: string}[]) => {
+                this.setState({
+                    playlists
+                })
+            })
+    }
+
     render() {
         let playlists = [];
         for(let p of this.state.playlists) {
