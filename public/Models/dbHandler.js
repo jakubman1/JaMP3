@@ -118,18 +118,29 @@ function handleFolderImport(folderPath, playlistId) {
 
 function insertMP3(playlistId, path) {
     let tags = NodeID3.read(path);
-    if(!tags['title']) {
+    let record;
+    if(tags['title'] === undefined) {
         let pathArr = path.split('\\');
-        tags['title'] = pathArr[pathArr.length - 1].substr(-4);
+        record = {
+            path: path,
+            author: tags['artist'],
+            title: pathArr[pathArr.length - 1].substr(0, pathArr[pathArr.length - 1].length - 4),
+            album: tags['album'],
+            year: tags['year'],
+            favourite: false,
+            playlists: (playlistId === "") ? [] : [playlistId]
+        };
     }
-    let record = {
-        path: path,
-        author: tags['artist'],
-        title: tags['title'],
-        album: tags['album'],
-        year: tags['year'],
-        favourite: false,
-        playlists: (playlistId === "") ? [] : [playlistId]
-    };
+    else {
+        record = {
+            path: path,
+            author: tags['artist'],
+            title: tags['title'],
+            album: tags['album'],
+            year: tags['year'],
+            favourite: false,
+            playlists: (playlistId === "") ? [] : [playlistId]
+        };
+    }
     db.insertRecord(record);
 }
