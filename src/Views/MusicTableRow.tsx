@@ -4,6 +4,7 @@ import { faStar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarO } from '@fortawesome/free-regular-svg-icons'
 import * as dbRequests from "../Controllers/dbRequests";
 import "./MusicTableRow.scss";
+import {emitter} from "../Controllers/dbRequests";
 
 interface Props {
     name: string;
@@ -16,6 +17,7 @@ interface Props {
     favourite: boolean;
 
     callback: any;
+    highlight: boolean;
 }
 
 export class MusicTableRow extends React.Component<Props> {
@@ -27,7 +29,6 @@ export class MusicTableRow extends React.Component<Props> {
         hoverOverPlaylists: false,
         playlists: [] as {_id: string, name: string}[],
         songsPlaylists: [] as string[],
-        highlightSong: false
     };
 
     constructor(props: any) {
@@ -45,22 +46,7 @@ export class MusicTableRow extends React.Component<Props> {
                 songsPlaylists: songsPlaylists
             })
         });
-
-        dbRequests.emitter.on('playingSongChanged', (data: any) => this.highlightPlayingSong(data));
     }
-
-    highlightPlayingSong = (data: any) => {
-        if(this.props.playlistId === data.playlistId && this.props.id === data.songId) {
-            this.setState({
-                highlightSong: true
-            });
-        }
-        else {
-            this.setState({
-                highlightSong: false
-            });
-        }
-    };
 
     addSongToFavourite = (event: any) => {
         event.stopPropagation();
@@ -214,7 +200,7 @@ export class MusicTableRow extends React.Component<Props> {
         }
 
         return (
-            <tr className={this.state.highlightSong ? "song-row highlight" : "song-row"} onClick={this.handleClick}>
+            <tr className={this.props.highlight ? "song-row highlight" : "song-row"} onClick={this.handleClick}>
                 <td className="song-name">{this.props.name}</td>
                 <td>{this.props.album ? this.props.album : ''}</td>
                 <td>{this.props.author ? this.props.author : ''}</td>
