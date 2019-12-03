@@ -32,10 +32,16 @@ export class MusicTable extends React.Component<Props, State> {
         dbRequests.emitter.on('getActualPlaylist', (data: any) => this.loadActualPlaylist(data));
         dbRequests.getActualPlaylist("all");
 
-        dbRequests.emitter.on('searchSongsInPlaylist', (data: any) => this.loadSongs(data));
+        dbRequests.emitter.on('searchSongsInPlaylist', (data: any) => {this.loadSongs(data); this.searching("Vyhledávání")});
 
         dbRequests.emitter.on('playingSongChanged', (data: any) => this.highlightPlayingSong(data));
     }
+
+    searching = (newValue: string) => {
+        this.setState({
+            playlistName: newValue
+        });
+    };
 
     highlightPlayingSong = (data: any) => {
         this.setState({

@@ -7,6 +7,7 @@ import {RenamePlaylist} from "./RenamePlaylist";
 interface Props {
     id: string;
     callback: any;
+    playlistName: string;
 }
 
 export class PlaylistMenu extends React.Component<Props> {
@@ -30,7 +31,7 @@ export class PlaylistMenu extends React.Component<Props> {
         let renamePlaylist = null;
 
         if (this.state.showRenamePlaylist) {
-            renamePlaylist = (<RenamePlaylist id={this.props.id} callback={this.props.callback}/>);
+            renamePlaylist = (<RenamePlaylist id={this.props.id} playlistName={this.props.playlistName} callback={this.props.callback}/>);
         }
 
         return(

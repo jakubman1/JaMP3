@@ -2,14 +2,15 @@ import React from 'react';
 import * as dbRequests from "../Controllers/dbRequests";
 
 interface Props {
-    id: string
+    id: string;
+    playlistName: string;
     callback: any;
 }
 
 export class RenamePlaylist extends React.Component<Props> {
 
     state = {
-        inputValue: ""
+        inputValue: this.props.playlistName
     };
 
     changeInputValue = (newValue: any) => {
@@ -33,7 +34,6 @@ export class RenamePlaylist extends React.Component<Props> {
                     <h1>Přejmenovat playlist</h1>
                     <p>Zadejte nový název playlistu</p>
                     <input className="round-input input-big margin-b" type="text"
-                           placeholder="Název playlistu..."
                            value={this.state.inputValue}
                            onChange={newValue => this.changeInputValue(newValue)}/>
                     <br/>
