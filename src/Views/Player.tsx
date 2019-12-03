@@ -197,7 +197,10 @@ export class Player extends React.Component<Props, State> {
                     </div>
                     <Slider className="volume-slider" min={0} max={100} defaultValue={100} step={1}
                             onChange={this.changeVolume}/>
-                    <span className="margin-l">{Math.floor(this.state.volume * 100)}%</span>
+                    <div className="volume-value-container">
+                        <span>{Math.floor(this.state.volume * 100)}%</span>
+                    </div>
+
 
                 </div>
                 <div className="time-slider-container">

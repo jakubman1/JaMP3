@@ -42,6 +42,13 @@
   display: inline-block;
 }
 
+.volume-value-container {
+  width: 30px;
+  text-align: left;
+  padding-left: 15px;
+  display: inline-block;
+}
+
 .volume-control {
   position: absolute;
   right: 40px;
