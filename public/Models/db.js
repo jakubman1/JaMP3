@@ -6,6 +6,16 @@ let playlistsDB = new Datastore({filename: app.getPath('appData') + '/jamp3/play
 
 module.exports = {
     // songsDB functions
+    getPlaylistsWithThisSong: function(songId) {
+        return new Promise((resolve, reject) => {
+            songsDB.find({_id: songId}, { playlists: 1, _id: 0 }, function (err, docs) {
+                if (err) reject(err);
+                if (!docs) resolve([]);
+                resolve(docs);
+            });
+        });
+    },
+
     searchSongsInPlaylist: function(playlistId, text) {
         let regex = new RegExp(text, 'i');
         if (playlistId === 'all') {
