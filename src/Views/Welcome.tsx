@@ -2,7 +2,9 @@ import * as React from 'react'
 import {Link} from 'react-router-dom';
 import './Welcome.scss';
 import { useHistory } from "react-router-dom";
-import importInstructions from "./import-instructions.jpg";
+import importInstructions1 from "./import-instructions1.png";
+import importInstructions2 from "./import-instructions2.png";
+import importInstructions3 from "./import-instructions3.png";
 
 export const Welcome: React.FunctionComponent = () => {
     let history = useHistory();
@@ -15,7 +17,7 @@ export const Welcome: React.FunctionComponent = () => {
             history.push("/home");
         }
     }
-    checkHistory();
+    //checkHistory();
     return (
         <div className="fullscreen-wrapper">
             <div className="row align-center">
@@ -24,9 +26,9 @@ export const Welcome: React.FunctionComponent = () => {
             </div>
             <div className="row align-center">
                 <div className="welcome-images">
-                    {/*<img className="welcome-image" src={importInstructions} alt="import instructions"/>
-                    <img src={importInstructions} alt="import instructions"/>
-                    <img src={importInstructions} alt="import instructions"/>*/}
+                    <img src={importInstructions1} alt="import instructions"/>
+                    <img src={importInstructions2} alt="import instructions"/>
+                    <img src={importInstructions3} alt="import instructions"/>
                     <div>Klikněte na tlačítko importu v pravém horním rohu aplikace.</div>
                     <div>Přetáhněte soubor(y) nebo klikněte na tlačítko "Procházet" pro výběr hudby.</div>
                     <div>Vyberte si playlist, do kterého chcete novou hudbu přidat a klikněte na tlačítko "Importovat."</div>
