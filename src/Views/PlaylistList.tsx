@@ -121,7 +121,7 @@ export class PlaylistList extends React.Component<Props, State> {
                                 <div className="playlist-icon-wrapper">
                                     <FontAwesomeIcon className="playlist-icon" icon={faStar}/>
                                 </div>
-                                <Link to="/home" className="no-decoration">
+                                <Link to="/home/favourite" className="no-decoration">
                                     <span className={favouriteInClass} onClick={this.loadFavouriteSongs}>Oblíbené</span>
                                 </Link>
                             </div>

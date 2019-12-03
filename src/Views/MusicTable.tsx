@@ -4,7 +4,9 @@ import './MusicTable.scss'
 import * as dbRequests from "../Controllers/dbRequests";
 import {emitter} from "../Controllers/dbRequests";
 
-interface Props {}
+interface Props {
+    initPlaylist?: string
+}
 
 interface State {
     songs: object[];
@@ -18,13 +20,25 @@ export class MusicTable extends React.Component<Props, State> {
 
     constructor(props: any) {
         super(props);
-        this.state = {
-            songs: [],
-            playlistId: "all",
-            playlistName: "Všechny skladby",
-            highlightSong: "",
-            playlistWithHighlightedSong: ""
-        };
+        if(this.props.initPlaylist === 'favourite') {
+            this.state = {
+                songs: [],
+                playlistId: "favourite",
+                playlistName: "Oblíbené skladby",
+                highlightSong: "",
+                playlistWithHighlightedSong: ""
+            };
+        }
+        else {
+            this.state = {
+                songs: [],
+                playlistId: "all",
+                playlistName: "Všechny skladby",
+                highlightSong: "",
+                playlistWithHighlightedSong: ""
+            };
+        }
+
 
         dbRequests.emitter.on('songsTableChanged', (data: any) => this.loadSongs(data));
 
@@ -36,8 +50,15 @@ export class MusicTable extends React.Component<Props, State> {
     }
 
     componentDidMount(): void {
-        dbRequests.getSongsTable("all");
-        dbRequests.getActualPlaylist("all");
+        if(this.props.initPlaylist === 'favourite') {
+            dbRequests.getSongsTable("favourite");
+            dbRequests.getActualPlaylist("favourite");
+        }
+        else {
+            dbRequests.getSongsTable("all");
+            dbRequests.getActualPlaylist("all");
+        }
+
     }
 
     searching = (newValue: string) => {

@@ -49,18 +49,11 @@ class JaMP3 extends React.Component {
         event.preventDefault();
     };
 
-    /*handleDragLeave = (e: any) => {
-        this.setState({draggedOver: false});
-        return false;
-    };*/
-
     render() {
         let dragOverBox = null;
         if(this.state.draggedOver) {
             dragOverBox = (<ImportPopup/>);
         }
-        let activePlaylist = 'all';
-        //console.log(electron.dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }));
         return (
             <div className="JaMP3"
             onDragEnter={this.handleDragOver}>
@@ -77,9 +70,13 @@ class JaMP3 extends React.Component {
                     </div>
 
                     <Switch>
+                        <Route path="/home/favourite">
+                            {dragOverBox}
+                            <MusicTable initPlaylist="favourite"/>
+                        </Route>
                         <Route path="/home">
                             {dragOverBox}
-                            <MusicTable/>
+                            <MusicTable initPlaylist="all"/>
                         </Route>
                         <Route path="/import">
                             <ImportFullscreen/>
