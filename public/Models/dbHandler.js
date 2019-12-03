@@ -2,6 +2,7 @@ const NodeID3 = require('node-id3');
 const { ipcMain } = require('electron');
 const db = require('./db');
 const fs = require('fs');
+const getMP3Duration = require('get-mp3-duration');
 
 ipcMain.on('getPlaylistsWithThisSong-request', (event, arg) => {
     db.getPlaylistsWithThisSong(arg)
@@ -139,6 +140,8 @@ function handleFolderImport(folderPath, playlistId) {
 function insertMP3(playlistId, path) {
     let tags = NodeID3.read(path);
     let record;
+    const buffer = fs.readFileSync(path);
+    const duration = getMP3Duration(buffer);
     if(tags['title'] === undefined) {
         let pathArr = path.split('\\');
         record = {
@@ -148,7 +151,7 @@ function insertMP3(playlistId, path) {
             album: tags['album'],
             year: tags['year'],
             favourite: false,
-            length: tags['length'],
+            length: secondsToTime(Math.floor(duration / 1000)),
             playlists: (playlistId === "") ? [] : [playlistId]
         };
     }
@@ -160,9 +163,23 @@ function insertMP3(playlistId, path) {
             album: tags['album'],
             year: tags['year'],
             favourite: false,
-            length: tags['length'],
+            length: secondsToTime(Math.floor(duration / 1000)),
             playlists: (playlistId === "") ? [] : [playlistId]
         };
     }
     db.insertRecord(record);
+}
+
+function secondsToTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    let minStr = min.toString();
+    let secStr = sec.toString();
+    if (min < 10) {
+        minStr = "0" + minStr;
+    }
+    if (sec < 10) {
+        secStr = "0" + secStr
+    }
+    return minStr + ":" + secStr;
 }

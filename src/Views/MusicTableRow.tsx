@@ -204,7 +204,7 @@ export class MusicTableRow extends React.Component<Props> {
                 <td className="song-name">{this.props.name}</td>
                 <td>{this.props.album ? this.props.album : ''}</td>
                 <td>{this.props.author ? this.props.author : ''}</td>
-                <td>{this.props.length ? this.props.author : ''}</td>
+                <td>{this.props.length ? this.props.length : ''}</td>
                 <td className="song-row-icon-wrapper">
                     {star}
                     <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon" onClick={this.showMoreOptions}/>
