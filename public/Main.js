@@ -26,6 +26,10 @@ app.on('ready', () => {
         setConfig(win, arg.togglePause, arg.prev, arg.skip)
     });
 
+    ipcMain.on('shortcutGetKeys', (event, arg) => {
+        event.reply('shortcutGetKeys-reply', getConfigFileContents());
+    });
+
 });
 
 
@@ -79,4 +83,19 @@ function setConfig(win, toggleKey, prevKey, nextKey) {
         if (err) throw err;
         console.log('Data written to file');
     });
+}
+
+function getConfigFileContents() {
+    try {
+        let data = fs.readFileSync(path.join(app.getPath("appData"), "jamp3/keyConfig.json"));
+        if (data !== undefined) {
+            return JSON.parse(data);
+        }
+        else return {};
+    }
+    catch(err) {
+        console.log(err.message);
+        return {};
+    }
+
 }

@@ -93,20 +93,28 @@ export class PlaylistList extends React.Component<Props, State> {
             addPlaylist = (<AddPlaylist callback={this.showAddPlaylistComponent}/>);
         }
 
+        let allClass = this.state.activePlaylistId === 'all' ?
+            "playlist-list-name playlist-selected" : "playlist-list-name";
+        let favouriteClass = this.state.activePlaylistId === 'favourite' ?
+            "playlist-name-wrapper playlist-selected" : "playlist-name-wrapper";
+        let favouriteInClass = this.state.activePlaylistId === 'favourite' ?
+            "playlist-list-name playlist-selected" : "playlist-list-name";
+
         return (
             <div>
                 <div className="top-list-wrapper">
                     <ul className="playlist-list">
                         <li>
-                            <span className="playlist-list-name" onClick={this.loadAllSongs}>Vše</span>
+                            <span className={allClass}
+                                  onClick={this.loadAllSongs}>Vše</span>
                             <span className="playlist-list-song-count">{this.state.all_count} skladeb</span>
                         </li>
                         <li>
-                            <div className="playlist-name-wrapper">
+                            <div className={favouriteClass}>
                                 <div className="playlist-icon-wrapper">
                                     <FontAwesomeIcon className="playlist-icon" icon={faStar} />
                                 </div>
-                                <span className="playlist-list-name" onClick={this.loadFavouriteSongs}>Oblíbené</span>
+                                <span className={favouriteInClass} onClick={this.loadFavouriteSongs}>Oblíbené</span>
                             </div>
                             <span className="playlist-list-song-count">{this.state.favourite_count} skladeb</span>
                         </li>
