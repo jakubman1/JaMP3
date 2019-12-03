@@ -20,7 +20,7 @@ export class AddPlaylist extends React.Component<Props> {
     handleSubmit = () => {
         if (this.state.inputValue !== "") {
             dbRequests.createNewPlaylist(this.state.inputValue);
-            dbRequests.getAllPlaylists();
+            dbRequests.getPlaylistSongsCount();
         }
         this.props.callback();
     };

@@ -7,14 +7,20 @@ import * as dbRequests from "../Controllers/dbRequests";
 interface Props {
     id: string;
     name: string;
-    songs_count: number;
     active: boolean;
 }
 
 export class PlaylistRow extends React.Component<Props> {
     state = {
-        showPlaylistMenuComponent: false
+        showPlaylistMenuComponent: false,
+        songsCount: 0
     };
+
+    constructor(Props: any) {
+        super(Props);
+
+        dbRequests.emitter.on('getPlaylistSongsCount', (data: any) => this.getSongsCount(data));
+    }
 
     showPlaylistMenuComponent = () => {
         this.setState({
@@ -25,6 +31,14 @@ export class PlaylistRow extends React.Component<Props> {
     loadSongsInTable = () => {
         dbRequests.getActualPlaylist(this.props.id);
         dbRequests.getSongsTable(this.props.id);
+    };
+
+    getSongsCount = (data: any) => {
+        if(data._id === this.props.id) {
+            this.setState({
+                songsCount: data.count
+            });
+        }
     };
 
     render() {
@@ -40,7 +54,7 @@ export class PlaylistRow extends React.Component<Props> {
                       onClick={this.loadSongsInTable}>{this.props.name}</span>
                 <FontAwesomeIcon onClick={this.showPlaylistMenuComponent} className="playlist-menu" icon={faEllipsisH}/>
                 {playlistMenu}
-                <span className="playlist-list-song-count">{this.props.songs_count} skladeb</span>
+                <span className="playlist-list-song-count">{this.state.songsCount} skladeb</span>
             </li>
         );
     }

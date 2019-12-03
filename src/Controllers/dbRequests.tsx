@@ -85,6 +85,15 @@ export function getFavouriteSongsCount() {
     });
 }
 
+export function getPlaylistSongsCount() {
+    ipcRenderer.send('getPlaylistSongsCount-request');
+
+    ipcRenderer.on('getPlaylistSongsCount-reply', (event: any, arg: number) => {
+        console.log(arg);
+        emitter.emit('getPlaylistSongsCount', arg);
+    });
+}
+
 export function getAllPlaylists() {
     ipcRenderer.send('getAllPlaylists-request');
 
@@ -137,3 +146,4 @@ export function renamePlaylist(pl_id: string, name: string) {
 // searchSongsInPlaylist("all", "ai");
 
 // getPlaylistsWithThisSong("okAvF9kipi3Jl2bc");
+// getPlaylistSongsCount("ENgmWgBGU9uieXTJ");

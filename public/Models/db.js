@@ -123,6 +123,14 @@ module.exports = {
         });
     },
 
+    getPlaylistSongsCount: function(playlistId) {
+        return new Promise((resolve, reject) => {
+            songsDB.count({ playlists: playlistId }, function (err, count) {
+                resolve(count);
+            });
+        });
+    },
+
     // playlistsDB functions
     findAllPlaylists: function() {
         return new Promise((resolve, reject) => {
