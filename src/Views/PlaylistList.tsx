@@ -1,12 +1,14 @@
 import * as React from 'react';
 import "./PlaylistList.scss"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faStar, faPlus} from '@fortawesome/free-solid-svg-icons'
 import * as dbRequests from "../Controllers/dbRequests";
 import {PlaylistRow} from "./PlaylistRow";
 import {AddPlaylist} from "./AddPlaylist";
+import {Link} from "react-router-dom";
 
-interface Props {}
+interface Props {
+}
 
 interface State {
     playlists: object[];
@@ -36,7 +38,7 @@ export class PlaylistList extends React.Component<Props, State> {
         dbRequests.emitter.on('favouritePlaylistCount', (data: any) => this.loadFavouriteSongsCount(data));
         dbRequests.getFavouriteSongsCount();
 
-        dbRequests.emitter.on('getActualPlaylist', (data: {_id: string, name: string}[]) => {
+        dbRequests.emitter.on('getActualPlaylist', (data: { _id: string, name: string }[]) => {
             this.setActivePlaylist(data[0]._id);
         });
 
@@ -83,7 +85,7 @@ export class PlaylistList extends React.Component<Props, State> {
             // @ts-ignore
             const active = playlist._id === this.state.activePlaylistId;
             // @ts-ignore
-            rows.push(<PlaylistRow id={playlist._id} name={playlist.name} active={active} />);
+            rows.push(<Link to="/home"><PlaylistRow id={playlist._id} name={playlist.name} active={active}/></Link>);
             // @ts-ignore
         }
 
@@ -105,25 +107,30 @@ export class PlaylistList extends React.Component<Props, State> {
                 <div className="top-list-wrapper">
                     <ul className="playlist-list">
                         <li>
-                            <span className={allClass}
-                                  onClick={this.loadAllSongs}>Vše</span>
-                            <span className="playlist-list-song-count">{this.state.all_count} skladeb</span>
+                            <Link to="/home">
+                                <span className={allClass}
+                                      onClick={this.loadAllSongs}>Vše</span>
+                                <span className="playlist-list-song-count">{this.state.all_count} skladeb</span>
+                            </Link>
+
                         </li>
                         <li>
                             <div className={favouriteClass}>
-                                <div className="playlist-icon-wrapper">
-                                    <FontAwesomeIcon className="playlist-icon" icon={faStar} />
-                                </div>
-                                <span className={favouriteInClass} onClick={this.loadFavouriteSongs}>Oblíbené</span>
+                                <Link to="/home">
+                                    <div className="playlist-icon-wrapper">
+                                        <FontAwesomeIcon className="playlist-icon" icon={faStar}/>
+                                    </div>
+                                    <span className={favouriteInClass} onClick={this.loadFavouriteSongs}>Oblíbené</span>
+                                </Link>
                             </div>
                             <span className="playlist-list-song-count">{this.state.favourite_count} skladeb</span>
                         </li>
                         <li onClick={this.showAddPlaylistComponent}>
                             <div className="playlist-name-wrapper">
                                 <div className="playlist-icon-wrapper">
-                                    <FontAwesomeIcon className="playlist-icon" icon={faPlus} />
+                                    <FontAwesomeIcon className="playlist-icon" icon={faPlus}/>
                                 </div>
-                                <span  className="playlist-list-name">Přidat playlist</span>
+                                <span className="playlist-list-name">Přidat playlist</span>
                             </div>
                         </li>
                         <li>
