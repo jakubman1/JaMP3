@@ -44,7 +44,6 @@ export class MusicTableRow extends React.Component<Props> {
                 songsPlaylists
             })
         });
-        dbRequests.getPlaylistsWithThisSong(this.props.id);
     }
 
     addSongToFavourite = (event: any) => {
@@ -87,7 +86,7 @@ export class MusicTableRow extends React.Component<Props> {
            hoverOverAddToPlaylist: false,
            hoverOverPlaylists: false,
        });
-    }
+    };
 
     deleteSong = (event: any) => {
         event.stopPropagation();
@@ -106,10 +105,12 @@ export class MusicTableRow extends React.Component<Props> {
 
     showMoreOptions = (event: any) => {
         event.stopPropagation();
+        if (this.state.showMoreOptions) {
+            dbRequests.getPlaylistsWithThisSong(this.props.id);
+        }
         this.setState({
             showMoreOptions: !this.state.showMoreOptions
         });
-        dbRequests.getPlaylistsWithThisSong(this.props.id);
     };
 
     showPlaylists = () => {
