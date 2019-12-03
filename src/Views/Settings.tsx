@@ -129,7 +129,6 @@ export class Settings extends React.Component<IPRops> {
                     </div>
                     <div>
                         <button className="btn btn-outline" onClick={this.handleResetClick}>Obnovit původní nastavení</button>
-
                     </div>
                     {submitBtn}
                     <p>Klávesy zkratek musejí být oddělené znakem + a bez mezer. Pro CTRL použijte
