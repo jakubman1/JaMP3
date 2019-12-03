@@ -26,7 +26,8 @@ export class MusicTableRow extends React.Component<Props> {
         hoverOverAddToPlaylist: false,
         hoverOverPlaylists: false,
         playlists: [] as {_id: string, name: string}[],
-        songsPlaylists: [] as string[]
+        songsPlaylists: [] as string[],
+        highlightSong: false
     };
 
     constructor(props: any) {
@@ -44,7 +45,22 @@ export class MusicTableRow extends React.Component<Props> {
                 songsPlaylists: songsPlaylists
             })
         });
+
+        dbRequests.emitter.on('playingSongChanged', (data: any) => this.highlightPlayingSong(data));
     }
+
+    highlightPlayingSong = (data: any) => {
+        if(this.props.playlistId === data.playlistId && this.props.id === data.songId) {
+            this.setState({
+                highlightSong: true
+            });
+        }
+        else {
+            this.setState({
+                highlightSong: false
+            });
+        }
+    };
 
     addSongToFavourite = (event: any) => {
         event.stopPropagation();
@@ -198,7 +214,7 @@ export class MusicTableRow extends React.Component<Props> {
         }
 
         return (
-            <tr className="song-row" onClick={this.handleClick}>
+            <tr className={this.state.highlightSong ? " song-row highlight" : "song-row"} onClick={this.handleClick}>
                 <td className="song-name">{this.props.name}</td>
                 <td>{this.props.album ? this.props.album : ''}</td>
                 <td>{this.props.author ? this.props.author : ''}</td>
