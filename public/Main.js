@@ -1,4 +1,4 @@
-const {app, BrowserWindow, globalShortcut} = require('electron');
+const {app, BrowserWindow, globalShortcut,ipcMain} = require('electron');
 const path = require('path');
 require('./Models/db');
 require('./Models/dbHandler');
@@ -22,27 +22,35 @@ app.on('ready', () => {
 
     loadConfig(win);
 
+    ipcMain.on('shortcutSetKeys', (event, arg) => {
+        setConfig(win, arg.togglePause, arg.prev, arg.skip)
+    });
 
 });
 
 
 function loadConfig(win) {
-    let data = fs.readFileSync(path.join(app.getPath("appData"), "jamp3/keyConfig.json"));
-    if(data) {
-        let keyConfig = JSON.parse(data);
+    try {
+        let data = fs.readFileSync(path.join(app.getPath("appData"), "jamp3/keyConfig.json"));
+        if (data !== undefined) {
+            let keyConfig = JSON.parse(data);
 
-        globalShortcut.register(keyConfig.TogglePause, () => {
-            win.webContents.send('songControlToggle', true)
-        });
-        globalShortcut.register(keyConfig.Prev, () => {
-            win.webContents.send('songControlPrev', true)
-        });
-        globalShortcut.register(keyConfig.Next, () => {
-            win.webContents.send('songControlNext', true)
-        });
+           globalShortcut.register(keyConfig.TogglePause, () => {
+                win.webContents.send('songControlToggle', true)
+            });
+            globalShortcut.register(keyConfig.Prev, () => {
+                win.webContents.send('songControlPrev', true)
+            });
+            globalShortcut.register(keyConfig.Skip, () => {
+                win.webContents.send('songControlNext', true)
+            });
+        } else {
+            setConfig(win, "Alt+F6", "Alt+F5", "Alt+F7");
+        }
     }
-    else {
-
+    catch(err) {
+        console.log(err.message);
+        setConfig(win, "Alt+F6", "Alt+F5", "Alt+F7");
     }
 
 }
@@ -63,11 +71,11 @@ function setConfig(win, toggleKey, prevKey, nextKey) {
     });
 
     let data = {
-        "Prev": prevKey,
-        "TogglePause": toggleKey,
-        "Skip": nextKey
+        'Prev': prevKey,
+        'TogglePause': toggleKey,
+        'Skip': nextKey
     };
-    fs.writeFile(path.join(app.getPath("appData"), "jamp3/keyConfig.json"), data, (err) => {
+    fs.writeFile(path.join(app.getPath("appData"), "jamp3/keyConfig.json"), JSON.stringify(data), (err) => {
         if (err) throw err;
         console.log('Data written to file');
     });
