@@ -148,6 +148,7 @@ function insertMP3(playlistId, path) {
             album: tags['album'],
             year: tags['year'],
             favourite: false,
+            length: tags['length'],
             playlists: (playlistId === "") ? [] : [playlistId]
         };
     }
@@ -159,6 +160,7 @@ function insertMP3(playlistId, path) {
             album: tags['album'],
             year: tags['year'],
             favourite: false,
+            length: tags['length'],
             playlists: (playlistId === "") ? [] : [playlistId]
         };
     }
