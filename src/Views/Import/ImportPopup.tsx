@@ -66,9 +66,12 @@ export class ImportPopup extends React.Component<IProps, IState>{
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         if(this.state.files.length === 0) {
             return (
-                <div className="popup-wrapper" onClick={this.handleOverlayClick} onDragLeave={this.handleGlobalDragLeave}
-                    onDrop={this.handleDropOutside}>
-                    <div className="popup-content-wrapper" onClick={this.handleContentClick} onDrop={this.handleDropOutside}>
+                <div className="popup-wrapper" onClick={this.handleOverlayClick} onDrop={this.handleDrop}
+                     onDragOver={this.handleDragOver}
+                     onDragLeave={this.handleDragLeave} onDragEnd={this.handleDragLeave}>
+                    <div className="popup-content-wrapper" onClick={this.handleContentClick}
+                         onDrop={this.handleDrop} onDragOver={this.handleDragOver}
+                         onDragLeave={this.handleDragLeave} onDragEnd={this.handleDragLeave}>
                         <h1>Import</h1>
                         <div className={"import-area" + (this.state.draggedOver ? ' import-area-dragged-over' : '')}
                              onDrop={this.handleDrop} onDragOver={this.handleDragOver}

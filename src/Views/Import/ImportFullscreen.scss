@@ -12,6 +12,7 @@
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  z-index: 1000;
   transition: all ease-in-out 150ms;
 }
 
@@ -21,6 +22,7 @@
     -webkit-animation: jello-horizontal 0.9s both;
     animation: jello-horizontal 0.9s both;
   }
+
 }
 
 .go-back {
@@ -34,6 +36,8 @@
 
 .big-icon {
   font-size: 150px;
+  z-index: 999;
+  pointer-events: none;
 }
 
 
