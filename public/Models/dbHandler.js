@@ -3,6 +3,12 @@ const { ipcMain } = require('electron');
 const db = require('./db');
 const fs = require('fs');
 
+ipcMain.on('getPlaylistsWithThisSong-request', (event, arg) => {
+    db.getPlaylistsWithThisSong(arg)
+        .then(response => event.reply('getPlaylistsWithThisSong-reply', response))
+        .catch(err => console.log(err));
+});
+
 ipcMain.on('searchSongsInPlaylist-request', (event, arg) => {
     db.searchSongsInPlaylist(arg.playlistId, arg.text)
         .then(response => event.reply('searchSongsInPlaylist-reply', response))

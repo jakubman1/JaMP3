@@ -12,11 +12,19 @@ const { ipcRenderer } = window.require('electron');
 export const emitter = new EventEmitter();
 emitter.setMaxListeners(20);
 
+export function getPlaylistsWithThisSong(songId: string) {
+    ipcRenderer.send('getPlaylistsWithThisSong-request', songId);
+
+    ipcRenderer.once('getPlaylistsWithThisSong-reply', (event: any, arg: object[]) => {
+        console.log(arg);
+        emitter.emit('getPlaylistsWithThisSong', arg);
+    });
+}
+
 export function searchSongsInPlaylist(playlistId: string, text: string) {
     ipcRenderer.send('searchSongsInPlaylist-request', {"playlistId": playlistId, "text": text});
 
     ipcRenderer.once('searchSongsInPlaylist-reply', (event: any, arg: object[]) => {
-        console.log(arg);
         emitter.emit('searchSongsInPlaylist', arg);
     });
 }
@@ -127,3 +135,5 @@ export function renamePlaylist(pl_id: string, name: string) {
 // renamePlaylist('1', "ahoj");
 // removeMP3s('zF0WDDhuPPinzKqI');
 // searchSongsInPlaylist("all", "ai");
+
+// getPlaylistsWithThisSong("okAvF9kipi3Jl2bc");
