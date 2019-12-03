@@ -25,13 +25,15 @@ interface State {
     songCurPosition: number;
     songDuration: number;
 
-    songsArray: { album: string,
+    songsArray: {
+        album: string,
         author: string,
         favourite: boolean,
         path: string,
         playlists: [],
         title: string,
-        _id: string }[];
+        _id: string
+    }[];
     songsArrayIndex: number;
 }
 
@@ -44,7 +46,7 @@ export class Player extends React.Component<Props, State> {
         this.state = {
             isPlaying: false,
             songPath: "",
-            volume: 0.5,
+            volume: 1.0,
             songCurPosition: 0,
             songDuration: 0,
 
@@ -170,46 +172,47 @@ export class Player extends React.Component<Props, State> {
                 <h3>Nic nehraje</h3>
             </div>
         );
-        if(this.state.songsArray && this.state.songsArray[this.state.songsArrayIndex]) {
+        if (this.state.songsArray && this.state.songsArray[this.state.songsArrayIndex]) {
             nowPlaying = (
                 <NowPlayingDetails title={this.state.songsArray[this.state.songsArrayIndex].title}
                                    album={this.state.songsArray[this.state.songsArrayIndex].album}
-                                   author={this.state.songsArray[this.state.songsArrayIndex].author} />
+                                   author={this.state.songsArray[this.state.songsArrayIndex].author}/>
             );
         }
 
         return (
             <div className="player-wrapper">
                 {nowPlaying}
-                <div className="now-playing-bar-content">
-                    <div className="add-to-favourites"/>
-                    <div className="player-control-icon-container">
-                        <FontAwesomeIcon onClick={this.prevSong} className="player-control-icon" icon={faFastBackward}/>
-                        <FontAwesomeIcon onClick={this.state.isPlaying ? this.pauseSong : this.playSong}
-                                         className="player-control-icon icon-circle"
-                                         icon={this.state.isPlaying ? faPause : faPlay}/>
-                        <FontAwesomeIcon onClick={this.nextSong} className="player-control-icon" icon={faFastForward}/>
-                    </div>
-                    <div className="volume-control">
-                        <div className="volume-icon-container">
-                            <FontAwesomeIcon icon={volumeIcon}/>
-                        </div>
-                        <Slider className="volume-slider" min={0} max={100} defaultValue={50} step={1}
-                                onChange={this.changeVolume}/>
-                        <span className="margin-l">{Math.floor(this.state.volume * 100)}%</span>
 
+                <div className="player-control-icon-container">
+                    <FontAwesomeIcon onClick={this.prevSong} className="player-control-icon" icon={faFastBackward}/>
+                    <FontAwesomeIcon onClick={this.state.isPlaying ? this.pauseSong : this.playSong}
+                                     className="player-control-icon icon-circle"
+                                     icon={this.state.isPlaying ? faPause : faPlay}/>
+                    <FontAwesomeIcon onClick={this.nextSong} className="player-control-icon" icon={faFastForward}/>
+                </div>
+                <div className="volume-control">
+                    <div className="volume-icon-container">
+                        <FontAwesomeIcon icon={volumeIcon}/>
                     </div>
-                    <div className="time-slider-container">
+                    <Slider className="volume-slider" min={0} max={100} defaultValue={100} step={1}
+                            onChange={this.changeVolume}/>
+                    <span className="margin-l">{Math.floor(this.state.volume * 100)}%</span>
+
+                </div>
+                <div className="time-slider-container">
+                    <div className="time-elapsed-container">
                         <span className="time-slider-label">
                             {this.state.songCurPosition ? this.secondsToTime(Math.floor(this.state.songCurPosition)) : '--:--'}
                         </span>
-                        <Slider className="time-slider" min={0} max={Math.floor(this.state.songDuration)}
-                                defaultValue={0}
-                                step={1} value={this.state.songCurPosition} onChange={this.changeSongPosition}/>
-                        <span className="time-slider-label">
+                    </div>
+
+                    <Slider className="time-slider" min={0} max={Math.floor(this.state.songDuration)}
+                            defaultValue={0}
+                            step={1} value={this.state.songCurPosition} onChange={this.changeSongPosition}/>
+                    <span className="time-slider-label">
                             {this.state.songDuration ? this.secondsToTime(Math.floor(this.state.songDuration)) : '--:--'}
                         </span>
-                    </div>
                 </div>
             </div>
         );

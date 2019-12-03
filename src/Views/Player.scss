@@ -17,12 +17,16 @@
   display: flex;
   position: absolute;
   bottom: 10px;
-  left: $sidebar-width + 10px;
+  right: 30px;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: calc(100vw - #{$sidebar-width} - 50px);
 }
+.time-elapsed-container {
+  width: 70px;
+}
+
 .time-slider {
   display: inline-block;
   flex-grow: 5;
@@ -39,8 +43,10 @@
 }
 
 .volume-control {
+  position: absolute;
+  right: 40px;
+  bottom: $now-playing-bar-height - 50px;
   display: inline-block;
-  margin-right: 20px;
   min-width: 100px;
 }
 
@@ -85,6 +91,10 @@
 .player-control-icon-container {
   text-align: center;
   display: inline-block;
+  position: absolute;
+  bottom: $now-playing-bar-height - 60px;
+  left: 50vw;
+  transform: translateX(-50%);
   min-width: 200px;
 }
 
