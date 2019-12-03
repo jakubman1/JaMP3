@@ -39,6 +39,8 @@ export class PlaylistList extends React.Component<Props, State> {
         dbRequests.emitter.on('getActualPlaylist', (data: {_id: string, name: string}[]) => {
             this.setActivePlaylist(data[0]._id);
         })
+
+        dbRequests.getPlaylistSongsCount();
     }
 
     setActivePlaylist = (id: string) => {
@@ -81,9 +83,7 @@ export class PlaylistList extends React.Component<Props, State> {
             // @ts-ignore
             const active = playlist._id === this.state.activePlaylistId;
             // @ts-ignore
-            rows.push(<PlaylistRow id={playlist._id} name={playlist.name} songs_count={playlist.songs_count}
-               // @ts-ignore
-                active={active} />);
+            rows.push(<PlaylistRow id={playlist._id} name={playlist.name} active={active} />);
             // @ts-ignore
         }
 
