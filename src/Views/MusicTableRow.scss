@@ -25,6 +25,10 @@
   color: $color-accent;
 }
 
+.highlight td:not(.song-row-icon-wrapper) {
+  color: $color-accent;
+}
+
 .playlists {
   width: auto;
   right: 230px;

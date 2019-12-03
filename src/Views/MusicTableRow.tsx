@@ -4,6 +4,7 @@ import { faStar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarO } from '@fortawesome/free-regular-svg-icons'
 import * as dbRequests from "../Controllers/dbRequests";
 import "./MusicTableRow.scss";
+import {emitter} from "../Controllers/dbRequests";
 
 interface Props {
     name: string;
@@ -16,6 +17,7 @@ interface Props {
     favourite: boolean;
 
     callback: any;
+    highlight: boolean;
 }
 
 export class MusicTableRow extends React.Component<Props> {
@@ -26,7 +28,7 @@ export class MusicTableRow extends React.Component<Props> {
         hoverOverAddToPlaylist: false,
         hoverOverPlaylists: false,
         playlists: [] as {_id: string, name: string}[],
-        songsPlaylists: [] as string[]
+        songsPlaylists: [] as string[],
     };
 
     constructor(props: any) {
@@ -198,7 +200,7 @@ export class MusicTableRow extends React.Component<Props> {
         }
 
         return (
-            <tr className="song-row" onClick={this.handleClick}>
+            <tr className={this.props.highlight ? "song-row highlight" : "song-row"} onClick={this.handleClick}>
                 <td className="song-name">{this.props.name}</td>
                 <td>{this.props.album ? this.props.album : ''}</td>
                 <td>{this.props.author ? this.props.author : ''}</td>
@@ -207,8 +209,8 @@ export class MusicTableRow extends React.Component<Props> {
                     {star}
                     <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon" onClick={this.showMoreOptions}/>
                 </td>
-                    {moreOptions}
-                    {playlistsNames}
+                {moreOptions}
+                {playlistsNames}
             </tr>
         );
     }

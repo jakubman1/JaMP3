@@ -10,6 +10,8 @@ interface State {
     songs: object[];
     playlistId: string;
     playlistName: string;
+    highlightSong: string;
+    playlistWithHighlightedSong: string;
 }
 
 export class MusicTable extends React.Component<Props, State> {
@@ -19,7 +21,9 @@ export class MusicTable extends React.Component<Props, State> {
         this.state = {
             songs: [],
             playlistId: "all",
-            playlistName: "Všechny skladby"
+            playlistName: "Všechny skladby",
+            highlightSong: "",
+            playlistWithHighlightedSong: ""
         };
 
         dbRequests.emitter.on('songsTableChanged', (data: any) => this.loadSongs(data));
@@ -29,7 +33,16 @@ export class MusicTable extends React.Component<Props, State> {
         dbRequests.getActualPlaylist("all");
 
         dbRequests.emitter.on('searchSongsInPlaylist', (data: any) => this.loadSongs(data));
+
+        dbRequests.emitter.on('playingSongChanged', (data: any) => this.highlightPlayingSong(data));
     }
+
+    highlightPlayingSong = (data: any) => {
+        this.setState({
+            highlightSong: data.songId,
+            playlistWithHighlightedSong: data.playlistId
+        });
+    };
 
     loadSongs = (data: any) => {
         this.setState({
@@ -56,7 +69,7 @@ export class MusicTable extends React.Component<Props, State> {
             }
             i++;
         }
-        emitter.emit('getSongsInActivePlaylist', {index: songIndex, array: this.state.songs});
+        emitter.emit('getSongsInActivePlaylist', {playlistId: this.state.playlistId, index: songIndex, array: this.state.songs});
     };
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -66,7 +79,7 @@ export class MusicTable extends React.Component<Props, State> {
 
             for (song of this.state.songs) {
                 // @ts-ignore
-                rows.push(<MusicTableRow callback={this.handleSongClick} playlistId={this.state.playlistId} id={song._id} name={song.title} album={song.album} author={song.author} length={song.length} path={song.path} favourite={song.favourite}/>)
+                rows.push(<MusicTableRow highlight={this.state.highlightSong === song._id && this.state.playlistWithHighlightedSong === this.state.playlistId} callback={this.handleSongClick} playlistId={this.state.playlistId} id={song._id} name={song.title} album={song.album} author={song.author} length={song.length} path={song.path} favourite={song.favourite}/>)
             }
             return (
                 <div className="center-wrapper">

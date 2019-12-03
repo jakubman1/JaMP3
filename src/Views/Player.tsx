@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import {NowPlayingDetails} from "./NowPlayingDetails";
 import * as dbRequests from "../Controllers/dbRequests";
+import {emitter} from "../Controllers/dbRequests";
 
 interface Props {
 }
@@ -36,6 +37,7 @@ interface State {
         _id: string
     }[];
     songsArrayIndex: number;
+    playlistId: string;
 }
 
 export class Player extends React.Component<Props, State> {
@@ -52,7 +54,8 @@ export class Player extends React.Component<Props, State> {
             songDuration: 0,
 
             songsArray: [],
-            songsArrayIndex: -1
+            songsArrayIndex: -1,
+            playlistId: ""
         };
 
         dbRequests.emitter.on('getSongsInActivePlaylist', (data: any) => this.loadSongs(data));
@@ -93,6 +96,7 @@ export class Player extends React.Component<Props, State> {
     }
 
     loadSongs = (data: any) => {
+        console.log(data);
         this.setState({
             isPlaying: true,
             songPath: data.array[data.index].path,
@@ -101,8 +105,10 @@ export class Player extends React.Component<Props, State> {
             songDuration: 0,
 
             songsArray: data.array,
-            songsArrayIndex: data.index
+            songsArrayIndex: data.index,
+            playlistId: data.playlistId
         }, () => {
+            emitter.emit('playingSongChanged', {playlistId: this.state.playlistId, songId: this.state.songsArray[this.state.songsArrayIndex]._id});
             this._audio.src = this.state.songPath;
             this._audio.load();
             this.playSong();
@@ -113,7 +119,6 @@ export class Player extends React.Component<Props, State> {
         this.setState({
             isPlaying: true
         }, () => {
-            console.log(this.state.songPath + this.state.isPlaying);
             this._audio.addEventListener("timeupdate", this.updateSongPosition);
             this._audio.addEventListener("ended", this.nextSong);
             this._audio.play()
@@ -137,6 +142,7 @@ export class Player extends React.Component<Props, State> {
             songCurPosition: 0,
             songDuration: 0,
         }, () => {
+            emitter.emit('playingSongChanged', {playlistId: this.state.playlistId, songId: this.state.songsArray[this.state.songsArrayIndex]._id});
             this._audio.src = this.state.songPath;
             this._audio.load();
             this.playSong();
@@ -152,6 +158,7 @@ export class Player extends React.Component<Props, State> {
             songCurPosition: 0,
             songDuration: 0,
         }, () => {
+            emitter.emit('playingSongChanged', {playlistId: this.state.playlistId, songId: this.state.songsArray[this.state.songsArrayIndex]._id});
             this._audio.src = this.state.songPath;
             this._audio.load();
             this.playSong();
