@@ -4,8 +4,7 @@ import './Views/MusicTable'
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import {MusicTable} from "./Views/MusicTable";
 import {Welcome} from "./Views/Welcome"
@@ -14,7 +13,6 @@ import {SearchBar} from "./Views/SearchBar";
 import {Settings} from "./Views/Settings";
 import {Player} from "./Views/Player";
 import {ImportFullscreen} from "./Views/Import/ImportFullscreen";
-import {ImportCreatePlaylist} from "./Views/Import/ImportCreatePlaylist";
 import {ImportPopup} from "./Views/Import/ImportPopup";
 import * as importFinished from './Controllers/importFinishedController';
 import * as dbRequest from "./Controllers/dbRequests";

@@ -45,6 +45,7 @@
   width: 100vw;
   height: $now-playing-bar-height;
   background-color: $color-background2;
+  overflow-y: hidden;
 }
 
 .row {
