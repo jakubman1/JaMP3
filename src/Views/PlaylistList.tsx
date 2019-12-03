@@ -85,7 +85,7 @@ export class PlaylistList extends React.Component<Props, State> {
             // @ts-ignore
             const active = playlist._id === this.state.activePlaylistId;
             // @ts-ignore
-            rows.push(<Link to="/home"><PlaylistRow id={playlist._id} name={playlist.name} active={active}/></Link>);
+            rows.push(<PlaylistRow id={playlist._id} name={playlist.name} active={active}/>);
             // @ts-ignore
         }
 
@@ -110,16 +110,18 @@ export class PlaylistList extends React.Component<Props, State> {
                             <Link to="/home">
                                 <span className={allClass}
                                       onClick={this.loadAllSongs}>Vše</span>
-                                <span className="playlist-list-song-count">{this.state.all_count} skladeb</span>
                             </Link>
+                            <span className="playlist-list-song-count">{this.state.all_count} skladeb</span>
+
 
                         </li>
                         <li>
+
                             <div className={favouriteClass}>
-                                <Link to="/home">
-                                    <div className="playlist-icon-wrapper">
-                                        <FontAwesomeIcon className="playlist-icon" icon={faStar}/>
-                                    </div>
+                                <div className="playlist-icon-wrapper">
+                                    <FontAwesomeIcon className="playlist-icon" icon={faStar}/>
+                                </div>
+                                <Link to="/home" className="no-decoration">
                                     <span className={favouriteInClass} onClick={this.loadFavouriteSongs}>Oblíbené</span>
                                 </Link>
                             </div>
