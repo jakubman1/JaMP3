@@ -38,7 +38,7 @@ export class PlaylistList extends React.Component<Props, State> {
 
         dbRequests.emitter.on('getActualPlaylist', (data: {_id: string, name: string}[]) => {
             this.setActivePlaylist(data[0]._id);
-        })
+        });
 
         dbRequests.getPlaylistSongsCount();
     }

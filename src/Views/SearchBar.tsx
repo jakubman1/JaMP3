@@ -41,9 +41,7 @@ export class SearchBar extends React.Component<IProps> {
     };
 
     submitSearch = (e: any) => {
-        if (e.key === 'Enter') {
-            dbRequest.searchSongsInPlaylist(this.state.selectedPlaylist, e.target.value);
-        }
+        dbRequest.searchSongsInPlaylist(this.state.selectedPlaylist, e.target.value);
     };
 
     render() {
@@ -61,7 +59,7 @@ export class SearchBar extends React.Component<IProps> {
                 </select>
 
                 <FontAwesomeIcon className="search-icon" icon={faSearch}/>
-                <input onKeyDown={this.submitSearch} className="search-bar" type="text" name="searched-text" placeholder="Vyhledat..."/>
+                <input onChange={this.submitSearch} className="search-bar" type="text" name="searched-text" placeholder="Vyhledat..."/>
 
                 <Link to='/import'>
                     <FontAwesomeIcon className="icon download-icon" icon={faDownload}/>

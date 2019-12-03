@@ -21,14 +21,24 @@ export class AddPlaylist extends React.Component<Props> {
         if (this.state.inputValue !== "") {
             dbRequests.createNewPlaylist(this.state.inputValue);
             dbRequests.getPlaylistSongsCount();
+            dbRequests.getAllPlaylists();
         }
+        this.props.callback();
+    };
+
+    handleInsideClick = (e:any) => {
+        e.stopPropagation();
+        e.preventDefault();
+    };
+
+    closeWindow = () => {
         this.props.callback();
     };
 
     render() {
         return(
-            <div className="popup-wrapper">
-                <div className="popup-content-wrapper">
+            <div className="popup-wrapper" onClick={this.closeWindow}>
+                <div className="popup-content-wrapper" onClick={this.handleInsideClick}>
                     <h1>Přidat playlist</h1>
                     <p>Zadejte název playlistu</p>
                     <input className="round-input input-big margin-b" type="text"

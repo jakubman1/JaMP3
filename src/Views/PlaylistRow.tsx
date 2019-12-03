@@ -45,7 +45,7 @@ export class PlaylistRow extends React.Component<Props> {
         let playlistMenu = null;
 
         if (this.state.showPlaylistMenuComponent) {
-            playlistMenu = (<PlaylistMenu id={this.props.id} callback={this.showPlaylistMenuComponent}/>);
+            playlistMenu = (<PlaylistMenu id={this.props.id} playlistName={this.props.name} callback={this.showPlaylistMenuComponent}/>);
         }
         const active = this.props.active ? ' playlist-selected' : '';
         return (
