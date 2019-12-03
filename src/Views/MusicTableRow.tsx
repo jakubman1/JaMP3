@@ -41,7 +41,7 @@ export class MusicTableRow extends React.Component<Props> {
 
         dbRequests.emitter.on('getPlaylistsWithThisSong', (songsPlaylists: any) => {
             this.setState({
-                songsPlaylists
+                songsPlaylists: songsPlaylists
             })
         });
         dbRequests.getPlaylistsWithThisSong(this.props.id);
@@ -87,7 +87,7 @@ export class MusicTableRow extends React.Component<Props> {
            hoverOverAddToPlaylist: false,
            hoverOverPlaylists: false,
        });
-    }
+    };
 
     deleteSong = (event: any) => {
         event.stopPropagation();
@@ -109,6 +109,7 @@ export class MusicTableRow extends React.Component<Props> {
         this.setState({
             showMoreOptions: !this.state.showMoreOptions
         });
+        console.log(this.props.id);
         dbRequests.getPlaylistsWithThisSong(this.props.id);
     };
 
@@ -145,16 +146,12 @@ export class MusicTableRow extends React.Component<Props> {
         event.stopPropagation();
      };
 
-     doesContain = (allIds: any, id: string) => {
-        for (let element of allIds) {
-        console.log("Song playlists ID: " + element._id);
-        console.log(" All playlists ID: " + id);
-            if (element._id === id) {
-                console.log("returning true");
+     doesContain = (id: string) => {
+        for (let element of this.state.songsPlaylists) {
+            if (element === id) {
                 return true;
             }
         }
-        console.log("returning false");
         return false;
      };
 
@@ -187,7 +184,7 @@ export class MusicTableRow extends React.Component<Props> {
         if (this.state.showPlaylists) {
             let playlists = [];
             for(let p of this.state.playlists) {
-                if (!this.doesContain(this.state.songsPlaylists, p._id)) {
+                if (!this.doesContain(p._id)) {
                     playlists.push(<div onClick={(e) => this.addToPlaylist(e, p._id)}>{p.name}</div>);
                 }
             }

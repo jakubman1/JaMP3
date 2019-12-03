@@ -11,7 +11,7 @@ module.exports = {
             songsDB.find({_id: songId}, { playlists: 1, _id: 0 }, function (err, docs) {
                 if (err) reject(err);
                 if (!docs) resolve([]);
-                resolve(docs);
+                resolve(docs[0].playlists);
             });
         });
     },
