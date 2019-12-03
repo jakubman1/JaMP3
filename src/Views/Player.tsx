@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import {playerEmitter} from "../Controllers/PlayerController";
 import "./Player.scss"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {
@@ -55,6 +56,40 @@ export class Player extends React.Component<Props, State> {
         };
 
         dbRequests.emitter.on('getSongsInActivePlaylist', (data: any) => this.loadSongs(data));
+    }
+
+    componentDidMount(): void {
+        playerEmitter.on('togglePlay', () => {
+            if(this.state.isPlaying) {
+                this.pauseSong();
+            }
+            else {
+                this.playSong();
+            }
+        });
+        playerEmitter.on('prev', () => {
+           this.prevSong();
+        });
+        playerEmitter.on('next', () => {
+            this.nextSong();
+        });
+    }
+
+    componentWillUnmount(): void {
+        playerEmitter.removeListener('togglePlay', () => {
+            if(this.state.isPlaying) {
+                this.pauseSong();
+            }
+            else {
+                this.playSong();
+            }
+        });
+        playerEmitter.removeListener('prev', () => {
+            this.prevSong();
+        });
+        playerEmitter.removeListener('next', () => {
+            this.nextSong();
+        });
     }
 
     loadSongs = (data: any) => {

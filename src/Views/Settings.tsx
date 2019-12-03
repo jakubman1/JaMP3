@@ -13,12 +13,12 @@ export class Settings extends React.Component {
                     <div className="btn round-input">Alt + F6</div>
 
                     <div>Další skladba
-                    <span className="subtext">Výchozí Alt + F5</span></div>
-                    <div className="btn round-input">Alt + F5</div>
-
-                    <div>Předchozí skladba
                     <span className="subtext">Výchozí Alt + F7</span></div>
                     <div className="btn round-input">Alt + F7</div>
+
+                    <div>Předchozí skladba
+                    <span className="subtext">Výchozí Alt + F5</span></div>
+                    <div className="btn round-input">Alt + F5</div>
 
                     <div>Zobrazit/skrýt mini přehrávač
                     <span className="subtext">Výchozí Alt + F8</span></div>
