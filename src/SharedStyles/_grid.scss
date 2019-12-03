@@ -43,9 +43,9 @@
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: $now-playing-bar-height;
+  max-height: $now-playing-bar-height;
   background-color: $color-background2;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .row {
