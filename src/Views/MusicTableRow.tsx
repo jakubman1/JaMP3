@@ -27,6 +27,13 @@ export class MusicTableRow extends React.Component<Props> {
                 playlists
             })
         });
+
+        dbRequests.getPlaylistsWithThisSong(this.props.id);
+        dbRequests.emitter.on('playlistListChanged', (songsPlaylists: {_id: string, name: string}[]) => {
+            this.setState({
+                songsPlaylists
+            })
+        });
     }
 
     addSongToFavourite = (event: any) => {
@@ -48,6 +55,7 @@ export class MusicTableRow extends React.Component<Props> {
     addToPlaylist = (event: any, _id: any) => {
        event.stopPropagation();
         dbRequests.addSongToPlaylist(this.props.id, _id);
+        dbRequests.getPlaylistSongsCount();
         this.setState({
             showMoreOptions: false,
             showPlaylists: false,
@@ -61,6 +69,7 @@ export class MusicTableRow extends React.Component<Props> {
        dbRequests.removeSongFromPlaylist(this.props.id, this.props.playlistId);
        dbRequests.getSongsTable(this.props.playlistId);
        dbRequests.getAllSongsCount();
+       dbRequests.getPlaylistSongsCount();
        this.setState({
            showMoreOptions: false,
            showPlaylists: false,
@@ -75,6 +84,7 @@ export class MusicTableRow extends React.Component<Props> {
         dbRequests.getSongsTable(this.props.playlistId);
         dbRequests.getFavouriteSongsCount();
         dbRequests.getAllSongsCount();
+        dbRequests.getPlaylistSongsCount();
         this.setState({
             showMoreOptions: false,
             showPlaylists: false,
@@ -89,6 +99,7 @@ export class MusicTableRow extends React.Component<Props> {
         hoverOverAddToPlaylist: false,
         hoverOverPlaylists: false,
         playlists: [] as {_id: string, name: string}[],
+        songsPlaylists: [] as {_playlistId: string}[]
     };
 
     showMoreOptions = (event: any) => {
@@ -131,6 +142,19 @@ export class MusicTableRow extends React.Component<Props> {
         event.stopPropagation();
      };
 
+     doesContain = (allIds: any, id: string) => {
+        for (let element of allIds) {
+        console.log("Song playlists ID: " + element._id);
+        console.log(" All playlists ID: " + id);
+            if (element._id === id) {
+                console.log("returning true");
+                return true;
+            }
+        }
+        console.log("returning false");
+        return false;
+     }
+
     render() {
         let star = (<FontAwesomeIcon icon={faStarO} className="song-row-icon" onClick={this.addSongToFavourite}/>);
         if(this.props.favourite) {
@@ -156,16 +180,16 @@ export class MusicTableRow extends React.Component<Props> {
             );
         }
 
-        let playlists = [];
-        for(let p of this.state.playlists) {
-            {/*TODO replace this condition with all the song's playlist's IDs*/}
-            if (p._id != this.props.playlistId) {
-                playlists.push(<div onClick={(e) => this.addToPlaylist(e, p._id)}>{p.name}</div>);
-            }
-        }
-
         let playlistsNames = null;
         if (this.state.showPlaylists) {
+            let playlists = [];
+            dbRequests.getPlaylistsWithThisSong(this.props.id);
+            for(let p of this.state.playlists) {
+                if (!this.doesContain(this.state.songsPlaylists, p._id)) {
+                    playlists.push(<div onClick={(e) => this.addToPlaylist(e, p._id)}>{p.name}</div>);
+                }
+            }
+
             playlistsNames = (
             <div className="playlists" onMouseEnter={this.hoverOverPlaylists} onMouseLeave={this.hoverOverPlaylists}>
                 {playlists}
