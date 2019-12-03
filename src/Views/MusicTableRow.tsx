@@ -111,11 +111,7 @@ export class MusicTableRow extends React.Component<Props> {
         this.setState({
             showMoreOptions: !this.state.showMoreOptions
         });
-<<<<<<< HEAD
-=======
-        console.log(this.props.id);
         dbRequests.getPlaylistsWithThisSong(this.props.id);
->>>>>>> 9d8b7460736a0d36d95e419a79f6f13e8aaac890
     };
 
     showPlaylists = () => {
