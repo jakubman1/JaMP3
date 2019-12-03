@@ -19,21 +19,32 @@ interface Props {
 }
 
 export class MusicTableRow extends React.Component<Props> {
+
+    state = {
+        showMoreOptions: false,
+        showPlaylists: false,
+        hoverOverAddToPlaylist: false,
+        hoverOverPlaylists: false,
+        playlists: [] as {_id: string, name: string}[],
+        songsPlaylists: [] as string[]
+    };
+
     constructor(props: any) {
         super(props);
-        dbRequests.getAllPlaylists();
+
         dbRequests.emitter.on('playlistListChanged', (playlists: {_id: string, name: string}[]) => {
             this.setState({
                 playlists
             })
         });
+        dbRequests.getAllPlaylists();
 
-        dbRequests.getPlaylistsWithThisSong(this.props.id);
-        dbRequests.emitter.on('playlistListChanged', (songsPlaylists: {_id: string, name: string}[]) => {
+        dbRequests.emitter.on('getPlaylistsWithThisSong', (songsPlaylists: any) => {
             this.setState({
                 songsPlaylists
             })
         });
+        dbRequests.getPlaylistsWithThisSong(this.props.id);
     }
 
     addSongToFavourite = (event: any) => {
@@ -91,15 +102,6 @@ export class MusicTableRow extends React.Component<Props> {
             hoverOverAddToPlaylist: false,
             hoverOverPlaylists: false,
         });
-    }
-
-    state = {
-        showMoreOptions: false,
-        showPlaylists: false,
-        hoverOverAddToPlaylist: false,
-        hoverOverPlaylists: false,
-        playlists: [] as {_id: string, name: string}[],
-        songsPlaylists: [] as {_playlistId: string}[]
     };
 
     showMoreOptions = (event: any) => {
@@ -107,6 +109,7 @@ export class MusicTableRow extends React.Component<Props> {
         this.setState({
             showMoreOptions: !this.state.showMoreOptions
         });
+        dbRequests.getPlaylistsWithThisSong(this.props.id);
     };
 
     showPlaylists = () => {
@@ -153,7 +156,7 @@ export class MusicTableRow extends React.Component<Props> {
         }
         console.log("returning false");
         return false;
-     }
+     };
 
     render() {
         let star = (<FontAwesomeIcon icon={faStarO} className="song-row-icon" onClick={this.addSongToFavourite}/>);
@@ -162,7 +165,7 @@ export class MusicTableRow extends React.Component<Props> {
         }
 
         let deleteFromPlaylistOption = null;
-        if (this.props.playlistId != "all" && this.props.playlistId != "favourite") {
+        if (this.props.playlistId !== "all" && this.props.playlistId !== "favourite") {
             deleteFromPlaylistOption = (<div onClick={this.deleteFromPlaylist}>Odebrat z playlistu</div>);
         }
 
@@ -183,7 +186,6 @@ export class MusicTableRow extends React.Component<Props> {
         let playlistsNames = null;
         if (this.state.showPlaylists) {
             let playlists = [];
-            dbRequests.getPlaylistsWithThisSong(this.props.id);
             for(let p of this.state.playlists) {
                 if (!this.doesContain(this.state.songsPlaylists, p._id)) {
                     playlists.push(<div onClick={(e) => this.addToPlaylist(e, p._id)}>{p.name}</div>);
