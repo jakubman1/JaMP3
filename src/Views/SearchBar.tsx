@@ -12,7 +12,8 @@ export class SearchBar extends React.Component<IProps> {
 
     state = {
         playlists: [] as { _id: string, name: string }[],
-        selectedPlaylist: "all"
+        selectedPlaylist: "all",
+        searchedText: ""
     };
 
     constructor(props: IProps) {
@@ -37,11 +38,16 @@ export class SearchBar extends React.Component<IProps> {
     setPlaylist = (data: any) => {
         this.setState({
             selectedPlaylist: data.target.value
+        }, () => {
+            dbRequest.searchSongsInPlaylist(this.state.selectedPlaylist, this.state.searchedText);
         });
     };
 
     submitSearch = (e: any) => {
         dbRequest.searchSongsInPlaylist(this.state.selectedPlaylist, e.target.value);
+        this.setState({
+            searchedText: e.target.value
+        });
     };
 
     render() {
