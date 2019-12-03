@@ -214,7 +214,7 @@ export class MusicTableRow extends React.Component<Props> {
         }
 
         return (
-            <tr className={this.state.highlightSong ? " song-row highlight" : "song-row"} onClick={this.handleClick}>
+            <tr className={this.state.highlightSong ? "song-row highlight" : "song-row"} onClick={this.handleClick}>
                 <td className="song-name">{this.props.name}</td>
                 <td>{this.props.album ? this.props.album : ''}</td>
                 <td>{this.props.author ? this.props.author : ''}</td>
@@ -223,8 +223,8 @@ export class MusicTableRow extends React.Component<Props> {
                     {star}
                     <FontAwesomeIcon icon={faEllipsisH} className="song-row-icon" onClick={this.showMoreOptions}/>
                 </td>
-                    {moreOptions}
-                    {playlistsNames}
+                {moreOptions}
+                {playlistsNames}
             </tr>
         );
     }
