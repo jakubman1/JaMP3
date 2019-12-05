@@ -17,7 +17,7 @@ export const Welcome: React.FunctionComponent = () => {
             history.push("/home");
         }
     }
-    //checkHistory();
+    checkHistory();
     return (
         <div className="fullscreen-wrapper">
             <div className="row align-center">
