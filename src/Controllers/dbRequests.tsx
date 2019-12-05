@@ -16,7 +16,6 @@ export function getPlaylistsWithThisSong(songId: string) {
     ipcRenderer.send('getPlaylistsWithThisSong-request', songId);
 
     ipcRenderer.once('getPlaylistsWithThisSong-reply', (event: any, arg: object[]) => {
-        console.log(arg);
         emitter.emit('getPlaylistsWithThisSong', arg);
     });
 }
@@ -89,7 +88,6 @@ export function getPlaylistSongsCount() {
     ipcRenderer.send('getPlaylistSongsCount-request');
 
     ipcRenderer.on('getPlaylistSongsCount-reply', (event: any, arg: number) => {
-        console.log(arg);
         emitter.emit('getPlaylistSongsCount', arg);
     });
 }

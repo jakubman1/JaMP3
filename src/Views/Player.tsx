@@ -96,7 +96,6 @@ export class Player extends React.Component<Props, State> {
     }
 
     loadSongs = (data: any) => {
-        console.log(data);
         this.setState({
             isPlaying: true,
             songPath: data.array[data.index].path,
