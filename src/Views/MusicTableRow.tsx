@@ -192,6 +192,10 @@ export class MusicTableRow extends React.Component<Props> {
                 }
             }
 
+            if (playlists.length == 0) {
+                playlists.push(<div onClick={this.stopEventPropagation}>Žádné playlisty</div>);
+            }
+
             playlistsNames = (
             <div className="playlists" onMouseEnter={this.hoverOverPlaylists} onMouseLeave={this.hoverOverPlaylists}>
                 {playlists}
