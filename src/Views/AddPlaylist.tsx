@@ -11,10 +11,27 @@ export class AddPlaylist extends React.Component<Props> {
       inputValue: ""
     };
 
+    playlistInput: HTMLInputElement | null;
+
+    componentDidMount(): void {
+        if(this.playlistInput !== null) {
+            this.playlistInput.focus();
+        }
+    }
+
     changeInputValue = (newValue: any) => {
         this.setState({
             inputValue: newValue.target.value
         });
+    };
+
+    handleKeyPress = (e: any) => {
+        if(e.key === 'Enter') {
+            this.handleSubmit()
+        }
+        else if(e.key === 'Escape') {
+            this.closeWindow();
+        }
     };
 
     handleSubmit = () => {
@@ -43,10 +60,13 @@ export class AddPlaylist extends React.Component<Props> {
                     <p>Zadejte název playlistu</p>
                     <input className="round-input input-big margin-b" type="text"
                            placeholder="Název playlistu..."
+                           ref={(input) => { this.playlistInput = input; }}
                            value={this.state.inputValue}
-                           onChange={newValue => this.changeInputValue(newValue)}/>
+                           onKeyPress={this.handleKeyPress}
+                           onChange={newValue => this.changeInputValue(newValue)}
+                    />
                     <br/>
-                    <button className="btn btn-big btn-outline" onClick={this.handleSubmit}>ok boomer</button>
+                    <button className="btn btn-big btn-outline" onClick={this.handleSubmit}>Potvrdit</button>
                 </div>
             </div>
         )

@@ -36,6 +36,15 @@ export class RenamePlaylist extends React.Component<Props> {
         this.props.callback();
     };
 
+    handleKeyPress = (e: any) => {
+        if(e.key === 'Enter') {
+            this.handleSubmit()
+        }
+        else if(e.key === 'Escape') {
+            this.closeWindow();
+        }
+    };
+
     render() {
         return(
             <div className="popup-wrapper" onClick={this.closeWindow}>
@@ -44,9 +53,11 @@ export class RenamePlaylist extends React.Component<Props> {
                     <p>Zadejte nový název playlistu</p>
                     <input className="round-input input-big margin-b" type="text"
                            value={this.state.inputValue}
-                           onChange={newValue => this.changeInputValue(newValue)}/>
+                           onChange={newValue => this.changeInputValue(newValue)}
+                           onKeyPress={this.handleKeyPress}
+                    />
                     <br/>
-                    <button className="btn btn-big btn-outline" onClick={this.handleSubmit}>ok boomer</button>
+                    <button className="btn btn-big btn-outline" onClick={this.handleSubmit}>Potvrdit</button>
                 </div>
             </div>
         )
