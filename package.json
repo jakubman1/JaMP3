@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@types/nedb": "^1.8.9",
-    "electron": "^6.0.12",
+    "electron": "^15.5.5",
     "electron-builder": "^21.2.0"
   },
   "build": {
